@@ -1,5 +1,4 @@
 package com.example.domain.repository
 
-interface ShoppingRepository {
-
+interface ProductRepository {
 }

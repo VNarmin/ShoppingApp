@@ -1,0 +1,4 @@
+package com.example.presentation.ui.register.mvi
+
+class RegisterViewModel {
+}
