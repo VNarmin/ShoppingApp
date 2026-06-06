@@ -1,30 +1,89 @@
 package com.example.data.repository
 
+import android.content.SharedPreferences
 import com.example.domain.model.User
 import com.example.domain.repository.AuthRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.tasks.await
+import androidx.core.content.edit
+import com.example.data.mapper.toDomain
 
-class AuthRepositoryImpl : AuthRepository {
-    override suspend fun authenticate(
+class AuthRepositoryImpl(
+    private val auth : FirebaseAuth,
+    private val sp : SharedPreferences
+) : AuthRepository {
+
+    override fun login(
         emailAddress: String,
         password: String
-    ): Result<User> {
-        TODO("Not yet implemented")
+    ): Flow<User> = flow {
+        val response = auth
+            .signInWithEmailAndPassword(emailAddress, password)
+            .await()
+
+        // FirebaseUser
+        val currentUser = response.user?.toDomain() ?: throw Exception("Failed Authentication")
+
+        emit(currentUser)
     }
 
-    override suspend fun register(
+    override fun register(
         username: String,
         emailAddress: String,
         password: String
-    ): Result<User> {
-        TODO("Not yet implemented")
+    ): Flow<User> = flow {
+        val response = auth
+            .createUserWithEmailAndPassword(emailAddress, password)
+            .await()
+
+        val currentUser = response.user ?: throw Exception("Failed Registration")
+
+        val profileUpdates = UserProfileChangeRequest
+            .Builder()
+            .setDisplayName(username)
+            .build()
+
+        // FirebaseUser
+        currentUser.updateProfile(profileUpdates).await()
+
+        emit(User(
+            userID = currentUser.uid,
+            username = username,
+            emailAddress = emailAddress
+        ))
     }
 
-    override suspend fun resetPassword(emailAddress: String): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun logout() {
+        auth.signOut()
+        setRememberMe(flagRememberMe = false)
     }
 
-    override suspend fun logout(): Result<Unit> {
-        TODO("Not yet implemented")
+    override suspend fun resetPassword(emailAddress: String) {
+        auth.sendPasswordResetEmail(emailAddress)
+    }
+
+    override fun getCurrentUser(): User? {
+        return auth.currentUser?.toDomain()
+    }
+
+    override fun shouldSkipAuth() : Boolean {
+        return auth.currentUser != null && getRememberMe()
+        // checking auth.currentUser for extreme scenarios
+    }
+
+    override fun setRememberMe(flagRememberMe: Boolean) {
+        sp.edit { putBoolean(FLAG_REMEMBER_ME, flagRememberMe) }
+    }
+
+    override fun getRememberMe(): Boolean {
+        return sp.getBoolean(FLAG_REMEMBER_ME, false)
+    }
+
+    companion object {
+        private const val FLAG_REMEMBER_ME = "flag_remember_me"
     }
 
 }

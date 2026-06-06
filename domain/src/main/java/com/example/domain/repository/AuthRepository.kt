@@ -1,16 +1,23 @@
 package com.example.domain.repository
 
 import com.example.domain.model.User
+import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-    suspend fun authenticate(emailAddress: String, password: String) : Result<User>
+    fun login(emailAddress: String, password: String): Flow<User>
 
-    suspend fun register(username: String,
-                         emailAddress: String,
-                         password: String) : Result<User>
+    fun register(username: String, emailAddress: String, password: String): Flow<User>
 
-    suspend fun resetPassword(emailAddress : String) : Result<Unit>
+    suspend fun logout()
 
-    suspend fun logout() : Result<Unit>
+    suspend fun resetPassword(emailAddress: String)
+
+    fun getCurrentUser(): User?
+
+    fun shouldSkipAuth(): Boolean
+
+    fun setRememberMe(flagRememberMe: Boolean)
+
+    fun getRememberMe(): Boolean
 }

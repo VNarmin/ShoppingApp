@@ -2,8 +2,8 @@ package com.example.data.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.data.mock.MockCategories
-import com.example.data.mock.MockProducts
+import com.example.data.repository.AuthRepositoryImpl
+import com.example.domain.repository.AuthRepository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import org.koin.dsl.module
@@ -18,7 +18,10 @@ val dataModule = module {
         )
     }
 
-    single { MockProducts }
-
-    single { MockCategories }
+    single<AuthRepository> {
+        AuthRepositoryImpl(
+            auth = get(),
+            sp = get()
+        )
+    }
 }
