@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -27,6 +28,10 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+
     // Dependency Injection
     implementation(libs.koin.core)
     implementation(libs.koin.android)
@@ -34,6 +39,8 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.coroutines.core)
+    // integrating with Google Play Services Tasks API
+    implementation(libs.kotlinx.coroutines.play.services)
 
     // Serialization
     implementation(libs.kotlinx.serialization.json)
