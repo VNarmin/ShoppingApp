@@ -1,2 +1,27 @@
 package com.example.presentation.ui.auth.login.screen
 
+import androidx.compose.runtime.Composable
+import com.example.presentation.ui.auth.login.mvi.LoginEffect
+import com.example.presentation.ui.auth.login.mvi.LoginViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
+
+@Composable
+fun LoginScreen(
+    viewModel : LoginViewModel = koinViewModel(),
+    onNavigateToHome : (String) -> Unit,
+    onNavigateToRegister : () -> Unit
+) {
+    val loginScreenState = viewModel.collectAsState().value
+
+    viewModel.collectSideEffect { effect ->
+        when (effect) {
+            is LoginEffect.NavigateToHome -> onNavigateToHome // gotta pass the username
+            is LoginEffect.NavigateToRegister -> onNavigateToRegister
+            is LoginEffect.ShowError -> {}
+        }
+    }
+
+    LoginScreenContent()
+}

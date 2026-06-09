@@ -1,5 +1,10 @@
 package com.example.presentation.ui.auth.login.mvi
 
-interface LoginEffect {
+import androidx.compose.runtime.Immutable
 
+@Immutable
+sealed interface LoginEffect {
+    data object NavigateToHome : LoginEffect
+    data object NavigateToRegister : LoginEffect
+    data class ShowError(val message: String) : LoginEffect
 }
