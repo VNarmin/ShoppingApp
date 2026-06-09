@@ -1,4 +1,4 @@
-package com.example.presentation.ui.common.component
+package com.example.presentation.ui.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,22 +20,25 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 fun BackButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier
+        modifier = Modifier
             .size(48.dp)
             .clip(CircleShape)
             .background(Color(0xFF16161A))
-            .border(color = Color(0xFF2A2A2E), shape = CircleShape, width = 1.dp)
+            .border(
+                color = Color(0xFF2A2A2E),
+                shape = CircleShape,
+                width = 1.dp
+            )
             .clickable(onClick = onClick)
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-            modifier = Modifier.size(24.dp),
-            contentDescription = "",
+            modifier = Modifier.size(32.dp),
+            contentDescription = null,
             tint = Color(0xFFFAFAF9)
         )
     }

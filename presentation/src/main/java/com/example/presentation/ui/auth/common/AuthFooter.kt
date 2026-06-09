@@ -1,4 +1,4 @@
-package com.example.presentation.ui.common.component
+package com.example.presentation.ui.auth.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,17 +34,17 @@ import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
-const val loginFooterText = "New here? "
-const val loginFooterAction = "Create an account"
+private const val loginFooterText = "New here? "
+private const val loginFooterAction = "Create an account"
 
-const val registerFooterText = "Already have an account? "
-const val registerFooterAction = "Sign in"
+private const val registerFooterText = "Already have an account? "
+private const val registerFooterAction = "Sign in"
 
 @Composable
 fun AuthFooter(
-    onActionClicked: () -> Unit,
     modifier: Modifier = Modifier,
-    registerTabSelected : Boolean = false,
+    register: Boolean = false,
+    onActionClick: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -92,7 +92,7 @@ fun AuthFooter(
 
         Row {
             Text(
-                text = if (!registerTabSelected) loginFooterText else registerFooterText,
+                text = if (!register) loginFooterText else registerFooterText,
                 style = TextStyle(
                     color = Color(0xFF6B6B70),
                     fontFamily = DMSansFontFamily,
@@ -102,8 +102,8 @@ fun AuthFooter(
                 )
             )
             Text(
-                modifier = Modifier.clickable(onClick = onActionClicked),
-                text = if (!registerTabSelected) loginFooterAction else registerFooterAction,
+                modifier = Modifier.clickable(onClick = onActionClick),
+                text = if (!register) loginFooterAction else registerFooterAction,
                 style = TextStyle(
                     color = Color(0xFF6366F1),
                     fontFamily = DMSansFontFamily,
@@ -130,7 +130,11 @@ private fun SocialButton(
             .fillMaxHeight()
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16161A))
-            .border(color = Color(0xFF2A2A2E), shape = RoundedCornerShape(12.dp), width = 1.dp)
+            .border(
+                color = Color(0xFF2A2A2E),
+                shape = RoundedCornerShape(12.dp),
+                width = 1.dp
+            )
             .clickable(onClick = onClick)
     ) {
         Icon(
@@ -158,8 +162,8 @@ private fun SocialButton(
 private fun LoginAuthFooterPreview() {
     ShoppingAppTheme {
         AuthFooter(
-            registerTabSelected = false,
-            onActionClicked = { }
+            register = false,
+            onActionClick = {}
         )
     }
 }
@@ -169,8 +173,8 @@ private fun LoginAuthFooterPreview() {
 private fun RegisterAuthFooterPreview() {
     ShoppingAppTheme {
         AuthFooter(
-            registerTabSelected = true,
-            onActionClicked = { }
+            register = true,
+            onActionClick = {}
         )
     }
 }

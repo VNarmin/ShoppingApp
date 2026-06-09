@@ -1,4 +1,4 @@
-package com.example.presentation.ui.common.component
+package com.example.presentation.ui.auth.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,18 +19,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.presentation.ui.common.InputField
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 fun AuthInputGroup(
-    prompt : String,
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeholder: String,
     modifier: Modifier = Modifier,
+    prompt: String,
+    value: String,
+    placeholder: String,
     leadingIcon: ImageVector? = null,
-    isPassword: Boolean = false
+    password: Boolean = false,
+    onValueChange: (String) -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -53,7 +54,7 @@ fun AuthInputGroup(
             onValueChange = onValueChange,
             placeholder = placeholder,
             leadingIcon = leadingIcon,
-            isPassword = isPassword
+            password = password
         )
     }
 }
@@ -65,10 +66,10 @@ private fun EmailInputGroupPreview() {
         AuthInputGroup(
             prompt = "Email",
             value = "",
-            onValueChange = {},
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
-            isPassword = false
+            password = false,
+            onValueChange = {}
         )
     }
 }
@@ -80,10 +81,10 @@ private fun PasswordInputGroupPreview() {
         AuthInputGroup(
             prompt = "Password",
             value = "",
-            onValueChange = {},
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Password,
-            isPassword = true
+            password = true,
+            onValueChange = {}
         )
     }
 }
@@ -95,10 +96,10 @@ private fun UsernameInputGroupPreview() {
         AuthInputGroup(
             prompt = "Username",
             value = "",
-            onValueChange = {},
             placeholder = "username",
             leadingIcon = Icons.Default.Person,
-            isPassword = false
+            password = false,
+            onValueChange = {}
         )
     }
 }
