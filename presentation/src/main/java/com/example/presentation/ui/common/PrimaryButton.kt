@@ -39,10 +39,10 @@ fun PrimaryButton(
             .dropShadow(
                 shape = RoundedCornerShape(12.dp),
                 shadow = Shadow(
-                    radius = 12.dp, // blur softness
-                    spread = 4.dp,  // shadow expansion
+                    radius = 8.dp, // blur softness
+                    spread = 2.dp,  // shadow expansion
                     color = Color(0xFF6366F1).copy(alpha = 0.50F),
-                    offset = DpOffset(4.dp, 4.dp)
+                    offset = DpOffset(0.dp, 0.dp)
                 )
             )
             .clip(RoundedCornerShape(12.dp))

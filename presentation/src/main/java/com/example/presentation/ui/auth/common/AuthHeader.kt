@@ -38,8 +38,7 @@ private const val registerSubtitle = "Create an account to start shopping"
 fun AuthHeader(
     modifier: Modifier = Modifier,
     register: Boolean = false,
-    onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
+    onSwitchAuthTab: () -> Unit,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -78,8 +77,7 @@ fun AuthHeader(
 
         AuthTabs(
             register = register,
-            onLoginClick = onLoginClick,
-            onRegisterClick = onRegisterClick
+            onSwitchAuthTab = onSwitchAuthTab,
         )
     }
 }
@@ -88,8 +86,7 @@ fun AuthHeader(
 private fun AuthTabs(
     modifier: Modifier = Modifier,
     register: Boolean = false,
-    onLoginClick: () -> Unit,
-    onRegisterClick: () -> Unit
+    onSwitchAuthTab: () -> Unit // for navigating to the other screen
 ) {
     Row(
         modifier = modifier
@@ -114,7 +111,7 @@ private fun AuthTabs(
                 .weight(1f)
                 .clip(RoundedCornerShape(8.dp))
                 .background(if (!register) Color(0xFF6366F1) else Color(0xFF16161A))
-                .clickable(onClick = onLoginClick)
+                .clickable(enabled = register, onClick = onSwitchAuthTab)
         ) {
             Text(
                 text = "Sign In",
@@ -135,7 +132,7 @@ private fun AuthTabs(
                 .weight(1f)
                 .clip(RoundedCornerShape(8.dp))
                 .background(if (register) Color(0xFF6366F1) else Color(0xFF16161A))
-                .clickable(onClick = onRegisterClick)
+                .clickable(enabled = !register, onClick = onSwitchAuthTab)
         ) {
             Text(
                 text = "Register",
@@ -157,8 +154,7 @@ private fun LoginAuthHeaderPreview() {
     ShoppingAppTheme {
         AuthHeader(
             register = false,
-            onLoginClick = {},
-            onRegisterClick = {}
+            onSwitchAuthTab = {},
         )
     }
 }
@@ -169,8 +165,7 @@ private fun RegisterAuthHeaderPreview() {
     ShoppingAppTheme {
         AuthHeader(
             register = true,
-            onLoginClick = {},
-            onRegisterClick = {}
+            onSwitchAuthTab = {},
         )
     }
 }

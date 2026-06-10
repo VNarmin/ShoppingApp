@@ -5,7 +5,7 @@ data class RegisterScreenState(
     val email: String = "",
     val password: String = "",
     val loading: Boolean = false,
-    val error: String? = null
+    val errorMessage: String? = null
 ) {
     companion object {
         val INITIAL = RegisterScreenState()

@@ -17,28 +17,39 @@ class RegisterViewModel(
     }
 
     fun onEmailChange(email: String) = intent {
-        reduce { state.copy(email = email, error = null) }
+        reduce { state.copy(email = email, errorMessage = null) }
     }
 
     fun onPasswordChange(password: String) = intent {
-        reduce { state.copy(password = password, error = null) }
+        reduce { state.copy(password = password, errorMessage = null) }
     }
 
-    private fun register() = intent {
+    fun onRegisterClick() = intent {
         val username = state.username
         val email = state.email
         val password = state.password
 
+        val blankCount = listOf(username, email, password).count { it.isBlank() }
+
+        if (blankCount > 1) {
+            val message = "Please fill in all required fields."
+            reduce { state.copy(loading = false, errorMessage = message) }
+            postSideEffect(RegisterEffect.Error(message))
+            return@intent
+        }
         if (username.isBlank()) {
-            reduce { state.copy(error = "Username is required") }
+            val message = "Please enter your username to continue."
+            reduce { state.copy(loading = false, errorMessage = message) }
             return@intent
         }
         if (email.isBlank()) {
-            reduce { state.copy(error = "Email is required") }
+            val message = "Please enter your email address to continue."
+            reduce { state.copy(loading = false, errorMessage = message) }
             return@intent
         }
         if (password.isBlank()) {
-            reduce { state.copy(error = "Password is required") }
+            val message = "Please enter your password to continue."
+            reduce { state.copy(loading = false, errorMessage = message) }
             return@intent
         }
 
@@ -46,14 +57,19 @@ class RegisterViewModel(
 
         authRepository.register(
             username = username,
-            emailAddress = email,
+            email = email,
             password = password
         ).catch { error ->
-            reduce { state.copy(loading = false, error = "Failed Registration")}
-            postSideEffect(RegisterEffect.ShowError(error.message ?: state.error!!))
-        }.collect { user ->
-            reduce {state.copy(loading = false)}
+            val message = error.message ?: "Something went wrong during authentication."
+            reduce { state.copy(loading = false, errorMessage = message) }
+            postSideEffect(RegisterEffect.Error(message))
+        }.collect {
+            reduce { state.copy(loading = false) }
             postSideEffect(RegisterEffect.NavigateToHome)
         }
+    }
+
+    fun onLoginClick() = intent {
+        postSideEffect(RegisterEffect.NavigateToLogin)
     }
 }

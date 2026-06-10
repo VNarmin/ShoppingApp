@@ -14,13 +14,27 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.presentation.base.read
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
+import com.example.presentation.ui.auth.register.mvi.RegisterScreenState
+import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun RegisterScreenContent() {
+fun RegisterScreenContent(
+    stateReader: () -> RegisterScreenState,
+    onUsernameChange: (String) -> Unit,
+    onEmailChange: (String) -> Unit,
+    onPasswordChange: (String) -> Unit,
+    onRegisterClick: () -> Unit,
+    onLoginClick: () -> Unit
+) {
+    val username = stateReader.read { username }
+    val email = stateReader.read { email }
+    val password = stateReader.read { password }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -32,44 +46,49 @@ fun RegisterScreenContent() {
         AuthHeader(
             modifier = Modifier.fillMaxWidth(),
             register = true,
-            onLoginClick = {},
-            onRegisterClick = {}
+            onSwitchAuthTab = onLoginClick,
         )
 
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Email",
-            value = "",
+            value = username,
             placeholder = "username",
             leadingIcon = Icons.Default.Person,
             password = false,
-            onValueChange = {}
+            onValueChange = onUsernameChange
         )
 
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Email",
-            value = "",
+            value = email,
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
             password = false,
-            onValueChange = {}
+            onValueChange = onEmailChange
         )
 
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Password",
-            value = "",
+            value = password,
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Password,
             password = true,
-            onValueChange = {}
+            onValueChange = onPasswordChange
+        )
+
+        PrimaryButton(
+            modifier = Modifier.fillMaxWidth(),
+            command = "Register",
+            onClick = onRegisterClick
         )
 
         AuthFooter(
             modifier = Modifier.fillMaxWidth(),
             register = true,
-            onActionClick = {}
+            onActionClick = onLoginClick
         )
     }
 }
@@ -78,7 +97,15 @@ fun RegisterScreenContent() {
 @Composable
 private fun RegisterScreenContentPreview() {
     ShoppingAppTheme {
-        RegisterScreenContent()
+        val registerScreenState = RegisterScreenState()
+        RegisterScreenContent(
+            stateReader = { registerScreenState },
+            onUsernameChange = {},
+            onEmailChange = {},
+            onPasswordChange = {},
+            onRegisterClick = {},
+            onLoginClick = {}
+        )
     }
 }
 

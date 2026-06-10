@@ -17,11 +17,11 @@ class AuthRepositoryImpl(
 ) : AuthRepository {
 
     override fun login(
-        emailAddress: String,
+        email: String,
         password: String
     ): Flow<User> = flow {
         val response = auth
-            .signInWithEmailAndPassword(emailAddress, password)
+            .signInWithEmailAndPassword(email, password)
             .await()
 
         // FirebaseUser
@@ -32,11 +32,11 @@ class AuthRepositoryImpl(
 
     override fun register(
         username: String,
-        emailAddress: String,
+        email: String,
         password: String
     ): Flow<User> = flow {
         val response = auth
-            .createUserWithEmailAndPassword(emailAddress, password)
+            .createUserWithEmailAndPassword(email, password)
             .await()
 
         val currentUser = response.user ?: throw Exception("Failed Registration")
@@ -52,7 +52,7 @@ class AuthRepositoryImpl(
         emit(User(
             userID = currentUser.uid,
             username = username,
-            emailAddress = emailAddress
+            emailAddress = email
         ))
     }
 
@@ -61,8 +61,8 @@ class AuthRepositoryImpl(
         setRememberMe(flagRememberMe = false)
     }
 
-    override suspend fun resetPassword(emailAddress: String) {
-        auth.sendPasswordResetEmail(emailAddress)
+    override suspend fun resetPassword(email: String) {
+        auth.sendPasswordResetEmail(email)
     }
 
     override fun getCurrentUser(): User? {

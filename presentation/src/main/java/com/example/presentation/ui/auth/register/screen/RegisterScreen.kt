@@ -10,18 +10,25 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 fun RegisterScreen(
     viewModel : RegisterViewModel = koinViewModel(),
-    onNavigateToHome : (String) -> Unit,
+    onNavigateToHome : () -> Unit,
     onNavigateToLogin : () -> Unit
 ) {
     val registerScreenState = viewModel.collectAsState().value
 
     viewModel.collectSideEffect { effect ->
         when (effect) {
-            is RegisterEffect.NavigateToHome -> onNavigateToHome
-            is RegisterEffect.NavigateToLogin -> onNavigateToLogin
-            is RegisterEffect.ShowError -> {}
+            is RegisterEffect.NavigateToHome -> onNavigateToHome()
+            is RegisterEffect.NavigateToLogin -> onNavigateToLogin()
+            is RegisterEffect.Error -> {}
         }
     }
 
-    RegisterScreenContent() // oops, forgot about StateReader
+    RegisterScreenContent(
+        stateReader = { registerScreenState },
+        onUsernameChange = viewModel::onUsernameChange,
+        onEmailChange = viewModel::onEmailChange,
+        onPasswordChange = viewModel::onPasswordChange,
+        onRegisterClick = viewModel::onRegisterClick,
+        onLoginClick = viewModel::onLoginClick
+    )
 }

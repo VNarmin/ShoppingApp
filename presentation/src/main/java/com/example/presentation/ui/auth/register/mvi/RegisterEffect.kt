@@ -6,5 +6,6 @@ import androidx.compose.runtime.Immutable
 sealed interface RegisterEffect {
     data object NavigateToHome : RegisterEffect
     data object NavigateToLogin : RegisterEffect
-    data class ShowError(val message: String) : RegisterEffect
+
+    data class Error(val errorMessage: String) : RegisterEffect
 }
