@@ -86,7 +86,7 @@ fun AuthHeader(
 private fun AuthTabs(
     modifier: Modifier = Modifier,
     register: Boolean = false,
-    onSwitchAuthTab: () -> Unit // for navigating to the other screen
+    onSwitchAuthTab: () -> Unit
 ) {
     Row(
         modifier = modifier

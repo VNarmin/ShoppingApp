@@ -29,7 +29,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 fun ProductCard(
     productName: String,
-    productPrice: String,
+    productPrice: Double,
     imageURL: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -38,7 +38,7 @@ fun ProductCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(Color(0xFF1A1A1E))
+            .background(Color(0xFF16161A))
             .border(
                 color = Color(0xFF2A2A2E),
                 shape = RoundedCornerShape(16.dp),
@@ -71,7 +71,7 @@ fun ProductCard(
                 )
             )
             Text(
-                text = productPrice,
+                text = "$${"%.2f".format(productPrice)}",
                 style = TextStyle(
                     color = Color(0xFF32D583),
                     fontFamily = DMSansFontFamily,
@@ -90,10 +90,9 @@ private fun ProductCardPreview() {
     ShoppingAppTheme {
         ProductCard(
             productName = "Nike Air Max",
-            productPrice = "$129.00",
+            productPrice = 129.00,
             imageURL = "",
             onClick = {}
         )
     }
 }
-
