@@ -3,10 +3,10 @@ package com.example.data.mapper
 import com.example.data.dto.CategoryDTO
 import com.example.domain.model.Category
 
-fun CategoryDTO.toDomain(): Category? {
+fun CategoryDTO.toDomain(): Category {
     return Category(
-        categoryID = this.categoryID ?: return null,
-        displayName = this.displayName ?: return null,
+        categoryID = this.categoryID.orEmpty(),
+        displayName = this.displayName.orEmpty(),
         itemCount = this.itemCount ?: 0
     )
 }

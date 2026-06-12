@@ -30,7 +30,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 fun ProductCard(
     productName: String,
     productPrice: Double,
-    imageURL: String,
+    images: List<String>,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -47,7 +47,7 @@ fun ProductCard(
             .clickable(onClick = onClick)
     ) {
         AsyncImage(
-            model = imageURL,
+            model = images,
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -91,7 +91,7 @@ private fun ProductCardPreview() {
         ProductCard(
             productName = "Nike Air Max",
             productPrice = 129.00,
-            imageURL = "",
+            images = listOf(),
             onClick = {}
         )
     }

@@ -3,15 +3,15 @@ package com.example.data.mapper
 import com.example.data.dto.ProductDTO
 import com.example.domain.model.Product
 
-fun ProductDTO.toDomain(): Product? {
+fun ProductDTO.toDomain(): Product {
     return Product(
-        productID = this.productID ?: return null,
-        name = this.name ?: return null,
+        productID = this.productID.orEmpty(),
+        name = this.name.orEmpty(),
         description = this.description.orEmpty(),
-        price = this.price ?: return null,
+        price = this.price ?: 0.0,
         images = this.images?.filterNotNull().orEmpty(),
-        category = this.category?.toDomain() ?: return null,
-        stockCount = this.stockCount ?: return null,
+        category = this.category?.toDomain(),
+        stockCount = this.stockCount ?: 0,
         rating = this.rating ?: 0.0,
         reviewCount = this.reviewCount ?: 0
     )
