@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,20 +12,20 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import androidx.core.graphics.toColorInt
 
 @Composable
 fun ProductCard(
@@ -34,6 +35,11 @@ fun ProductCard(
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val backgroundColor = remember(images) {
+        runCatching { Color(images.firstOrNull().orEmpty().toColorInt()) }
+            .getOrDefault(Color.Gray)
+    }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -46,14 +52,11 @@ fun ProductCard(
             )
             .clickable(onClick = onClick)
     ) {
-        AsyncImage(
-            model = images,
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(1f)
-                .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
+                .aspectRatio(124F / 168F)
+                .background(backgroundColor)
         )
         Column(
             horizontalAlignment = Alignment.Start,
@@ -86,12 +89,25 @@ fun ProductCard(
 
 @Preview
 @Composable
-private fun ProductCardPreview() {
+private fun Product1CardPreview() {
     ShoppingAppTheme {
         ProductCard(
             productName = "Nike Air Max",
             productPrice = 129.00,
-            images = listOf(),
+            images = listOf("#6366F1", "#E85A4F", "#32D583"),
+            onClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun Product2CardPreview() {
+    ShoppingAppTheme {
+        ProductCard(
+            productName = "Retro Runner",
+            productPrice = 99.00,
+            images = listOf("#E85A4F", "#6366F1", "#32D583"),
             onClick = {}
         )
     }

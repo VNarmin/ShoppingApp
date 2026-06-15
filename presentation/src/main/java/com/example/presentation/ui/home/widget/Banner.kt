@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -35,13 +36,14 @@ fun Banner(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .aspectRatio(7F / 3F)
             .dropShadow(
                 shape = RoundedCornerShape(20.dp),
                 shadow = Shadow(
                     radius = 24.dp,
                     spread = 2.dp,
                     color = Color(0xFF6366F1).copy(alpha = 0.20F),
-                    offset = DpOffset(0.dp, 0.dp)
+                    offset = DpOffset(0.dp, 8.dp)
                 )
             )
             .clip(RoundedCornerShape(20.dp))

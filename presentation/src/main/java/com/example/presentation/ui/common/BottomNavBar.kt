@@ -41,6 +41,7 @@ fun BottomNavBar(
 ) {
     Row(
         modifier = modifier
+            .padding(start = 20.dp, top = 12.dp, end = 20.dp, bottom = 20.dp)
             .fillMaxWidth()
             .height(64.dp)
             .clip(RoundedCornerShape(24.dp))

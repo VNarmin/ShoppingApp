@@ -23,6 +23,7 @@ appcompat = "1.7.1"
 material  = "1.14.0"
 activityKtx = "1.13.0"
 constraintlayout = "2.2.1"
+animationCore = "1.11.2"
 
 [libraries]
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
@@ -76,6 +77,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material  = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+androidx-compose-animation-core = { group = "androidx.compose.animation", name = "animation-core", version.ref = "animationCore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

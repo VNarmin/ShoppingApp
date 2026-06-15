@@ -1,6 +1,7 @@
 package com.example.presentation.ui.common
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,17 +37,27 @@ fun PrimaryButton(
         modifier = modifier
             .fillMaxWidth()
             .height(56.dp)
-            .dropShadow(
-                shape = RoundedCornerShape(12.dp),
-                shadow = Shadow(
-                    radius = 24.dp, // blur softness
-                    spread = 2.dp,  // shadow expansion
-                    color = Color(0xFF6366F1).copy(alpha = 0.20F),
-                    offset = DpOffset(0.dp, 0.dp)
-                )
+            .then(
+                if (enabled) {
+                    Modifier.dropShadow(
+                        shape = RoundedCornerShape(14.dp),
+                        shadow = Shadow(
+                            radius = 24.dp,
+                            spread = 2.dp,
+                            color = Color(0xFF6366F1).copy(alpha = 0.20F),
+                            offset = DpOffset(0.dp, 8.dp)
+                        )
+                    )
+                } else {
+                    Modifier.border(
+                        color = Color(0xFF3A3A40),
+                        shape = RoundedCornerShape(14.dp),
+                        width = 1.dp
+                    )
+                }
             )
-            .clip(RoundedCornerShape(12.dp))
-            .background(Color(0xFF6366F1))
+            .clip(RoundedCornerShape(14.dp))
+            .background(if (enabled) Color(0xFF6366F1) else Color(0xFF1A1A1E))
             .clickable(enabled = enabled, onClick = onClick)
     ) {
         Text(
@@ -64,10 +75,23 @@ fun PrimaryButton(
 
 @Preview
 @Composable
-private fun PrimaryButtonPreview() {
+private fun EnabledPrimaryButtonPreview() {
     ShoppingAppTheme {
         PrimaryButton(
             command = "Continue",
+            enabled = true,
+            onClick = {}
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun DisabledPrimaryButtonPreview() {
+    ShoppingAppTheme {
+        PrimaryButton(
+            command = "Continue",
+            enabled = false,
             onClick = {}
         )
     }

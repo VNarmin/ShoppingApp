@@ -30,7 +30,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 fun CategoryFilter(
     categories: List<Category>,
     selectedCategoryID: String,
-    onCategorySelected: (String) -> Unit,
+    onCategoryChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyRow(
@@ -45,7 +45,7 @@ fun CategoryFilter(
             CategoryCard(
                 label = category.displayName,
                 selected = category.categoryID == selectedCategoryID,
-                onClick = { onCategorySelected(category.categoryID) }
+                onClick = { onCategoryChange(category.categoryID) }
             )
         }
     }
@@ -117,6 +117,7 @@ private fun UnselectedCategoryCardPreview() {
 private fun CategoryFilterPreview() {
     ShoppingAppTheme {
         val categories = listOf(
+            Category(categoryID = "all",         displayName = "All",         itemCount = 926),
             Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
             Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),
             Category(categoryID = "watches",     displayName = "Watches",     itemCount = 54),
@@ -129,7 +130,7 @@ private fun CategoryFilterPreview() {
         CategoryFilter(
             categories = categories,
             selectedCategoryID = "tech",
-            onCategorySelected = {},
+            onCategoryChange = {},
         )
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,7 +19,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.ui.common.CartButton
+import com.example.presentation.ui.common.IconButton
 import com.example.presentation.ui.common.InputField
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -67,7 +68,10 @@ fun HomeHeader(
                     )
                 )
             }
-            CartButton(onClick = onCartClick)
+            IconButton(
+                icon = Icons.Default.ShoppingCart,
+                onClick = onCartClick
+            )
         }
         InputField(
             value = searchQuery,
