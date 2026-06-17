@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.presentation.base.read
+import com.example.presentation.ui.common.QuantitySelector
 import com.example.presentation.ui.productDetail.mvi.ProductDetailScreenState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -149,12 +150,28 @@ fun ProductDetailBody(
             )
         )
 
-        QuantitySelector(
-            quantity = quantity,
-            stockCount = stockCount,
-            onAdd = onAddClick,
-            onRemove = onRemoveClick
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = "Quantity",
+                style = TextStyle(
+                    color = Color(0xFFFAFAF9),
+                    fontFamily = DMSansFontFamily,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Start
+                )
+            )
+            QuantitySelector(
+                quantity = quantity,
+                stockCount = stockCount,
+                onAdd = onAddClick,
+                onRemove = onRemoveClick
+            )
+        }
     }
 }
 

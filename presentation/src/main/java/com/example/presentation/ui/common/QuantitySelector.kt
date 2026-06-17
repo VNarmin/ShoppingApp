@@ -1,4 +1,4 @@
-package com.example.presentation.ui.productDetail.widget
+package com.example.presentation.ui.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -43,55 +43,39 @@ fun QuantitySelector(
     val canRemove = stockCount > 0 && quantity > 1
 
     Row(
-        modifier = modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier
+            .clip(RoundedCornerShape(12.dp))
+            .background(Color(0xFF16161A))
+            .border(
+                color = Color(0xFF2A2A2E),
+                shape = RoundedCornerShape(12.dp),
+                width = 1.dp
+            )
+            .padding(4.dp),
+        horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        QuantityActionButton(
+            enabled = canRemove,
+            icon = Icons.Default.Remove,
+            onClick = onRemove
+        )
         Text(
-            text = "Quantity",
+            modifier = Modifier.width(40.dp),
+            text = if (stockCount > 0) quantity.toString() else "0",
             style = TextStyle(
                 color = Color(0xFFFAFAF9),
                 fontFamily = DMSansFontFamily,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.SemiBold,
-                textAlign = TextAlign.Start
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
             )
         )
-        Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(12.dp))
-                .background(Color(0xFF16161A))
-                .border(
-                    color = Color(0xFF2A2A2E),
-                    shape = RoundedCornerShape(12.dp),
-                    width = 1.dp
-                )
-                .padding(4.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            QuantityActionButton(
-                enabled = canRemove,
-                icon = Icons.Default.Remove,
-                onClick = onRemove
-            )
-            Text(
-                modifier = Modifier.width(40.dp),
-                text = if (stockCount > 0) quantity.toString() else "0",
-                style = TextStyle(
-                    color = Color(0xFFFAFAF9),
-                    fontFamily = DMSansFontFamily,
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-            )
-            QuantityActionButton(
-                enabled = canAdd,
-                icon = Icons.Default.Add,
-                onClick = onAdd
-            )
-        }
+        QuantityActionButton(
+            enabled = canAdd,
+            icon = Icons.Default.Add,
+            onClick = onAdd
+        )
     }
 }
 
