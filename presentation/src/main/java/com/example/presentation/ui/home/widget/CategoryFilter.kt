@@ -115,18 +115,19 @@ private fun UnselectedCategoryCardPreview() {
 @Preview
 @Composable
 private fun CategoryFilterPreview() {
+    val categories = listOf(
+        Category(categoryID = "all",         displayName = "All",         itemCount = 926),
+        Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
+        Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),
+        Category(categoryID = "watches",     displayName = "Watches",     itemCount = 54),
+        Category(categoryID = "tech",        displayName = "Tech",        itemCount = 210),
+        Category(categoryID = "beauty",      displayName = "Beauty",      itemCount = 97),
+        Category(categoryID = "sports",      displayName = "Sports",      itemCount = 64),
+        Category(categoryID = "clothing",    displayName = "Clothing",    itemCount = 175),
+        Category(categoryID = "accessories", displayName = "Accessories", itemCount = 112)
+    )
+
     ShoppingAppTheme {
-        val categories = listOf(
-            Category(categoryID = "all",         displayName = "All",         itemCount = 926),
-            Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
-            Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),
-            Category(categoryID = "watches",     displayName = "Watches",     itemCount = 54),
-            Category(categoryID = "tech",        displayName = "Tech",        itemCount = 210),
-            Category(categoryID = "beauty",      displayName = "Beauty",      itemCount = 97),
-            Category(categoryID = "sports",      displayName = "Sports",      itemCount = 64),
-            Category(categoryID = "clothing",    displayName = "Clothing",    itemCount = 175),
-            Category(categoryID = "accessories", displayName = "Accessories", itemCount = 112)
-        )
         CategoryFilter(
             categories = categories,
             selectedCategoryID = "tech",
