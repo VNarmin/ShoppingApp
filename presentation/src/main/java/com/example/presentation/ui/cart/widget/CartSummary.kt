@@ -48,7 +48,7 @@ fun CartSummary(
                     strokeWidth = 1.dp.toPx()
                 )
             }
-            .padding(horizontal = 24.dp, vertical = 24.dp),
+            .padding(start = 20.dp, top = 16.dp, end = 20.dp, bottom = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
