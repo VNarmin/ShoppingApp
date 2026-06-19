@@ -57,13 +57,13 @@ fun PrimaryButton(
                 }
             )
             .clip(RoundedCornerShape(14.dp))
-            .background(if (enabled) Color(0xFF6366F1) else Color(0xFF1A1A1E))
+            .background(if (enabled) Color(0xFF6366F1) else Color(0xFF16161A))
             .clickable(enabled = enabled, onClick = onClick)
     ) {
         Text(
             text = command,
             style = TextStyle(
-                color = Color(0xFFFFFFFF),
+                color = if (enabled) Color(0xFFFFFFFF) else (Color(0xFF6366F1)),
                 fontFamily = DMSansFontFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
