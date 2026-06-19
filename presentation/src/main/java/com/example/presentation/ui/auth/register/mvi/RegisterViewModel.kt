@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.catch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 
-class RegisterViewModel(
+internal class RegisterViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel(), ContainerHost<RegisterScreenState, RegisterEffect> {
 
-    override val container = container<RegisterScreenState, RegisterEffect>(RegisterScreenState.INITIAL)
+    override val container = container<RegisterScreenState, RegisterEffect>(initialState = RegisterScreenState.INITIAL)
 
     fun onUsernameChange(username : String) = intent {
         reduce { state.copy(username = username) }

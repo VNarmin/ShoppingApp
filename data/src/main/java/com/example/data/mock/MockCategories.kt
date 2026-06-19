@@ -2,7 +2,7 @@ package com.example.data.mock
 
 import com.example.data.dto.CategoryDTO
 
-object MockCategories {
+internal object MockCategories {
     val all = listOf(
         CategoryDTO(categoryID = "all",         displayName = "All",         itemCount = 926),
         CategoryDTO(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),

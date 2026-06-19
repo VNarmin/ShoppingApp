@@ -24,7 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -33,7 +33,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CartItemCard( // what about getting these properties from the state reader ???
+internal fun CartItemCard( // what about getting these properties from the state reader ???
     productName : String,
     productPrice: Double,
     images: List<String>,
@@ -122,7 +122,7 @@ fun CartItemCard( // what about getting these properties from the state reader ?
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun CartItemCardPreview() {
     ShoppingAppTheme {

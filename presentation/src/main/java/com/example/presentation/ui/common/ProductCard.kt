@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.theme.DMSansFontFamily
@@ -28,7 +28,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 import androidx.core.graphics.toColorInt
 
 @Composable
-fun ProductCard(
+internal fun ProductCard(
     productName: String,
     productPrice: Double,
     images: List<String>,
@@ -87,7 +87,7 @@ fun ProductCard(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun Product1CardPreview() {
     ShoppingAppTheme {
@@ -100,7 +100,7 @@ private fun Product1CardPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun Product2CardPreview() {
     ShoppingAppTheme {

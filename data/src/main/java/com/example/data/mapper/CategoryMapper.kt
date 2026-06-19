@@ -3,7 +3,7 @@ package com.example.data.mapper
 import com.example.data.dto.CategoryDTO
 import com.example.domain.model.Category
 
-fun CategoryDTO.toDomain(): Category {
+internal fun CategoryDTO.toDomain(): Category {
     return Category(
         categoryID = this.categoryID.orEmpty(),
         displayName = this.displayName.orEmpty(),
@@ -11,4 +11,4 @@ fun CategoryDTO.toDomain(): Category {
     )
 }
 
-fun List<CategoryDTO>.toDomain(): List<Category> = mapNotNull { category -> category.toDomain() }
+internal fun List<CategoryDTO>.toDomain(): List<Category> = mapNotNull { category -> category.toDomain() }

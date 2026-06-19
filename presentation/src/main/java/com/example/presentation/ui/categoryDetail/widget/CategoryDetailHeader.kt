@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.model.Category
@@ -26,7 +26,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CategoryDetailHeader(
+internal fun CategoryDetailHeader(
     stateReader: () -> CategoryDetailScreenState,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -61,7 +61,7 @@ fun CategoryDetailHeader(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun CategoryDetailHeaderPreview() {
     val currentCategory = Category(

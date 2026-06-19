@@ -11,7 +11,7 @@ import kotlinx.coroutines.tasks.await
 import androidx.core.content.edit
 import com.example.data.mapper.toDomain
 
-class AuthRepositoryImpl(
+internal class AuthRepositoryImpl(
     private val auth : FirebaseAuth,
     private val sp : SharedPreferences
 ) : AuthRepository {

@@ -13,7 +13,7 @@ import com.example.presentation.ui.more.widget.MoreBody
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun MoreScreenContent(
+internal fun MoreScreenContent(
     stateReader: () -> MoreScreenState,
     onCategoryClick: (String) -> Unit,
     onHomeClick: () -> Unit

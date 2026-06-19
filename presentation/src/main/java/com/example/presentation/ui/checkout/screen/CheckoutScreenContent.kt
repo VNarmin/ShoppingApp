@@ -16,7 +16,7 @@ import com.example.presentation.ui.checkout.widget.CheckoutHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CheckoutScreenContent(
+internal fun CheckoutScreenContent(
     stateReader: () -> CheckoutScreenState,
     onBackClick: () -> Unit,
     onPlaceOrderClick: () -> Unit

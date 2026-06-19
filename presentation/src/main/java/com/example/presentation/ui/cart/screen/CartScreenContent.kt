@@ -15,7 +15,7 @@ import com.example.presentation.ui.cart.widget.CartHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CartScreenContent(
+internal fun CartScreenContent(
     stateReader: () -> CartScreenState,
     onBackClick: () -> Unit,
     onDeleteClick: () -> Unit,

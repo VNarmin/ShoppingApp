@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.shadow.Shadow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,9 +30,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun Banner(
-    modifier: Modifier = Modifier
-) {
+internal fun Banner(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -107,7 +105,7 @@ fun Banner(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun BannerPreview() {
     ShoppingAppTheme {

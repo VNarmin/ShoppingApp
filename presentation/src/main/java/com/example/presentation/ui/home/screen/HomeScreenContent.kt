@@ -32,7 +32,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun HomeScreenContent(
+internal fun HomeScreenContent(
     stateReader : () -> HomeScreenState,
     onSearchQueryChange: (String) -> Unit,
     onCartClick: () -> Unit,

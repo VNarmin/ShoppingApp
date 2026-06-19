@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.domain.model.CartItem
 import com.example.domain.model.Category
@@ -19,7 +19,7 @@ import com.example.presentation.ui.cart.mvi.CartScreenState
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CartBody(
+internal fun CartBody(
     stateReader: () -> CartScreenState,
     onDeleteClick: () -> Unit,
     onAddClick: () -> Unit,
@@ -62,7 +62,7 @@ fun CartBody(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun CartBodyPreview() {
     val product1 = Product(

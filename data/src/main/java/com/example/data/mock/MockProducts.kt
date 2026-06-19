@@ -3,7 +3,7 @@ package com.example.data.mock
 import com.example.data.dto.CategoryDTO
 import com.example.data.dto.ProductDTO
 
-object MockProducts {
+internal object MockProducts {
     val all = listOf(
 
         // --- SHOES ---

@@ -14,7 +14,7 @@ import com.example.presentation.ui.orderConfirmation.widget.OrderConfirmationFoo
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun OrderConfirmationScreenContent(
+internal fun OrderConfirmationScreenContent(
     stateReader: () -> OrderConfirmationScreenState,
     onContinueShoppingClick: () -> Unit
 ) {

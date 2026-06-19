@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.common.IconButton
@@ -25,7 +25,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun HomeHeader(
+internal fun HomeHeader(
     modifier: Modifier = Modifier,
     username : String,
     onCartClick : () -> Unit,
@@ -83,7 +83,7 @@ fun HomeHeader(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun HomeHeaderPreview() {
     ShoppingAppTheme {

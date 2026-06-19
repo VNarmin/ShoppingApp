@@ -1,2 +1,25 @@
 package com.example.presentation.ui.checkout.screen
 
+import androidx.compose.runtime.Composable
+import com.example.presentation.ui.checkout.mvi.CheckoutEffect
+import com.example.presentation.ui.checkout.mvi.CheckoutViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
+
+@Composable
+internal fun CheckoutScreen(
+    viewModel : CheckoutViewModel = koinViewModel(),
+    onNavigateToBack: () -> Unit,
+    onNavigateToOrderConfirmation: () -> Unit
+) {
+    val checkoutScreenState = viewModel.collectAsState().value
+
+    viewModel.collectSideEffect { effect ->
+        when(effect) {
+            is CheckoutEffect.NavigateToBack -> onNavigateToBack()
+            is CheckoutEffect.NavigateToOrderConfirmation -> onNavigateToOrderConfirmation()
+            is CheckoutEffect.Error -> {}
+        }
+    }
+}

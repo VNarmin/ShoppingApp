@@ -28,7 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.theme.DMSansFontFamily
@@ -41,7 +41,7 @@ private const val registerFooterText = "Already have an account? "
 private const val registerFooterAction = "Sign in"
 
 @Composable
-fun AuthFooter(
+internal fun AuthFooter(
     modifier: Modifier = Modifier,
     register: Boolean = false,
     onActionClick: () -> Unit,
@@ -157,7 +157,7 @@ private fun SocialButton(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun LoginAuthFooterPreview() {
     ShoppingAppTheme {
@@ -168,7 +168,7 @@ private fun LoginAuthFooterPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun RegisterAuthFooterPreview() {
     ShoppingAppTheme {

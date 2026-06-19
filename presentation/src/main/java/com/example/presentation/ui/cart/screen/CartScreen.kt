@@ -1,2 +1,25 @@
 package com.example.presentation.ui.cart.screen
 
+import androidx.compose.runtime.Composable
+import com.example.presentation.ui.cart.mvi.CartEffect
+import com.example.presentation.ui.cart.mvi.CartViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.orbitmvi.orbit.compose.collectAsState
+import org.orbitmvi.orbit.compose.collectSideEffect
+
+@Composable
+internal fun CartScreen(
+    viewModel: CartViewModel = koinViewModel(),
+    onNavigateToBack: () -> Unit,
+    onNavigateToCheckout: () -> Unit
+) {
+    val cartScreenState = viewModel.collectAsState().value
+
+    viewModel.collectSideEffect { effect ->
+        when (effect) {
+            is CartEffect.NavigateToBack -> onNavigateToBack()
+            is CartEffect.NavigateToCheckout -> onNavigateToCheckout()
+            is CartEffect.Error -> {}
+        }
+    }
+}

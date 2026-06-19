@@ -2,7 +2,7 @@ package com.example.presentation.ui.productDetail.mvi
 
 import com.example.domain.model.Product
 
-data class ProductDetailScreenState(
+internal data class ProductDetailScreenState(
     val product: Product,
     val quantity: Int = 1,
     val descriptionExpanded: Boolean = false,

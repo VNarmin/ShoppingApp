@@ -3,7 +3,7 @@ package com.example.presentation.ui.home.mvi
 import com.example.domain.model.Category
 import com.example.domain.model.Product
 
-data class HomeScreenState(
+internal data class HomeScreenState(
     val username: String = "Narmin",
     val searchQuery: String = "",
     val categories: List<Category> = emptyList(),

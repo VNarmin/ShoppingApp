@@ -6,11 +6,11 @@ import kotlinx.coroutines.flow.catch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 
-class LoginViewModel(
+internal class LoginViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel(), ContainerHost<LoginScreenState, LoginEffect> {
 
-    override val container = container<LoginScreenState, LoginEffect>(LoginScreenState.INITIAL)
+    override val container = container<LoginScreenState, LoginEffect>(initialState = LoginScreenState.INITIAL)
 
     fun onEmailChange(email: String) = intent {
         reduce { state.copy(email = email, errorMessage = null) }

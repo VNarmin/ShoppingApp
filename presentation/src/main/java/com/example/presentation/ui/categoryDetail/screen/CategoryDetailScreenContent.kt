@@ -15,7 +15,7 @@ import com.example.presentation.ui.common.BottomNavBar
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CategoryDetailScreenContent(
+internal fun CategoryDetailScreenContent(
     stateReader: () -> CategoryDetailScreenState,
     onBackClick: () -> Unit,
     onHomeClick: () -> Unit,

@@ -35,14 +35,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun InputField(
+internal fun InputField(
     value: String,
     onValueChange: (String) -> Unit,
     placeholder: String,
@@ -125,7 +125,7 @@ fun InputField(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun EmailInputFieldPreview() {
     ShoppingAppTheme {
@@ -139,7 +139,7 @@ private fun EmailInputFieldPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun PasswordInputFieldPreview() {
     ShoppingAppTheme {
@@ -153,7 +153,7 @@ private fun PasswordInputFieldPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun UsernameInputFieldPreview() {
     ShoppingAppTheme {

@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.model.Category
@@ -27,7 +27,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CategoryFilter(
+internal fun CategoryFilter(
     categories: List<Category>,
     selectedCategoryID: String,
     onCategoryChange: (String) -> Unit,
@@ -52,7 +52,7 @@ fun CategoryFilter(
 }
 
 @Composable
-fun CategoryCard(
+private fun CategoryCard(
     label : String,
     selected : Boolean,
     onClick : () -> Unit
@@ -88,7 +88,7 @@ fun CategoryCard(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun SelectedCategoryCardPreview() {
     ShoppingAppTheme {
@@ -100,7 +100,7 @@ private fun SelectedCategoryCardPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun UnselectedCategoryCardPreview() {
     ShoppingAppTheme {
@@ -112,7 +112,7 @@ private fun UnselectedCategoryCardPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun CategoryFilterPreview() {
     val categories = listOf(

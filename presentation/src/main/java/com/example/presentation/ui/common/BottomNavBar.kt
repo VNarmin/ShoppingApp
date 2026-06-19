@@ -26,15 +26,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
-
 @Composable
-fun BottomNavBar(
+internal fun BottomNavBar(
     modifier: Modifier = Modifier,
     more : Boolean = false,
     onSwitchTab : () -> Unit
@@ -122,7 +121,7 @@ fun BottomNavBar(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun HomeBottomNavBarPreview() {
     ShoppingAppTheme {
@@ -133,7 +132,7 @@ private fun HomeBottomNavBarPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun MoreBottomNavBarPreview() {
     ShoppingAppTheme {

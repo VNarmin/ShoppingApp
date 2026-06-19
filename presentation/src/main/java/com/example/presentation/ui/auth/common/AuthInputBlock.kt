@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.common.InputField
@@ -24,7 +24,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun AuthInputGroup(
+internal fun AuthInputGroup(
     modifier: Modifier = Modifier,
     prompt: String,
     value: String,
@@ -59,7 +59,7 @@ fun AuthInputGroup(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun EmailInputGroupPreview() {
     ShoppingAppTheme {
@@ -74,7 +74,7 @@ private fun EmailInputGroupPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun PasswordInputGroupPreview() {
     ShoppingAppTheme {
@@ -89,7 +89,7 @@ private fun PasswordInputGroupPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun UsernameInputGroupPreview() {
     ShoppingAppTheme {

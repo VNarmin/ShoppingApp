@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.domain.model.CartItem
 import com.example.domain.model.Category
@@ -24,7 +24,7 @@ import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CheckoutBody(
+internal fun CheckoutBody(
     stateReader: () -> CheckoutScreenState,
     onPlaceOrderClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -72,7 +72,7 @@ fun CheckoutBody(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun CheckoutBodyPreview() {
     val product1 = Product(

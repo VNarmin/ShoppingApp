@@ -4,7 +4,7 @@ import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.domain.repository.ProductRepository
 
-class ProductRepositoryImpl : ProductRepository {
+internal class ProductRepositoryImpl : ProductRepository {
     override suspend fun getProducts(): Result<List<Product>> {
         TODO("Not yet implemented")
     }

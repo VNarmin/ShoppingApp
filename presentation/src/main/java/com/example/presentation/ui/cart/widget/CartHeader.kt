@@ -15,6 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.base.read
@@ -24,7 +25,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun CartHeader(
+internal fun CartHeader(
     stateReader : () -> CartScreenState,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
@@ -65,7 +66,7 @@ fun CartHeader(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun CartHeaderPreview() {
     val cartScreenState = CartScreenState()

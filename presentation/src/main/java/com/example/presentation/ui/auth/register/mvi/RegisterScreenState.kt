@@ -1,6 +1,6 @@
 package com.example.presentation.ui.auth.register.mvi
 
-data class RegisterScreenState(
+internal data class RegisterScreenState(
     val username: String = "",
     val email: String = "",
     val password: String = "",

@@ -8,7 +8,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
-fun RegisterScreen(
+internal fun RegisterScreen(
     viewModel : RegisterViewModel = koinViewModel(),
     onNavigateToHome : () -> Unit,
     onNavigateToLogin : () -> Unit

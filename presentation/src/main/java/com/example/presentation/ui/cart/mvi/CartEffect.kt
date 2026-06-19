@@ -1,4 +1,10 @@
 package com.example.presentation.ui.cart.mvi
 
-interface CartEffect {
+import androidx.compose.runtime.Immutable
+
+@Immutable
+internal sealed interface CartEffect {
+    data object NavigateToBack : CartEffect
+    data object NavigateToCheckout : CartEffect
+    data class Error(val errorMessage: String) : CartEffect
 }
