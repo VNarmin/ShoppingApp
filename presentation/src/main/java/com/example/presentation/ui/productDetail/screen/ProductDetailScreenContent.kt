@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.Category
 import com.example.domain.model.Product
+import com.example.presentation.base.read
 import com.example.presentation.ui.productDetail.mvi.ProductDetailScreenState
 import com.example.presentation.ui.productDetail.widget.ProductDetailBody
 import com.example.presentation.ui.productDetail.widget.ProductDetailFooter
@@ -15,7 +16,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProductDetailScreenContent(
-    stateReader: () -> ProductDetailScreenState,
+    stateProvider: () -> ProductDetailScreenState,
     onBackClick: () -> Unit,
     onCartClick: () -> Unit,
     onReadMoreClick: () -> Unit,
@@ -33,7 +34,7 @@ internal fun ProductDetailScreenContent(
         },
         content = { innerPadding ->
             ProductDetailBody(
-                stateReader = stateReader,
+                stateProvider = stateProvider,
                 onReadMoreClick = onReadMoreClick,
                 onAddClick = onAddClick,
                 onRemoveClick = onRemoveClick,
@@ -42,7 +43,7 @@ internal fun ProductDetailScreenContent(
         },
         bottomBar = {
             ProductDetailFooter(
-                enabled = true,   // gotta handle
+                enabled = stateProvider.read { product.inStock },
                 onAddToCartClick = onAddToCartClick,
                 onBuyNowClick = onBuyNowClick
             )
@@ -69,7 +70,7 @@ private fun ProductDetailScreenContentPreview() {
 
     ShoppingAppTheme {
         ProductDetailScreenContent(
-            stateReader = { productDetailScreenState },
+            stateProvider = { productDetailScreenState },
             onBackClick = {},
             onCartClick = {},
             onReadMoreClick = {},

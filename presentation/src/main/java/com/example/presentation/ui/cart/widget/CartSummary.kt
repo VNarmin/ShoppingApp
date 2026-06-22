@@ -21,14 +21,19 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.base.read
-import com.example.presentation.ui.cart.mvi.CartScreenState
 import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
+internal data class CartSummaryState(
+    val subtotal: Double,
+    val shippingCost: Double,
+    val total: Double
+)
+
 @Composable
 internal fun CartSummary(
-    stateProvider : () -> CartScreenState,
+    stateProvider : () -> CartSummaryState,
     onProceedToCheckoutClick: () -> Unit,
     modifier : Modifier = Modifier
 ) {
@@ -151,11 +156,15 @@ internal fun CartSummary(
 @PreviewLightDark
 @Composable
 private fun CartSummaryPreview() {
-    val cartScreenState = CartScreenState()
+    val cartSummaryState = CartSummaryState(
+        subtotal = 0.0,
+        shippingCost = 5.0,
+        total = 0.0
+    )
 
     ShoppingAppTheme {
         CartSummary(
-            stateProvider = { cartScreenState },
+            stateProvider = { cartSummaryState },
             onProceedToCheckoutClick = {}
         )
     }

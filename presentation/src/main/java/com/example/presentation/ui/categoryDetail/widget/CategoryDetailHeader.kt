@@ -18,20 +18,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.domain.model.Category
 import com.example.presentation.base.read
-import com.example.presentation.ui.categoryDetail.mvi.CategoryDetailScreenState
 import com.example.presentation.ui.common.IconButton
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CategoryDetailHeader(
-    stateReader: () -> CategoryDetailScreenState,
+    stateProvider: () -> String,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val currentCategory = stateReader.read { currentCategory }
+    val currentCategoryDisplayName = stateProvider.read { this }
 
     Row(
         modifier = modifier
@@ -45,7 +43,7 @@ internal fun CategoryDetailHeader(
             onClick = onBackClick
         )
         Text(
-            text = currentCategory.displayName,
+            text = currentCategoryDisplayName,
             style = TextStyle(
                 color = Color(0xFFFAFAF9),
                 fontFamily = DMSansFontFamily,
@@ -64,19 +62,9 @@ internal fun CategoryDetailHeader(
 @PreviewLightDark
 @Composable
 private fun CategoryDetailHeaderPreview() {
-    val currentCategory = Category(
-        categoryID = "shoes",
-        displayName = "Shoes",
-        itemCount = 128
-    )
-
-    val categoryDetailScreenState = CategoryDetailScreenState(
-        currentCategory = currentCategory
-    )
-
     ShoppingAppTheme {
         CategoryDetailHeader(
-            stateReader = { categoryDetailScreenState },
+            stateProvider = { "Shoes" },
             onBackClick = {}
         )
     }

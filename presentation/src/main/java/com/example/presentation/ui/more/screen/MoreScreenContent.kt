@@ -10,29 +10,34 @@ import com.example.domain.model.Category
 import com.example.presentation.ui.common.BottomNavBar
 import com.example.presentation.ui.more.mvi.MoreScreenState
 import com.example.presentation.ui.more.widget.MoreBody
+import com.example.presentation.ui.more.widget.MoreHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun MoreScreenContent(
-    stateReader: () -> MoreScreenState,
+    stateProvider: () -> MoreScreenState,
     onCategoryClick: (String) -> Unit,
     onHomeClick: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
+        topBar = {
+            MoreHeader()
+        },
+        content = { innerPadding ->
+            MoreBody(
+                stateProvider = stateProvider,
+                onCategoryClick = onCategoryClick,
+                modifier = Modifier.padding(innerPadding)
+            )
+        },
         bottomBar = {
             BottomNavBar(
                 more = true,
                 onSwitchTab = onHomeClick
             )
         }
-    ) { innerPadding ->
-        MoreBody(
-            stateReader = stateReader,
-            onCategoryClick = onCategoryClick,
-            modifier = Modifier.padding(innerPadding)
-        )
-    }
+    )
 }
 
 @PreviewLightDark
@@ -57,7 +62,7 @@ private fun MoreScreenContentPreview() {
 
     ShoppingAppTheme {
         MoreScreenContent(
-            stateReader = { moreScreenState },
+            stateProvider = { moreScreenState },
             onCategoryClick = {},
             onHomeClick = {}
         )

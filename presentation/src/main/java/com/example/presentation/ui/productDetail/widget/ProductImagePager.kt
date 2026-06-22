@@ -32,13 +32,16 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
+import com.example.presentation.base.read
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProductImagePager(
-    productImages: List<String>,
+    stateProvider: () -> List<String>,
     modifier: Modifier = Modifier
 ) {
+    val productImages = stateProvider.read { this }
+
     val pagerState = rememberPagerState(pageCount = { productImages.size })
 
     val animatedShadowColor by animateColorAsState(
@@ -123,7 +126,7 @@ internal fun ProductImagePager(
 private fun Product1ImagePagerPreview() {
     ShoppingAppTheme {
         ProductImagePager(
-            productImages = listOf("#6366F1", "#E85A4F", "#32D583")
+            stateProvider = { listOf("#6366F1", "#E85A4F", "#32D583") }
         )
     }
 }
@@ -133,7 +136,7 @@ private fun Product1ImagePagerPreview() {
 private fun Product2ImagePagerPreview() {
     ShoppingAppTheme {
         ProductImagePager(
-            productImages = listOf("#E85A4F", "#6366F1", "#32D583")
+            stateProvider = { listOf("#E85A4F", "#6366F1", "#32D583") }
         )
     }
 }

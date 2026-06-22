@@ -37,10 +37,10 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun OrderConfirmationBody(
-    stateReader: () -> OrderConfirmationScreenState,
+    stateProvider: () -> OrderConfirmationScreenState,
     modifier: Modifier = Modifier
 ) {
-    val orderID = stateReader.read { orderID }
+    val orderID = stateProvider.read { orderID }
 
     Column(
         modifier = modifier
@@ -139,10 +139,10 @@ internal fun OrderConfirmationBody(
 @PreviewLightDark
 @Composable
 private fun OrderConfirmationBodyPreview() {
-    val orderID = "SHP-2026-8856"
+    val orderID = "SHP-2026-8756"
     val orderConfirmationScreenState = OrderConfirmationScreenState(orderID = orderID)
 
     ShoppingAppTheme {
-        OrderConfirmationBody(stateReader = { orderConfirmationScreenState })
+        OrderConfirmationBody(stateProvider = { orderConfirmationScreenState })
     }
 }

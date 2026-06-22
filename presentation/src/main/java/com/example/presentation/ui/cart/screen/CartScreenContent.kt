@@ -28,7 +28,7 @@ internal fun CartScreenContent(
         modifier = Modifier.statusBarsPadding(),
         topBar = {
             CartHeader(
-                stateProvider = stateProvider,
+                stateProvider = stateProvider.focusOn { totalItemCount },
                 onBackClick = onBackClick
             )
         }

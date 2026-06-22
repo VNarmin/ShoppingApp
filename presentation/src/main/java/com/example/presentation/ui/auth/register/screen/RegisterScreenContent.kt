@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.presentation.base.read
+import com.example.presentation.base.focusOn
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
@@ -31,9 +31,9 @@ internal fun RegisterScreenContent(
     onRegisterClick: () -> Unit,
     onLoginClick: () -> Unit
 ) {
-    val username = stateProvider.read { username }
-    val email = stateProvider.read { email }
-    val password = stateProvider.read { password }
+    val usernameProvider = stateProvider.focusOn { username }
+    val emailProvider = stateProvider.focusOn { email }
+    val passwordProvider = stateProvider.focusOn { password }
 
     Column(
         modifier = Modifier
@@ -52,7 +52,7 @@ internal fun RegisterScreenContent(
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Email",
-            value = username,
+            stateProvider = usernameProvider,
             placeholder = "username",
             leadingIcon = Icons.Default.Person,
             password = false,
@@ -62,7 +62,7 @@ internal fun RegisterScreenContent(
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Email",
-            value = email,
+            stateProvider = emailProvider,
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
             password = false,
@@ -72,7 +72,7 @@ internal fun RegisterScreenContent(
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Password",
-            value = password,
+            stateProvider = passwordProvider,
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Password,
             password = true,
@@ -96,8 +96,9 @@ internal fun RegisterScreenContent(
 @PreviewLightDark
 @Composable
 private fun RegisterScreenContentPreview() {
+    val registerScreenState = RegisterScreenState()
+
     ShoppingAppTheme {
-        val registerScreenState = RegisterScreenState()
         RegisterScreenContent(
             stateProvider = { registerScreenState },
             onUsernameChange = {},

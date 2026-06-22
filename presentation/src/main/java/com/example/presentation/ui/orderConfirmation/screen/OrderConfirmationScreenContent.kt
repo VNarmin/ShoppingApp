@@ -15,7 +15,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun OrderConfirmationScreenContent(
-    stateReader: () -> OrderConfirmationScreenState,
+    stateProvider: () -> OrderConfirmationScreenState,
     onContinueShoppingClick: () -> Unit
 ) {
     Column(
@@ -26,7 +26,7 @@ internal fun OrderConfirmationScreenContent(
         verticalArrangement = Arrangement.Center
     ) {
         OrderConfirmationBody(
-            stateReader = stateReader,
+            stateProvider = stateProvider,
             modifier = Modifier.weight(1F)
         )
         OrderConfirmationFooter(onContinueShoppingClick = onContinueShoppingClick)
@@ -41,7 +41,7 @@ private fun OrderConfirmationScreenContentPreview() {
 
     ShoppingAppTheme {
         OrderConfirmationScreenContent(
-            stateReader = { orderConfirmationScreenState },
+            stateProvider = { orderConfirmationScreenState },
             onContinueShoppingClick = {}
         )
     }

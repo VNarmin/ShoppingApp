@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.Category
 import com.example.domain.model.Product
+import com.example.presentation.base.focusOn
 import com.example.presentation.ui.categoryDetail.mvi.CategoryDetailScreenState
 import com.example.presentation.ui.categoryDetail.widget.CategoryDetailBody
 import com.example.presentation.ui.categoryDetail.widget.CategoryDetailHeader
@@ -16,7 +17,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CategoryDetailScreenContent(
-    stateReader: () -> CategoryDetailScreenState,
+    stateProvider: () -> CategoryDetailScreenState,
     onBackClick: () -> Unit,
     onHomeClick: () -> Unit,
     onProductClick: (String) -> Unit
@@ -25,13 +26,13 @@ internal fun CategoryDetailScreenContent(
         modifier = Modifier.statusBarsPadding(),
         topBar = {
             CategoryDetailHeader(
-                stateReader = stateReader,
+                stateProvider = stateProvider.focusOn { currentCategory.displayName },
                 onBackClick = onBackClick,
             )
         },
         content = { innerPadding ->
             CategoryDetailBody(
-                stateReader = stateReader,
+                stateProvider = stateProvider,
                 onProductClick = onProductClick,
                 modifier = Modifier.padding(innerPadding)
             )
@@ -108,7 +109,7 @@ private fun CategoryDetailScreenContentPreview() {
 
     ShoppingAppTheme {
         CategoryDetailScreenContent(
-            stateReader = { categoryDetailScreenState },
+            stateProvider = { categoryDetailScreenState },
             onBackClick = {},
             onHomeClick = {},
             onProductClick = {}

@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.model.Category
+import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.more.mvi.MoreScreenState
 import com.example.presentation.ui.theme.DMSansFontFamily
@@ -25,12 +26,12 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun MoreBody(
-    stateReader: () -> MoreScreenState,
+    stateProvider: () -> MoreScreenState,
     onCategoryClick : (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val username = stateReader.read { username }
-    val categories = stateReader.read { categories }
+    val usernameProvider = stateProvider.focusOn { username }
+    val categories = stateProvider.read { categories }
 
     LazyVerticalGrid(
         modifier = modifier.fillMaxWidth(),
@@ -40,20 +41,7 @@ internal fun MoreBody(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
-            Text(
-                text = "More",
-                style = TextStyle(
-                    color = Color(0xFFFAFAF9),
-                    fontFamily = DMSansFontFamily,
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    textAlign = TextAlign.Start
-                )
-            )
-        }
-
-        item(span = { GridItemSpan(maxLineSpan) }) {
-            ProfileSettingsCard(username = username)
+            ProfileSettingsCard(stateProvider = usernameProvider)
         }
 
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -98,7 +86,7 @@ private fun MoreBodyPreview() {
 
     ShoppingAppTheme {
         MoreBody(
-            stateReader = { moreScreenState },
+            stateProvider = { moreScreenState },
             onCategoryClick = {},
         )
     }

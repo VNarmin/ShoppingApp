@@ -4,10 +4,10 @@ import com.example.domain.model.Category
 import com.example.domain.model.Product
 
 internal data class CategoryDetailScreenState(
-    val currentCategory : Category = Category( // gonna change later
-        categoryID = "all",
-        displayName = "All",
-        itemCount = 926
+    val currentCategory : Category = Category(
+        categoryID = "",
+        displayName = "",
+        itemCount = 0
     ),
     val products: List<Product> = emptyList(),
     val loading: Boolean = false,

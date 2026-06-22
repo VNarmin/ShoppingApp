@@ -38,17 +38,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun InputField(
-    value: String,
+    stateProvider: () -> String,
     onValueChange: (String) -> Unit,
     placeholder: String,
     leadingIcon: ImageVector? = null,
     password: Boolean = false
 ) {
+    val value = stateProvider.read { this }
     var passwordVisible by remember { mutableStateOf(false) }
 
     Box(
@@ -130,7 +132,7 @@ internal fun InputField(
 private fun EmailInputFieldPreview() {
     ShoppingAppTheme {
         InputField(
-            value = "",
+            stateProvider = { "" },
             onValueChange = {},
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
@@ -144,7 +146,7 @@ private fun EmailInputFieldPreview() {
 private fun PasswordInputFieldPreview() {
     ShoppingAppTheme {
         InputField(
-            value = "",
+            stateProvider = { "" },
             onValueChange = {},
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Lock,
@@ -158,7 +160,7 @@ private fun PasswordInputFieldPreview() {
 private fun UsernameInputFieldPreview() {
     ShoppingAppTheme {
         InputField(
-            value = "",
+            stateProvider = { "" },
             onValueChange = {},
             placeholder = "username",
             leadingIcon = Icons.Default.Person,

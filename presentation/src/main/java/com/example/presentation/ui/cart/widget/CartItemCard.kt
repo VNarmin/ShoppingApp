@@ -33,8 +33,8 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-internal fun CartItemCard( // what about getting these properties from the state reader ???
-    productName : String,
+internal fun CartItemCard(
+    productName: String,
     productPrice: Double,
     images: List<String>,
     quantity: Int,

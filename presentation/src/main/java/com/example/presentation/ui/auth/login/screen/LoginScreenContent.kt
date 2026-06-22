@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.presentation.base.read
+import com.example.presentation.base.focusOn
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
@@ -29,8 +29,8 @@ internal fun LoginScreenContent(
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit
 ) {
-    val emailValue = stateProvider.read { email }
-    val passwordValue = stateProvider.read { password }
+    val emailProvider = stateProvider.focusOn { email }
+    val passwordProvider = stateProvider.focusOn { password }
 
     Column(
         modifier = Modifier
@@ -49,7 +49,7 @@ internal fun LoginScreenContent(
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Email",
-            value = emailValue,
+            stateProvider = emailProvider,
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
             password = false,
@@ -59,7 +59,7 @@ internal fun LoginScreenContent(
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Password",
-            value = passwordValue,
+            stateProvider = passwordProvider,
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Password,
             password = true,
@@ -83,8 +83,9 @@ internal fun LoginScreenContent(
 @PreviewLightDark
 @Composable
 private fun LoginScreenContentPreview() {
+    val loginScreenState = LoginScreenState()
+
     ShoppingAppTheme {
-        val loginScreenState = LoginScreenState()
         LoginScreenContent(
             stateProvider = { loginScreenState },
             onEmailChange = {},

@@ -1,59 +1,97 @@
-package com.example.presentation.ui.home.screen
+package com.example.presentation.ui.home.widget
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
-import com.example.presentation.ui.common.BottomNavBar
+import com.example.presentation.base.read
+import com.example.presentation.ui.common.InputField
+import com.example.presentation.ui.common.ProductCard
 import com.example.presentation.ui.home.mvi.HomeScreenState
-import com.example.presentation.ui.home.widget.CategoryFilterState
-import com.example.presentation.ui.home.widget.HomeBody
-import com.example.presentation.ui.home.widget.HomeHeader
+import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-internal fun HomeScreenContent(
+internal fun HomeBody(
+    modifier: Modifier = Modifier,
     stateProvider: () -> HomeScreenState,
     onSearchQueryChange: (String) -> Unit,
-    onCartClick: () -> Unit,
     onCategoryChange: (String) -> Unit,
     onProductClick: (String) -> Unit,
-    onMoreClick: () -> Unit
 ) {
-    Scaffold(
-        modifier = Modifier.statusBarsPadding(),
-        topBar = {
-            HomeHeader(
-                stateProvider = stateProvider.focusOn { username },
-                onCartClick = onCartClick
-            )
-        },
-        content = { innerPadding ->
-            HomeBody(
-                modifier = Modifier.padding(innerPadding),
-                stateProvider = stateProvider,
-                onSearchQueryChange = onSearchQueryChange,
-                onCategoryChange = onCategoryChange,
-                onProductClick = onProductClick
-            )
-        },
-        bottomBar = {
-            BottomNavBar(
-                more = false,
-                onSwitchTab = onMoreClick
+    val searchQueryProvider = stateProvider.focusOn { searchQuery }
+    val categoryFilterStateProvider = stateProvider.focusOn { categoryFilterState }
+    val products = stateProvider.read { products }
+
+    LazyVerticalGrid(
+        modifier = modifier.fillMaxWidth(),
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 20.dp),
+        verticalArrangement = Arrangement.spacedBy(20.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            InputField(
+                stateProvider = searchQueryProvider,
+                onValueChange = onSearchQueryChange,
+                placeholder = "Search products...",
+                leadingIcon = Icons.Filled.Search,
+                password = false
             )
         }
-    )
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Banner()
+        }
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            CategoryFilter(
+                stateProvider = categoryFilterStateProvider,
+                onCategoryChange = onCategoryChange
+            )
+        }
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Text(
+                text = "Popular Now",
+                style = TextStyle(
+                    color = Color(0xFFFAFAF9),
+                    fontFamily = DMSansFontFamily,
+                    fontSize = 22.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Start
+                )
+            )
+        }
+        items(products) { product ->
+            ProductCard(
+                productName = product.name,
+                productPrice = product.price,
+                images = product.images,
+                onClick = { onProductClick(product.productID) }
+            )
+        }
+    }
 }
 
 @PreviewLightDark
 @Composable
-private fun HomeScreenContentPreview() {
+private fun HomeBodyPreview() {
     val categories = listOf(
         Category(categoryID = "all",         displayName = "All",         itemCount = 926),
         Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
@@ -124,13 +162,11 @@ private fun HomeScreenContentPreview() {
     )
 
     ShoppingAppTheme {
-        HomeScreenContent(
+        HomeBody(
             stateProvider = { homeScreenState },
             onSearchQueryChange = {},
-            onCartClick = {},
             onCategoryChange = {},
-            onProductClick = {},
-            onMoreClick = {}
+            onProductClick = {}
         )
     }
 }

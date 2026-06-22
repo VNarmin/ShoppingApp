@@ -23,16 +23,24 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.model.Category
+import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
+internal data class CategoryFilterState(
+    val categories: List<Category>,
+    val selectedCategory: Category
+)
+
 @Composable
 internal fun CategoryFilter(
-    categories: List<Category>,
-    selectedCategoryID: String,
+    stateProvider: () -> CategoryFilterState,
     onCategoryChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val categories = stateProvider.read { categories }
+    val selectedCategory = stateProvider.read { selectedCategory }
+
     LazyRow(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -44,7 +52,7 @@ internal fun CategoryFilter(
         ) { category ->
             CategoryCard(
                 label = category.displayName,
-                selected = category.categoryID == selectedCategoryID,
+                selected = category == selectedCategory,
                 onClick = { onCategoryChange(category.categoryID) }
             )
         }
@@ -53,9 +61,9 @@ internal fun CategoryFilter(
 
 @Composable
 private fun CategoryCard(
-    label : String,
-    selected : Boolean,
-    onClick : () -> Unit
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit
 ) {
     val backgroundColor = if (selected) Color(0xFF6366F1) else Color(0xFF16161A)
     val textColor = if (selected) Color(0xFFFFFFFF) else Color(0xFF6B6B70)
@@ -127,10 +135,14 @@ private fun CategoryFilterPreview() {
         Category(categoryID = "accessories", displayName = "Accessories", itemCount = 112)
     )
 
+    val categoryFilterState = CategoryFilterState(
+        categories = categories,
+        selectedCategory = categories.first()
+    )
+
     ShoppingAppTheme {
         CategoryFilter(
-            categories = categories,
-            selectedCategoryID = "tech",
+            stateProvider = { categoryFilterState },
             onCategoryChange = {},
         )
     }

@@ -27,7 +27,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 internal fun AuthInputGroup(
     modifier: Modifier = Modifier,
     prompt: String,
-    value: String,
+    stateProvider: () -> String,
     placeholder: String,
     leadingIcon: ImageVector? = null,
     password: Boolean = false,
@@ -50,7 +50,7 @@ internal fun AuthInputGroup(
         )
 
         InputField(
-            value = value,
+            stateProvider = stateProvider,
             onValueChange = onValueChange,
             placeholder = placeholder,
             leadingIcon = leadingIcon,
@@ -65,7 +65,7 @@ private fun EmailInputGroupPreview() {
     ShoppingAppTheme {
         AuthInputGroup(
             prompt = "Email",
-            value = "",
+            stateProvider = { "" },
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
             password = false,
@@ -80,7 +80,7 @@ private fun PasswordInputGroupPreview() {
     ShoppingAppTheme {
         AuthInputGroup(
             prompt = "Password",
-            value = "",
+            stateProvider = { "" },
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Password,
             password = true,
@@ -95,7 +95,7 @@ private fun UsernameInputGroupPreview() {
     ShoppingAppTheme {
         AuthInputGroup(
             prompt = "Username",
-            value = "",
+            stateProvider = { "" },
             placeholder = "username",
             leadingIcon = Icons.Default.Person,
             password = false,

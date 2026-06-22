@@ -38,12 +38,12 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CategoryDetailBody(
-    stateReader: () -> CategoryDetailScreenState,
+    stateProvider: () -> CategoryDetailScreenState,
     modifier: Modifier = Modifier,
     onProductClick : (String) -> Unit
 ) {
-    val currentCategory = stateReader.read { currentCategory }
-    val products = stateReader.read { products }
+    val itemCount = stateProvider.read { currentCategory.itemCount }
+    val products = stateProvider.read { products }
 
     LazyVerticalGrid(
         modifier = modifier.fillMaxWidth(),
@@ -59,7 +59,7 @@ internal fun CategoryDetailBody(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${currentCategory.itemCount} results",
+                    text = "$itemCount results",
                     style = TextStyle(
                         color = Color(0xFF6B6B70),
                         fontFamily = DMSansFontFamily,
@@ -175,7 +175,7 @@ private fun CategoryDetailBodyPreview() {
 
     ShoppingAppTheme {
         CategoryDetailBody(
-            stateReader = { categoryDetailScreenState },
+            stateProvider = { categoryDetailScreenState },
             onProductClick = {},
         )
     }

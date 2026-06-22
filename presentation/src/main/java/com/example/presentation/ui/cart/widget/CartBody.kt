@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.domain.model.CartItem
 import com.example.domain.model.Category
 import com.example.domain.model.Product
+import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.cart.mvi.CartScreenState
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -56,7 +57,7 @@ internal fun CartBody(
             }
         }
         CartSummary(
-            stateProvider = stateProvider,
+            stateProvider = stateProvider.focusOn { cartSummaryState },
             onProceedToCheckoutClick = onProceedToCheckOutClick
         )
     }

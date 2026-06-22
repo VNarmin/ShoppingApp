@@ -25,11 +25,11 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CartHeader(
-    stateProvider : () -> CartScreenState,
+    stateProvider : () -> Int,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val totalItemCount = stateProvider.read { totalItemCount }
+    val totalItemCount = stateProvider.read { this }
 
     Row(
         modifier = modifier
@@ -72,7 +72,7 @@ private fun CartHeaderPreview() {
 
     ShoppingAppTheme {
         CartHeader(
-            stateProvider = { cartScreenState },
+            stateProvider = { cartScreenState.totalItemCount },
             onBackClick = {},
         )
     }

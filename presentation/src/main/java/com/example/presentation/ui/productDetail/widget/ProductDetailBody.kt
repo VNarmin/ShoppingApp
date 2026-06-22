@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.model.Category
 import com.example.domain.model.Product
+import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.common.QuantitySelector
 import com.example.presentation.ui.productDetail.mvi.ProductDetailScreenState
@@ -34,24 +35,19 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProductDetailBody(
-    stateReader: () -> ProductDetailScreenState,
+    stateProvider: () -> ProductDetailScreenState,
     onReadMoreClick: () -> Unit,
     onAddClick: () -> Unit,
     onRemoveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val product = stateReader.read { product }
-    val descriptionExpanded = stateReader.read { descriptionExpanded }
-    val quantity = stateReader.read { quantity }
+    val product = stateProvider.read { product }
+    val descriptionExpanded = stateProvider.read { descriptionExpanded }
+    val quantity = stateProvider.read { quantity }
+    val stockCount = stateProvider.read { product.stockCount }
 
-    val productImages = product.images
-    val productName = product.name
-    val productPrice = product.price
-    val inStock = product.inStock
-    val productRating = product.rating
-    val reviewCount = product.reviewCount
-    val productDescription = product.description
-    val stockCount = product.stockCount
+    val productImagesProvider = stateProvider.focusOn { product.images }
+    val productInStockProvider = stateProvider.focusOn { product.inStock }
 
     Column(
         modifier = modifier
@@ -61,10 +57,10 @@ internal fun ProductDetailBody(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        ProductImagePager(productImages = productImages)
+        ProductImagePager(stateProvider = productImagesProvider)
 
         Text(
-            text = productName,
+            text = product.name,
             style = TextStyle(
                 color = Color(0xFFFAFAF9),
                 fontFamily = DMSansFontFamily,
@@ -80,7 +76,7 @@ internal fun ProductDetailBody(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "$${"%.2f".format(productPrice)}",
+                text = "$${"%.2f".format(product.price)}",
                 style = TextStyle(
                     color = Color(0xFF32D583),
                     fontFamily = DMSansFontFamily,
@@ -89,7 +85,7 @@ internal fun ProductDetailBody(
                     textAlign = TextAlign.Start
                 )
             )
-            StockBadge(inStock = inStock)
+            StockBadge(stateProvider = productInStockProvider)
         }
 
         Row(
@@ -104,7 +100,7 @@ internal fun ProductDetailBody(
                 tint = Color(0xFFFFB547)
             )
             Text(
-                text = "%.1f".format(productRating),
+                text = "%.1f".format(product.rating),
                 style = TextStyle(
                     color = Color(0xFFFAFAF9),
                     fontFamily = DMSansFontFamily,
@@ -114,7 +110,7 @@ internal fun ProductDetailBody(
                 )
             )
             Text(
-                text = "· $reviewCount reviews",
+                text = "· ${product.reviewCount} reviews",
                 style = TextStyle(
                     color = Color(0xFF6B6B70),
                     fontFamily = DMSansFontFamily,
@@ -126,7 +122,7 @@ internal fun ProductDetailBody(
         }
 
         Text(
-            text = productDescription,
+            text = product.description,
             maxLines = if (descriptionExpanded) Int.MAX_VALUE else 3,
             overflow = if (descriptionExpanded) TextOverflow.Clip else TextOverflow.Ellipsis,
             style = TextStyle(
@@ -194,7 +190,7 @@ private fun DetailBodyPreview() {
 
     ShoppingAppTheme {
         ProductDetailBody(
-            stateReader = { productDetailScreenState },
+            stateProvider = { productDetailScreenState },
             onReadMoreClick = {},
             onAddClick = {},
             onRemoveClick = {}

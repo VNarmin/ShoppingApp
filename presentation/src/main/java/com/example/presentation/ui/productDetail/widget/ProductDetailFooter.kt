@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,7 +37,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun ProductDetailFooter(
     modifier: Modifier = Modifier,
-    enabled: Boolean,
+    enabled: Boolean = true,
     onAddToCartClick: () -> Unit,
     onBuyNowClick: () -> Unit
 ) {
@@ -58,6 +59,7 @@ internal fun ProductDetailFooter(
     ) {
         Row(
             modifier = Modifier
+                .height(56.dp)
                 .weight(1F)
                 .then(
                     if (enabled) {
