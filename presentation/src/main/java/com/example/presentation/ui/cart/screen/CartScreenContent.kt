@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.CartItem
 import com.example.domain.model.Category
 import com.example.domain.model.Product
+import com.example.presentation.base.focusOn
 import com.example.presentation.ui.cart.mvi.CartScreenState
 import com.example.presentation.ui.cart.widget.CartBody
 import com.example.presentation.ui.cart.widget.CartHeader
@@ -16,28 +17,28 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CartScreenContent(
-    stateReader: () -> CartScreenState,
+    stateProvider: () -> CartScreenState,
     onBackClick: () -> Unit,
     onDeleteClick: () -> Unit,
     onAddClick: () -> Unit,
     onRemoveClick: () -> Unit,
-    onClickToProceedToCheckOut: () -> Unit
+    onProceedToCheckOutClick: () -> Unit
 ) {
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         topBar = {
             CartHeader(
-                stateReader = stateReader,
+                stateProvider = stateProvider,
                 onBackClick = onBackClick
             )
         }
     ) { innerPadding ->
         CartBody(
-            stateReader = stateReader,
+            stateProvider = stateProvider,
             onDeleteClick = onDeleteClick,
             onAddClick = onAddClick,
             onRemoveClick = onRemoveClick,
-            onClickToProceedToCheckOut = onClickToProceedToCheckOut,
+            onProceedToCheckOutClick = onProceedToCheckOutClick,
             modifier = Modifier.padding(innerPadding)
         )
     }
@@ -92,12 +93,12 @@ private fun CartScreenContentPreview() {
 
     ShoppingAppTheme {
         CartScreenContent(
-            stateReader = { cartScreenState },
+            stateProvider = { cartScreenState },
             onBackClick = {},
             onDeleteClick = {},
             onAddClick = {},
             onRemoveClick = {},
-            onClickToProceedToCheckOut = {}
+            onProceedToCheckOutClick = {}
         )
     }
 }

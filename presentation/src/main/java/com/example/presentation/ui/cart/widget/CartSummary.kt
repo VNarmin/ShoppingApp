@@ -28,13 +28,13 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CartSummary(
-    stateReader : () -> CartScreenState,
-    onClickProceedToCheckout: () -> Unit,
+    stateProvider : () -> CartScreenState,
+    onProceedToCheckoutClick: () -> Unit,
     modifier : Modifier = Modifier
 ) {
-    val subtotal = stateReader.read { subtotal }
-    val shippingCost = stateReader.read { shippingCost }
-    val total = stateReader.read { total }
+    val subtotal = stateProvider.read { subtotal }
+    val shippingCost = stateProvider.read { shippingCost }
+    val total = stateProvider.read { total }
 
     Column(
         modifier = modifier
@@ -143,7 +143,7 @@ internal fun CartSummary(
         PrimaryButton(
             command = "Proceed to Checkout",
             enabled = true,
-            onClick = onClickProceedToCheckout
+            onClick = onProceedToCheckoutClick
         )
     }
 }
@@ -155,8 +155,8 @@ private fun CartSummaryPreview() {
 
     ShoppingAppTheme {
         CartSummary(
-            stateReader = { cartScreenState },
-            onClickProceedToCheckout = {}
+            stateProvider = { cartScreenState },
+            onProceedToCheckoutClick = {}
         )
     }
 }

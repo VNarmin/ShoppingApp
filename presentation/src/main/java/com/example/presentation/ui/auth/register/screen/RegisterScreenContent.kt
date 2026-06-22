@@ -12,7 +12,6 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.presentation.base.read
@@ -25,16 +24,16 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun RegisterScreenContent(
-    stateReader: () -> RegisterScreenState,
+    stateProvider: () -> RegisterScreenState,
     onUsernameChange: (String) -> Unit,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onRegisterClick: () -> Unit,
     onLoginClick: () -> Unit
 ) {
-    val username = stateReader.read { username }
-    val email = stateReader.read { email }
-    val password = stateReader.read { password }
+    val username = stateProvider.read { username }
+    val email = stateProvider.read { email }
+    val password = stateProvider.read { password }
 
     Column(
         modifier = Modifier
@@ -100,7 +99,7 @@ private fun RegisterScreenContentPreview() {
     ShoppingAppTheme {
         val registerScreenState = RegisterScreenState()
         RegisterScreenContent(
-            stateReader = { registerScreenState },
+            stateProvider = { registerScreenState },
             onUsernameChange = {},
             onEmailChange = {},
             onPasswordChange = {},

@@ -11,7 +11,6 @@ import androidx.compose.material.icons.filled.Password
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.presentation.base.read
@@ -24,14 +23,14 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun LoginScreenContent(
-    stateReader: () -> LoginScreenState,
+    stateProvider: () -> LoginScreenState,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit
 ) {
-    val emailValue = stateReader.read { email }
-    val passwordValue = stateReader.read { password }
+    val emailValue = stateProvider.read { email }
+    val passwordValue = stateProvider.read { password }
 
     Column(
         modifier = Modifier
@@ -87,7 +86,7 @@ private fun LoginScreenContentPreview() {
     ShoppingAppTheme {
         val loginScreenState = LoginScreenState()
         LoginScreenContent(
-            stateReader = { loginScreenState },
+            stateProvider = { loginScreenState },
             onEmailChange = {},
             onPasswordChange = {},
             onLoginClick = {},

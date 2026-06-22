@@ -24,7 +24,7 @@ internal fun LoginScreen(
     }
 
     LoginScreenContent(
-        stateReader = { loginScreenState },
+        stateProvider = { loginScreenState },
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
         onLoginClick = viewModel::onLoginClick,

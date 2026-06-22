@@ -24,7 +24,7 @@ internal fun RegisterScreen(
     }
 
     RegisterScreenContent(
-        stateReader = { registerScreenState },
+        stateProvider = { registerScreenState },
         onUsernameChange = viewModel::onUsernameChange,
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,

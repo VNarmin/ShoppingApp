@@ -20,14 +20,14 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CartBody(
-    stateReader: () -> CartScreenState,
+    stateProvider: () -> CartScreenState,
     onDeleteClick: () -> Unit,
     onAddClick: () -> Unit,
     onRemoveClick: () -> Unit,
-    onClickToProceedToCheckOut: () -> Unit,
+    onProceedToCheckOutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val cartItems = stateReader.read { cartItems }
+    val cartItems = stateProvider.read { cartItems }
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -56,8 +56,8 @@ internal fun CartBody(
             }
         }
         CartSummary(
-            stateReader = stateReader,
-            onClickProceedToCheckout = onClickToProceedToCheckOut
+            stateProvider = stateProvider,
+            onProceedToCheckoutClick = onProceedToCheckOutClick
         )
     }
 }
@@ -111,11 +111,11 @@ private fun CartBodyPreview() {
 
     ShoppingAppTheme {
         CartBody(
-            stateReader = { cartScreenState },
+            stateProvider = { cartScreenState },
             onDeleteClick = {},
             onAddClick = {},
             onRemoveClick = {},
-            onClickToProceedToCheckOut = {}
+            onProceedToCheckOutClick = {}
         )
     }
 }
