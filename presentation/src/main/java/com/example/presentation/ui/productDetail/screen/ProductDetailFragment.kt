@@ -1,4 +1,4 @@
-package com.example.presentation.ui.cart.screen
+package com.example.presentation.ui.productDetail.screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
-internal class CartFragment : Fragment() {
+internal class ProductDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -18,8 +18,9 @@ internal class CartFragment : Fragment() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         setContent {
             ShoppingAppTheme {
-                CartScreen(
+                ProductDetailScreen(
                     onNavigateBack = {},
+                    onNavigateToCart = {},
                     onNavigateToCheckout = {}
                 )
             }

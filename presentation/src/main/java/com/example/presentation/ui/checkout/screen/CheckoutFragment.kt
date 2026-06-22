@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
-class CheckoutFragment : Fragment() {
+internal class CheckoutFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -19,7 +19,7 @@ class CheckoutFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 CheckoutScreen(
-                    onNavigateToBack = {},
+                    onNavigateBack = {},
                     onNavigateToOrderConfirmation = {}
                 )
             }

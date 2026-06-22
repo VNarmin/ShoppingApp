@@ -14,7 +14,7 @@ import com.example.presentation.ui.productDetail.widget.ProductDetailHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun ProductDetailScreenContent(
+internal fun ProductDetailScreenContent(
     stateReader: () -> ProductDetailScreenState,
     onBackClick: () -> Unit,
     onCartClick: () -> Unit,

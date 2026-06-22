@@ -10,14 +10,14 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 internal fun CartScreen(
     viewModel: CartViewModel = koinViewModel(),
-    onNavigateToBack: () -> Unit,
+    onNavigateBack: () -> Unit,
     onNavigateToCheckout: () -> Unit
 ) {
     val cartScreenState = viewModel.collectAsState().value
 
     viewModel.collectSideEffect { effect ->
         when (effect) {
-            is CartEffect.NavigateToBack -> onNavigateToBack()
+            is CartEffect.NavigateBack -> onNavigateBack()
             is CartEffect.NavigateToCheckout -> onNavigateToCheckout()
             is CartEffect.Error -> {}
         }

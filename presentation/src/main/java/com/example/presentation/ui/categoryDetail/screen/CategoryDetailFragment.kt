@@ -9,7 +9,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
-class CategoryDetailFragment : Fragment() {
+internal class CategoryDetailFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

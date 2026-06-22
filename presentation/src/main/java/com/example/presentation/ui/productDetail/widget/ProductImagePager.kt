@@ -28,14 +28,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.dropShadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.shadow.Shadow
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-fun ProductImagePager(
+internal fun ProductImagePager(
     productImages: List<String>,
     modifier: Modifier = Modifier
 ) {
@@ -118,7 +118,7 @@ fun ProductImagePager(
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun Product1ImagePagerPreview() {
     ShoppingAppTheme {
@@ -128,7 +128,7 @@ private fun Product1ImagePagerPreview() {
     }
 }
 
-@Preview
+@PreviewLightDark
 @Composable
 private fun Product2ImagePagerPreview() {
     ShoppingAppTheme {
