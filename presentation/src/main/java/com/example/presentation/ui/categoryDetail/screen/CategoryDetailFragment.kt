@@ -19,6 +19,7 @@ internal class CategoryDetailFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 CategoryDetailScreen(
+                    categoryID = "", // should come from the previous screen
                     onNavigateToMore = {},
                     onNavigateToProductDetail = {},
                     onNavigateToHome = {}

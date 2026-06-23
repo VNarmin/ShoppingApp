@@ -6,5 +6,6 @@ import androidx.compose.runtime.Immutable
 internal sealed interface LoginEffect {
     data object NavigateToHome : LoginEffect
     data object NavigateToRegister : LoginEffect
-    data class Error(val message: String) : LoginEffect
+
+    data class Error(val errorMessage: String) : LoginEffect
 }

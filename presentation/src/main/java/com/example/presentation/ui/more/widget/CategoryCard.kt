@@ -30,9 +30,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CategoryCard(
-    categoryDisplayName : String,
-    categoryItemCount : Int,
-    onClick : () -> Unit,
+    categoryDisplayName: String,
+    categoryItemCount: Int,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(

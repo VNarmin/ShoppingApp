@@ -1,33 +1,56 @@
 package com.example.presentation.ui.categoryDetail.mvi
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.usecase.LoadCategoryDetailScreenUseCase
+import com.example.domain.repository.CategoryRepository
+import com.example.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.combine
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 
 internal class CategoryDetailViewModel(
-    private val loadCategoryDetailScreenUseCase: LoadCategoryDetailScreenUseCase
+    private val categoryRepository: CategoryRepository,
+    private val productRepository: ProductRepository
 ) : ViewModel(), ContainerHost<CategoryDetailScreenState, CategoryDetailEffect> {
-    override val container = container<CategoryDetailScreenState, CategoryDetailEffect>(initialState = CategoryDetailScreenState.INITIAL)
+    override val container = container<CategoryDetailScreenState, CategoryDetailEffect>(
+        initialState = CategoryDetailScreenState.INITIAL
+    )
 
-    fun loadScreen(categoryID: String) = intent { // an ID should come from the previous screen
-        reduce { state.copy(loading = true, errorMessage = null) }
-        combine(
-            flow = loadCategoryDetailScreenUseCase.getCategoryDetails(categoryID),
-            flow2 = loadCategoryDetailScreenUseCase.getProductsByCategory(categoryID)
-        ) { currentCategory, products -> currentCategory to products }
+    // both data sources are needed simultaneously to render the screen
+    // without wrapping in an intent block = concurrently
+    fun loadScreen(categoryID: String) {
+        intent { reduce { state.copy(loading = true, errorMessage = null) } }
+        getCategoryDetails(categoryID = categoryID)
+        getProductsByCategory(categoryID = categoryID)
+    }
+
+    private fun getCategoryDetails(categoryID: String) = intent {
+        categoryRepository.getCategoryDetails(categoryID)
             .catch { error ->
                 val message = error.message ?: "Something went wrong."
                 reduce { state.copy(loading = false, errorMessage = message) }
-                postSideEffect(CategoryDetailEffect.Error(message))
+                postSideEffect(CategoryDetailEffect.Error(errorMessage = message))
             }
-            .collect { (currentCategory, products) ->
+            .collect { category ->
                 reduce {
                     state.copy(
                         loading = false,
-                        currentCategory = currentCategory,
+                        currentCategory = category
+                    )
+                }
+            }
+    }
+
+    private fun getProductsByCategory(categoryID: String) = intent {
+        productRepository.getProductsByCategory(categoryID)
+            .catch { error ->
+                val message = error.message ?: "Something went wrong."
+                reduce { state.copy(loading = false, errorMessage = message) }
+                postSideEffect(CategoryDetailEffect.Error(errorMessage = message))
+            }
+            .collect { products ->
+                reduce {
+                    state.copy(
+                        loading = false,
                         products = products
                     )
                 }

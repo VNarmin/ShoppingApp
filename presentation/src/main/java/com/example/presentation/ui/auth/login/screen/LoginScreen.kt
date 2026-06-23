@@ -9,9 +9,9 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun LoginScreen(
-    viewModel : LoginViewModel = koinViewModel(),
-    onNavigateToHome : () -> Unit,
-    onNavigateToRegister : () -> Unit
+    viewModel: LoginViewModel = koinViewModel(),
+    onNavigateToHome: () -> Unit,
+    onNavigateToRegister: () -> Unit
 ) {
     val loginScreenState = viewModel.collectAsState().value
 

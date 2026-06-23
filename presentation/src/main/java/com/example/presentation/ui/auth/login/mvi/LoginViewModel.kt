@@ -10,7 +10,9 @@ internal class LoginViewModel(
     private val authRepository: AuthRepository
 ) : ViewModel(), ContainerHost<LoginScreenState, LoginEffect> {
 
-    override val container = container<LoginScreenState, LoginEffect>(initialState = LoginScreenState.INITIAL)
+    override val container = container<LoginScreenState, LoginEffect>(
+        initialState = LoginScreenState.INITIAL
+    )
 
     fun onEmailChange(email: String) = intent {
         reduce { state.copy(email = email, errorMessage = null) }
@@ -27,19 +29,19 @@ internal class LoginViewModel(
         if (email.isBlank() && password.isBlank()) {
             val message = "Please fill in all required fields."
             reduce { state.copy(loading = false, errorMessage = message) }
-            postSideEffect(LoginEffect.Error(message))
+            postSideEffect(LoginEffect.Error(errorMessage = message))
             return@intent
         }
         if (email.isBlank()) {
             val message = "Please enter your email address to continue."
             reduce { state.copy(loading = false, errorMessage = message) }
-            postSideEffect(LoginEffect.Error(message))
+            postSideEffect(LoginEffect.Error(errorMessage = message))
             return@intent
         }
         if (password.isBlank()) {
             val message = "Please enter your password to continue."
             reduce { state.copy(loading = false, errorMessage = message) }
-            postSideEffect(LoginEffect.Error(message))
+            postSideEffect(LoginEffect.Error(errorMessage = message))
             return@intent
         }
 
@@ -51,7 +53,7 @@ internal class LoginViewModel(
         ).catch { error ->
             val message = error.message ?: "Something went wrong during authentication."
             reduce { state.copy(loading = false, errorMessage = message) }
-            postSideEffect(LoginEffect.Error(message))
+            postSideEffect(LoginEffect.Error(errorMessage = message))
         }.collect {
             reduce { state.copy(loading = false) }
             postSideEffect(LoginEffect.NavigateToHome)

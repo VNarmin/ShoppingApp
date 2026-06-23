@@ -18,8 +18,8 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProductDetailHeader(
-    onBackClick : () -> Unit,
-    onCartClick : () -> Unit
+    onBackClick: () -> Unit,
+    onCartClick: () -> Unit
 ) {
     Row(
         modifier = Modifier

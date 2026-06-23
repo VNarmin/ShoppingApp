@@ -16,7 +16,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-internal fun MoreHeader(modifier : Modifier = Modifier) {
+internal fun MoreHeader(modifier: Modifier = Modifier) {
     Text(
         modifier = modifier
             .fillMaxWidth()

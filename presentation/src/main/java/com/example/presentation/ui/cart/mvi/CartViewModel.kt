@@ -7,5 +7,7 @@ import org.orbitmvi.orbit.viewmodel.container
 internal class CartViewModel(
     // constructor parameters
 ) : ViewModel(), ContainerHost<CartScreenState, CartEffect> {
-    override val container = container<CartScreenState, CartEffect>(initialState = CartScreenState.INITIAL)
+    override val container = container<CartScreenState, CartEffect>(
+        initialState = CartScreenState.INITIAL
+    )
 }

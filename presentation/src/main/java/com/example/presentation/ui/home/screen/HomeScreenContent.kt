@@ -109,17 +109,11 @@ private fun HomeScreenContentPreview() {
         )
     )
 
-    val selectedCategory = Category(
-        categoryID = "all",
-        displayName = "All",
-        itemCount = 926
-    )
-
     val homeScreenState = HomeScreenState(
         products = products,
         categoryFilterState = CategoryFilterState(
             categories = categories,
-            selectedCategory = selectedCategory
+            selectedCategoryID = "all"
         )
     )
 

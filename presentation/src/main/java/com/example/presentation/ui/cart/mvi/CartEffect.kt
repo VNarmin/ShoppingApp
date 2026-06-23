@@ -6,5 +6,6 @@ import androidx.compose.runtime.Immutable
 internal sealed interface CartEffect {
     data object NavigateBack : CartEffect
     data object NavigateToCheckout : CartEffect
+
     data class Error(val errorMessage: String) : CartEffect
 }

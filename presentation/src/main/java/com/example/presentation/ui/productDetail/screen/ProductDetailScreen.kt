@@ -1,6 +1,7 @@
 package com.example.presentation.ui.productDetail.screen
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.example.presentation.ui.productDetail.mvi.ProductDetailEffect
 import com.example.presentation.ui.productDetail.mvi.ProductDetailViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -9,12 +10,17 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun ProductDetailScreen(
-    viewModel : ProductDetailViewModel = koinViewModel(),
+    productID: String,
+    viewModel: ProductDetailViewModel = koinViewModel(),
     onNavigateBack: () -> Unit,
     onNavigateToCart: () -> Unit,
     onNavigateToCheckout: () -> Unit
 ) {
-    val productDetailScreenState = viewModel.collectAsState().value
+    val state = viewModel.collectAsState().value
+
+    LaunchedEffect(Unit) {
+        viewModel.getProductDetails(productID = productID)
+    }
 
     viewModel.collectSideEffect { effect ->
         when (effect) {
@@ -26,10 +32,10 @@ internal fun ProductDetailScreen(
     }
 
     ProductDetailScreenContent(
-        stateProvider = { productDetailScreenState },
+        stateProvider = { state },
         onBackClick = viewModel::onBackClick,
         onCartClick = viewModel::onCartClick,
-        onReadMoreClick = {},
+        onReadMoreClick = viewModel::onReadMoreClick,
         onAddClick = viewModel::onAddClick,
         onRemoveClick = viewModel::onRemoveClick,
         onAddToCartClick = viewModel::onAddToCartClick,

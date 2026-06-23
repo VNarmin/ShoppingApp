@@ -27,7 +27,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun MoreBody(
     stateProvider: () -> MoreScreenState,
-    onCategoryClick : (String) -> Unit,
+    onCategoryClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val usernameProvider = stateProvider.focusOn { username }
