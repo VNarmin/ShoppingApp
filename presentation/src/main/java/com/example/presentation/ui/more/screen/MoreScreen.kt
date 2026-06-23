@@ -22,4 +22,10 @@ internal fun MoreScreen(
             is MoreEffect.Error -> {}
         }
     }
+
+    MoreScreenContent(
+        stateProvider = { moreScreenState },
+        onCategoryClick = viewModel::onCategoryClick,
+        onHomeClick = viewModel::onHomeClick
+    )
 }

@@ -24,4 +24,15 @@ internal fun ProductDetailScreen(
             is ProductDetailEffect.Error -> {}
         }
     }
+
+    ProductDetailScreenContent(
+        stateProvider = { productDetailScreenState },
+        onBackClick = viewModel::onBackClick,
+        onCartClick = viewModel::onCartClick,
+        onReadMoreClick = {},
+        onAddClick = viewModel::onAddClick,
+        onRemoveClick = viewModel::onRemoveClick,
+        onAddToCartClick = viewModel::onAddToCartClick,
+        onBuyNowClick = viewModel::onBuyNowClick
+    )
 }

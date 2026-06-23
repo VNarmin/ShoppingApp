@@ -24,4 +24,13 @@ internal fun HomeScreen(
             is HomeEffect.Error -> {}
         }
     }
+
+    HomeScreenContent(
+        stateProvider = { homeScreenState },
+        onSearchQueryChange = viewModel::onSearchQueryChange,
+        onCartClick = viewModel::onCartClick,
+        onCategoryChange = viewModel::onCategoryChange,
+        onProductClick = viewModel::onProductClick,
+        onMoreClick = viewModel::onMoreClick
+    )
 }

@@ -13,7 +13,7 @@ interface AuthRepository {
 
     suspend fun resetPassword(email: String)
 
-    fun getCurrentUser(): User?
+    fun getCurrentUser(): Flow<User?>
 
     fun shouldSkipAuth(): Boolean
 

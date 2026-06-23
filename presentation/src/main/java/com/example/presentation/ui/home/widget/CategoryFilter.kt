@@ -29,7 +29,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 internal data class CategoryFilterState(
     val categories: List<Category>,
-    val selectedCategory: Category
+    val selectedCategoryID: String
 )
 
 @Composable
@@ -39,7 +39,7 @@ internal fun CategoryFilter(
     modifier: Modifier = Modifier
 ) {
     val categories = stateProvider.read { categories }
-    val selectedCategory = stateProvider.read { selectedCategory }
+    val selectedCategoryID = stateProvider.read { selectedCategoryID }
 
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -52,7 +52,7 @@ internal fun CategoryFilter(
         ) { category ->
             CategoryCard(
                 label = category.displayName,
-                selected = category == selectedCategory,
+                selected = category.categoryID == selectedCategoryID,
                 onClick = { onCategoryChange(category.categoryID) }
             )
         }
@@ -137,7 +137,7 @@ private fun CategoryFilterPreview() {
 
     val categoryFilterState = CategoryFilterState(
         categories = categories,
-        selectedCategory = categories.first()
+        selectedCategoryID = "all"
     )
 
     ShoppingAppTheme {

@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import androidx.core.content.edit
 import com.example.data.mapper.toDomain
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
 
 internal class AuthRepositoryImpl(
     private val auth : FirebaseAuth,
@@ -65,8 +67,12 @@ internal class AuthRepositoryImpl(
         auth.sendPasswordResetEmail(email)
     }
 
-    override fun getCurrentUser(): User? {
-        return auth.currentUser?.toDomain()
+    override fun getCurrentUser(): Flow<User?> = callbackFlow {
+        val listener = FirebaseAuth.AuthStateListener { auth ->
+            trySend(auth.currentUser?.toDomain())
+        }
+        auth.addAuthStateListener(listener)
+        awaitClose { auth.removeAuthStateListener(listener) }
     }
 
     override fun shouldSkipAuth() : Boolean {

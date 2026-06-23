@@ -24,4 +24,11 @@ internal fun CategoryDetailScreen(
             is CategoryDetailEffect.Error -> {}
         }
     }
+
+    CategoryDetailScreenContent(
+        stateProvider = { categoryDetailScreenState },
+        onBackClick = viewModel::onBackClick,
+        onHomeClick = viewModel::onHomeClick,
+        onProductClick = viewModel::onProductClick
+    )
 }

@@ -3,6 +3,8 @@ package com.example.data.di
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.data.repository.AuthRepositoryImpl
+import com.example.data.repository.CategoryRepositoryImpl
+import com.example.data.repository.ProductRepositoryImpl
 import com.example.domain.repository.AuthRepository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -23,5 +25,13 @@ val dataModule = module {
             auth = get(),
             sp = get()
         )
+    }
+
+    single<CategoryRepositoryImpl> {
+        CategoryRepositoryImpl()
+    }
+
+    single<ProductRepositoryImpl> {
+        ProductRepositoryImpl()
     }
 }
