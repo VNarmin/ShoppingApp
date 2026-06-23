@@ -9,7 +9,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun OrderConfirmationScreen(
-    viewModel : OrderConfirmationViewModel = koinViewModel(),
+    viewModel: OrderConfirmationViewModel = koinViewModel(),
     onNavigateToHome: () -> Unit
 ) {
     val orderConfirmationScreenState = viewModel.collectAsState().value

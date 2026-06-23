@@ -19,9 +19,10 @@ internal class ProductDetailFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 ProductDetailScreen(
+                    productID = "", // should come from the previous screen
                     onNavigateBack = {},
                     onNavigateToCart = {},
-                    onNavigateToCheckout = {}
+                    onNavigateToCheckout = {},
                 )
             }
         }

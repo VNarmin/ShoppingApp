@@ -25,7 +25,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CartHeader(
-    stateProvider : () -> Int,
+    stateProvider: () -> Int,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

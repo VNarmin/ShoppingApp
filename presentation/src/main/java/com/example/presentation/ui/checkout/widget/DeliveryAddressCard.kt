@@ -33,7 +33,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun DeliveryAddressCard(
     stateProvider: () -> String,
-    modifier : Modifier = Modifier
+    modifier: Modifier = Modifier
 ) {
     val username = stateProvider.read { this }
 

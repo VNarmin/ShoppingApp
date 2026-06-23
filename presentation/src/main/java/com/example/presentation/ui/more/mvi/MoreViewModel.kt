@@ -11,6 +11,7 @@ internal class MoreViewModel(
     private val authRepository: AuthRepository,
     private val categoryRepository: CategoryRepository
 ) : ViewModel(), ContainerHost<MoreScreenState, MoreEffect> {
+
     override val container = container<MoreScreenState, MoreEffect>(
         initialState = MoreScreenState.INITIAL
     )

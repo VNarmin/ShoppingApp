@@ -35,8 +35,8 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun BottomNavBar(
     modifier: Modifier = Modifier,
-    more : Boolean = false,
-    onSwitchTab : () -> Unit
+    more: Boolean = false,
+    onSwitchTab: () -> Unit
 ) {
     Row(
         modifier = modifier

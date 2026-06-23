@@ -14,7 +14,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun OrderConfirmationFooter(
-    modifier : Modifier = Modifier,
+    modifier: Modifier = Modifier,
     onContinueShoppingClick: () -> Unit
 ) {
     Column(

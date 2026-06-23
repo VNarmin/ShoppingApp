@@ -7,5 +7,8 @@ import org.orbitmvi.orbit.viewmodel.container
 internal class OrderConfirmationViewModel(
     // constructor parameters
 ) : ViewModel(), ContainerHost<OrderConfirmationScreenState, OrderConfirmationEffect> {
-    override val container = container<OrderConfirmationScreenState, OrderConfirmationEffect>(initialState = OrderConfirmationScreenState.INITIAL)
+
+    override val container = container<OrderConfirmationScreenState, OrderConfirmationEffect>(
+        initialState = OrderConfirmationScreenState.INITIAL
+    )
 }

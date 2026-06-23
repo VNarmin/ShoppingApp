@@ -9,7 +9,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun SplashScreen(
-    viewModel : SplashViewModel = koinViewModel(),
+    viewModel: SplashViewModel = koinViewModel(),
     onNavigateForward: () -> Unit
 ) {
     val splashScreenState = viewModel.collectAsState().value

@@ -10,7 +10,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun HomeScreen(
-    viewModel : HomeViewModel = koinViewModel(),
+    viewModel: HomeViewModel = koinViewModel(),
     onNavigateToCart: () -> Unit,
     onNavigateToProductDetail: (String) -> Unit,
     onNavigateToMore: () -> Unit

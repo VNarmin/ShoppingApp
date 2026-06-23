@@ -23,7 +23,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun IconButton(
-    icon : ImageVector,
+    icon: ImageVector,
     onClick: () -> Unit
 ) {
     Box(

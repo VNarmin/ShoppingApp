@@ -40,7 +40,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 internal fun CategoryDetailBody(
     stateProvider: () -> CategoryDetailScreenState,
     modifier: Modifier = Modifier,
-    onProductClick : (String) -> Unit
+    onProductClick: (String) -> Unit
 ) {
     val itemCount = stateProvider.read { currentCategory.itemCount }
     val products = stateProvider.read { products }

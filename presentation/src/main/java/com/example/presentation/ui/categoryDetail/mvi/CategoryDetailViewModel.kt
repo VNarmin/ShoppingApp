@@ -11,6 +11,7 @@ internal class CategoryDetailViewModel(
     private val categoryRepository: CategoryRepository,
     private val productRepository: ProductRepository
 ) : ViewModel(), ContainerHost<CategoryDetailScreenState, CategoryDetailEffect> {
+
     override val container = container<CategoryDetailScreenState, CategoryDetailEffect>(
         initialState = CategoryDetailScreenState.INITIAL
     )

@@ -30,7 +30,7 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-internal fun PaymentMethodCard(modifier : Modifier = Modifier) {
+internal fun PaymentMethodCard(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start,

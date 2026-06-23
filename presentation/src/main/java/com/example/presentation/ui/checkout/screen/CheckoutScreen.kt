@@ -9,7 +9,7 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 
 @Composable
 internal fun CheckoutScreen(
-    viewModel : CheckoutViewModel = koinViewModel(),
+    viewModel: CheckoutViewModel = koinViewModel(),
     onNavigateBack: () -> Unit,
     onNavigateToOrderConfirmation: () -> Unit
 ) {

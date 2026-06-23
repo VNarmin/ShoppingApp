@@ -7,5 +7,8 @@ import org.orbitmvi.orbit.viewmodel.container
 internal class CheckoutViewModel(
     // constructor parameters
 ) : ViewModel(), ContainerHost<CheckoutScreenState, CheckoutEffect> {
-    override val container = container<CheckoutScreenState, CheckoutEffect>(initialState = CheckoutScreenState.INITIAL)
+
+    override val container = container<CheckoutScreenState, CheckoutEffect>(
+        initialState = CheckoutScreenState.INITIAL
+    )
 }
