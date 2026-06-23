@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface CategoryRepository {
     fun getCategories(): Flow<List<Category>>
 
-    fun getCategoryDetails(categoryID : String): Flow<Category>
+    fun getCategoryDetails(categoryID: String): Flow<Category>
 }
