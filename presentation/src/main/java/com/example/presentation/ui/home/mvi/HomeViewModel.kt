@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.CategoryRepository
 import com.example.domain.repository.ProductRepository
-import com.example.presentation.ui.home.widget.CategoryFilterState
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.debounce
@@ -29,7 +28,9 @@ internal class HomeViewModel(
         initialState = HomeScreenState.INITIAL
     )
 
-    fun loadScreen() {
+    init { loadScreen() }
+
+    private fun loadScreen() {
         intent { reduce { state.copy(loading = true, errorMessage = null) } }
         getCurrentUser()
         getCategories()
@@ -95,7 +96,7 @@ internal class HomeViewModel(
                 reduce {
                     state.copy(
                         loading = false,
-                        categoryFilterState = CategoryFilterState(
+                        categoryFilterState = state.categoryFilterState.copy(
                             categories = categories,
                             selectedCategoryID = DEFAULT_CATEGORY_ID
                         )

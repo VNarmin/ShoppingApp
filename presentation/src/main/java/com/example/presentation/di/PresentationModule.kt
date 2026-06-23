@@ -21,7 +21,7 @@ val presentationModule = module {
         LoginViewModel(authRepository = get())
     }
     viewModel {
-        CartViewModel()
+        CartViewModel(cartRepository = get())
     }
     viewModel {
         CategoryDetailViewModel(
@@ -30,7 +30,10 @@ val presentationModule = module {
         )
     }
     viewModel {
-        CheckoutViewModel()
+        CheckoutViewModel(
+            authRepository = get(),
+            cartRepository = get()
+        )
     }
     viewModel {
         HomeViewModel(
@@ -46,10 +49,13 @@ val presentationModule = module {
         )
     }
     viewModel {
-        OrderConfirmationViewModel()
+        OrderConfirmationViewModel(cartRepository = get())
     }
     viewModel {
-        ProductDetailViewModel(productRepository = get())
+        ProductDetailViewModel(
+            productRepository = get(),
+            cartRepository = get()
+        )
     }
     viewModel {
         SplashViewModel()

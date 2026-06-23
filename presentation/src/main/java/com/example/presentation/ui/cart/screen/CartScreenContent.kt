@@ -19,9 +19,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 internal fun CartScreenContent(
     stateProvider: () -> CartScreenState,
     onBackClick: () -> Unit,
-    onDeleteClick: () -> Unit,
-    onAddClick: () -> Unit,
-    onRemoveClick: () -> Unit,
+    onDeleteClick: (String) -> Unit,
+    onAddClick: (String) -> Unit,
+    onRemoveClick: (String) -> Unit,
     onProceedToCheckOutClick: () -> Unit
 ) {
     Scaffold(

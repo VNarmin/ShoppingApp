@@ -1,7 +1,6 @@
 package com.example.presentation.ui.more.screen
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import com.example.presentation.ui.more.mvi.MoreEffect
 import com.example.presentation.ui.more.mvi.MoreViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -15,10 +14,6 @@ internal fun MoreScreen(
     onNavigateToHome: () -> Unit
 ) {
     val moreScreenState = viewModel.collectAsState().value
-
-    LaunchedEffect(Unit) {
-        viewModel.loadScreen()
-    }
 
     viewModel.collectSideEffect { effect ->
         when (effect) {

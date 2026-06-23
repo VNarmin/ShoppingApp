@@ -16,7 +16,9 @@ internal class MoreViewModel(
         initialState = MoreScreenState.INITIAL
     )
 
-    fun loadScreen() {
+    init { loadScreen() }
+
+    private fun loadScreen() {
         intent { reduce { state.copy(loading = true, errorMessage = null) } }
         getCurrentUser()
         getCategories()

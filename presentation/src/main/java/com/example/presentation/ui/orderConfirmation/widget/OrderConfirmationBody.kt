@@ -30,18 +30,11 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
-import com.example.presentation.ui.orderConfirmation.mvi.OrderConfirmationScreenState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-internal fun OrderConfirmationBody(
-    stateProvider: () -> OrderConfirmationScreenState,
-    modifier: Modifier = Modifier
-) {
-    val orderID = stateProvider.read { orderID }
-
+internal fun OrderConfirmationBody(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -123,7 +116,7 @@ internal fun OrderConfirmationBody(
                 )
             )
             Text(
-                text = orderID,
+                text = "SHP-2026-8856",
                 style = TextStyle(
                     color = Color(0xFFFAFAF9),
                     fontFamily = DMSansFontFamily,
@@ -139,10 +132,7 @@ internal fun OrderConfirmationBody(
 @PreviewLightDark
 @Composable
 private fun OrderConfirmationBodyPreview() {
-    val orderID = "SHP-2026-8756"
-    val orderConfirmationScreenState = OrderConfirmationScreenState(orderID = orderID)
-
     ShoppingAppTheme {
-        OrderConfirmationBody(stateProvider = { orderConfirmationScreenState })
+        OrderConfirmationBody()
     }
 }

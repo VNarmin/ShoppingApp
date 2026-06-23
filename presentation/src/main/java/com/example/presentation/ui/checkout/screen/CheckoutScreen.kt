@@ -1,6 +1,7 @@
 package com.example.presentation.ui.checkout.screen
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import com.example.presentation.ui.checkout.mvi.CheckoutEffect
 import com.example.presentation.ui.checkout.mvi.CheckoutViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -22,4 +23,10 @@ internal fun CheckoutScreen(
             is CheckoutEffect.Error -> {}
         }
     }
+
+    CheckoutScreenContent(
+        stateProvider = { checkoutScreenState },
+        onBackClick = viewModel::onBackClick,
+        onPlaceOrderClick = viewModel::onPlaceOrderClick
+    )
 }

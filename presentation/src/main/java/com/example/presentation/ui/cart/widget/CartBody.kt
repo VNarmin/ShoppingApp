@@ -22,9 +22,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun CartBody(
     stateProvider: () -> CartScreenState,
-    onDeleteClick: () -> Unit,
-    onAddClick: () -> Unit,
-    onRemoveClick: () -> Unit,
+    onDeleteClick: (String) -> Unit,
+    onAddClick: (String) -> Unit,
+    onRemoveClick: (String) -> Unit,
     onProceedToCheckOutClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -50,9 +50,9 @@ internal fun CartBody(
                     images = cartItem.product.images,
                     quantity = cartItem.quantity,
                     stockCount = cartItem.product.stockCount,
-                    onDelete = onDeleteClick,
-                    onAdd = onAddClick,
-                    onRemove = onRemoveClick,
+                    onDelete = { onDeleteClick(cartItem.product.productID) },
+                    onAdd = { onAddClick(cartItem.product.productID) },
+                    onRemove = { onRemoveClick(cartItem.product.productID) },
                 )
             }
         }

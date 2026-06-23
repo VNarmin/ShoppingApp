@@ -13,11 +13,15 @@ internal fun OrderConfirmationScreen(
     onNavigateToHome: () -> Unit
 ) {
     val orderConfirmationScreenState = viewModel.collectAsState().value
-
+    
     viewModel.collectSideEffect { effect ->
         when (effect) {
             is OrderConfirmationEffect.NavigateToHome -> onNavigateToHome()
             is OrderConfirmationEffect.Error -> {}
         }
     }
+    
+    OrderConfirmationScreenContent(
+        onContinueShoppingClick = viewModel::onContinueShoppingClick
+    )
 }

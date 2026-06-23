@@ -22,4 +22,13 @@ internal fun CartScreen(
             is CartEffect.Error -> {}
         }
     }
+
+    CartScreenContent(
+        stateProvider = { cartScreenState },
+        onBackClick = viewModel::onBackClick,
+        onDeleteClick = viewModel::onDeleteClick,
+        onAddClick = viewModel::onAddClick,
+        onRemoveClick = viewModel::onRemoveClick,
+        onProceedToCheckOutClick = viewModel::onProceedToCheckoutClick
+    )
 }
