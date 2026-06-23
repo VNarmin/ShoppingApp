@@ -11,4 +11,5 @@ internal fun CategoryDTO.toDomain(): Category {
     )
 }
 
-internal fun List<CategoryDTO>.toDomain(): List<Category> = mapNotNull { category -> category.toDomain() }
+internal fun List<CategoryDTO>.toDomain(): List<Category> =
+    mapNotNull { category -> category.toDomain() }

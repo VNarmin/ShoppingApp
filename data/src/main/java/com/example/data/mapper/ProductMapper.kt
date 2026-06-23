@@ -17,4 +17,5 @@ internal fun ProductDTO.toDomain(): Product {
     )
 }
 
-internal fun List<ProductDTO>.toDomain(): List<Product> = mapNotNull { product -> product.toDomain() }
+internal fun List<ProductDTO>.toDomain(): List<Product> =
+    mapNotNull { product -> product.toDomain() }

@@ -10,12 +10,16 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import androidx.core.content.edit
 import com.example.data.mapper.toDomain
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 internal class AuthRepositoryImpl(
-    private val auth : FirebaseAuth,
-    private val sp : SharedPreferences
+    private val auth: FirebaseAuth,
+    private val sp: SharedPreferences,
+    private val dispatcher: CoroutineDispatcher
 ) : AuthRepository {
 
     override fun login(
@@ -30,7 +34,7 @@ internal class AuthRepositoryImpl(
         val currentUser = response.user?.toDomain() ?: throw Exception("Failed Authentication")
 
         emit(currentUser)
-    }
+    }.flowOn(context = dispatcher)
 
     override fun register(
         username: String,
@@ -56,15 +60,16 @@ internal class AuthRepositoryImpl(
             username = username,
             emailAddress = email
         ))
-    }
+    }.flowOn(context = dispatcher)
 
-    override suspend fun logout() {
+    override suspend fun logout() = withContext(dispatcher) {
         auth.signOut()
         setRememberMe(flagRememberMe = false)
     }
 
-    override suspend fun resetPassword(email: String) {
-        auth.sendPasswordResetEmail(email)
+    override suspend fun resetPassword(email: String) = withContext(dispatcher) {
+        auth.sendPasswordResetEmail(email).await()
+        Unit
     }
 
     override fun getCurrentUser(): Flow<User?> = callbackFlow {
@@ -73,7 +78,7 @@ internal class AuthRepositoryImpl(
         }
         auth.addAuthStateListener(listener)
         awaitClose { auth.removeAuthStateListener(listener) }
-    }
+    }.flowOn(context = dispatcher)
 
     override fun shouldSkipAuth() : Boolean {
         return auth.currentUser != null && getRememberMe()

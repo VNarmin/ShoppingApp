@@ -6,8 +6,12 @@ import com.example.data.repository.AuthRepositoryImpl
 import com.example.data.repository.CategoryRepositoryImpl
 import com.example.data.repository.ProductRepositoryImpl
 import com.example.domain.repository.AuthRepository
+import com.example.domain.repository.CategoryRepository
+import com.example.domain.repository.ProductRepository
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -20,18 +24,22 @@ val dataModule = module {
         )
     }
 
+    // not strictly necessary, but essential for testability
+    single<CoroutineDispatcher> { Dispatchers.IO }
+
     single<AuthRepository> {
         AuthRepositoryImpl(
             auth = get(),
-            sp = get()
+            sp = get(),
+            dispatcher = get()
         )
     }
 
-    single<CategoryRepositoryImpl> {
-        CategoryRepositoryImpl()
+    single<CategoryRepository> {
+        CategoryRepositoryImpl(dispatcher = get())
     }
 
-    single<ProductRepositoryImpl> {
-        ProductRepositoryImpl()
+    single<ProductRepository> {
+        ProductRepositoryImpl(dispatcher = get())
     }
 }
