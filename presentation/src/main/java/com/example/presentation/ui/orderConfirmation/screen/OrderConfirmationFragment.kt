@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 internal class OrderConfirmationFragment : Fragment() {
@@ -18,7 +19,13 @@ internal class OrderConfirmationFragment : Fragment() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         setContent {
             ShoppingAppTheme {
-                OrderConfirmationScreen(onNavigateToHome = {})
+                OrderConfirmationScreen(
+                    onNavigateToHome = {
+                        findNavController().navigate(
+                            directions = OrderConfirmationFragmentDirections.actionOrderConfirmationFragmentToHomeFragment()
+                        )
+                    }
+                )
             }
         }
     }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 internal class CartFragment : Fragment() {
@@ -19,8 +20,14 @@ internal class CartFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 CartScreen(
-                    onNavigateBack = {},
-                    onNavigateToCheckout = {}
+                    onNavigateBack = {
+                        findNavController().popBackStack()
+                    },
+                    onNavigateToCheckout = {
+                        findNavController().navigate(
+                            directions = CartFragmentDirections.actionCartFragmentToCheckoutFragment()
+                        )
+                    }
                 )
             }
         }

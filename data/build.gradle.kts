@@ -8,11 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.data"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 37
 
     defaultConfig {
         minSdk = 24

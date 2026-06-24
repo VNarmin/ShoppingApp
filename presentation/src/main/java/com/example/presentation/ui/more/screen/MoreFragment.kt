@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 internal class MoreFragment : Fragment() {
@@ -19,8 +20,16 @@ internal class MoreFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 MoreScreen(
-                    onNavigateToCategoryDetail = {},
-                    onNavigateToHome = {}
+                    onNavigateToCategoryDetail = { categoryID ->
+                        findNavController().navigate(
+                            directions = MoreFragmentDirections.actionMoreFragmentToCategoryDetailFragment(categoryID = categoryID)
+                        )
+                    },
+                    onNavigateToHome = {
+                        findNavController().navigate(
+                            directions = MoreFragmentDirections.actionMoreFragmentToHomeFragment()
+                        )
+                    }
                 )
             }
         }

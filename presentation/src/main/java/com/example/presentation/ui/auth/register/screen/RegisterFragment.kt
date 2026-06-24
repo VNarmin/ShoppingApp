@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.presentation.AuthNavigator
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 internal class RegisterFragment : Fragment() {
@@ -19,8 +21,14 @@ internal class RegisterFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 RegisterScreen(
-                    onNavigateToHome = {},
-                    onNavigateToLogin = {}
+                    onNavigateToHome = {
+                        (requireActivity() as AuthNavigator).navigateToMain()
+                    },
+                    onNavigateToLogin = {
+                        findNavController().navigate(
+                            directions = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                        )
+                    }
                 )
             }
         }

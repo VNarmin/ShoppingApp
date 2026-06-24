@@ -7,9 +7,13 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 internal class CategoryDetailFragment : Fragment() {
+    private val args: CategoryDetailFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -19,10 +23,20 @@ internal class CategoryDetailFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 CategoryDetailScreen(
-                    categoryID = "", // should come from the previous screen
-                    onNavigateToMore = {},
-                    onNavigateToProductDetail = {},
-                    onNavigateToHome = {}
+                    categoryID = args.categoryID,
+                    onNavigateToMore = {
+                        findNavController().popBackStack()
+                    },
+                    onNavigateToProductDetail = { productID ->
+                        findNavController().navigate(
+                            directions = CategoryDetailFragmentDirections.actionCategoryDetailFragmentToProductDetailFragment(productID = productID)
+                        )
+                    },
+                    onNavigateToHome = {
+                        findNavController().navigate(
+                            directions = CategoryDetailFragmentDirections.actionCategoryDetailFragmentToHomeFragment()
+                        )
+                    }
                 )
             }
         }

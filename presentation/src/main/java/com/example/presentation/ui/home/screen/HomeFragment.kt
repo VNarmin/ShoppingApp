@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 internal class HomeFragment : Fragment() {
@@ -19,9 +20,21 @@ internal class HomeFragment : Fragment() {
         setContent {
             ShoppingAppTheme {
                 HomeScreen(
-                    onNavigateToCart = {},
-                    onNavigateToProductDetail = {},
-                    onNavigateToMore = {}
+                    onNavigateToCart = {
+                        findNavController().navigate(
+                            directions = HomeFragmentDirections.actionHomeFragmentToCartFragment()
+                        )
+                    },
+                    onNavigateToProductDetail = { productID ->
+                        findNavController().navigate(
+                            directions = HomeFragmentDirections.actionHomeFragmentToProductDetailFragment(productID = productID)
+                        )
+                    },
+                    onNavigateToMore = {
+                        findNavController().navigate(
+                            directions = HomeFragmentDirections.actionHomeFragmentToMoreFragment()
+                        )
+                    }
                 )
             }
         }

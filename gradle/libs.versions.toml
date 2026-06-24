@@ -1,5 +1,5 @@
 [versions]
-agp = "8.13.2"
+agp = "9.2.1"
 kotlin = "2.4.0"
 coreKtx = "1.19.0"
 junit = "4.13.2"
@@ -13,6 +13,7 @@ coil = "2.7.0"
 koin = "4.2.2"
 koinCompose = "4.2.2"
 navigation = "2.9.8"
+safeArgs = "2.9.8"
 kotlinxCoroutines = "1.11.0"
 kotlinxSerialization = "1.11.0"
 kotlinSerialization = "2.4.0"
@@ -89,3 +90,4 @@ kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 google-services = { id = "com.google.gms.google-services", version = "4.5.0" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeArgs" }

@@ -20,4 +20,6 @@ internal fun SplashScreen(
             is SplashEffect.Error -> {}
         }
     }
+
+    SplashScreenContent()
 }

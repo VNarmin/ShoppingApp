@@ -48,6 +48,11 @@ internal class ProductDetailViewModel(
     }
 
     fun onBuyNowClick() = intent {
+        val product = state.product
+        val quantity = state.quantity
+        val cartItem = CartItem(product = product, quantity = quantity)
+
+        cartRepository.addToCart(cartItem = cartItem)
         postSideEffect(ProductDetailEffect.NavigateToCheckout)
     }
 
