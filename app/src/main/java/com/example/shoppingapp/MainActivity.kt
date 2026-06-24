@@ -1,6 +1,5 @@
 package com.example.shoppingapp
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -8,10 +7,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-    }
-
-    fun navigateToAuth() {
-        startActivity(Intent(this, AuthActivity::class.java))
-        finish()
     }
 }
