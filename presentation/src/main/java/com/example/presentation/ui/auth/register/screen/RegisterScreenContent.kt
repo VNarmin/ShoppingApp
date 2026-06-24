@@ -18,6 +18,7 @@ import com.example.presentation.base.focusOn
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
+import com.example.presentation.ui.auth.common.RememberMeCheckBox
 import com.example.presentation.ui.auth.register.mvi.RegisterScreenState
 import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -28,12 +29,14 @@ internal fun RegisterScreenContent(
     onUsernameChange: (String) -> Unit,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
+    onRememberMeChange: (Boolean) -> Unit,
     onRegisterClick: () -> Unit,
     onLoginClick: () -> Unit
 ) {
     val usernameProvider = stateProvider.focusOn { username }
     val emailProvider = stateProvider.focusOn { email }
     val passwordProvider = stateProvider.focusOn { password }
+    val flagRememberMeProvider = stateProvider.focusOn { flagRememberMe }
 
     Column(
         modifier = Modifier
@@ -79,6 +82,11 @@ internal fun RegisterScreenContent(
             onValueChange = onPasswordChange
         )
 
+        RememberMeCheckBox(
+            stateProvider = flagRememberMeProvider,
+            onRememberMeChange = onRememberMeChange
+        )
+
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             command = "Register",
@@ -104,6 +112,7 @@ private fun RegisterScreenContentPreview() {
             onUsernameChange = {},
             onEmailChange = {},
             onPasswordChange = {},
+            onRememberMeChange = {},
             onRegisterClick = {},
             onLoginClick = {}
         )

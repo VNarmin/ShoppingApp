@@ -15,10 +15,10 @@
         android:theme="@style/Theme.ShoppingApp">
 
         <activity
-            android:name=".AuthActivity"
+            android:name="com.example.presentation.ui.splash.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.ShoppingApp"
-            android:windowSoftInputMode="adjustResize">
+            android:noHistory="true"
+            android:theme="@style/Theme.ShoppingApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -26,11 +26,16 @@
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.presentation.ui.auth.AuthActivity"
             android:exported="false"
             android:theme="@style/Theme.ShoppingApp"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.example.presentation.ui.main.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.ShoppingApp"
+            android:windowSoftInputMode="adjustResize" />
 
     </application>
 

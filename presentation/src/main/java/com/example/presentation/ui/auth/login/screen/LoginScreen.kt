@@ -27,6 +27,7 @@ internal fun LoginScreen(
         stateProvider = { loginScreenState },
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
+        onRememberMeChange = viewModel::onRememberMeChange,
         onLoginClick = viewModel::onLoginClick,
         onRegisterClick = viewModel::onRegisterClick
     )

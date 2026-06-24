@@ -4,6 +4,7 @@ internal data class RegisterScreenState(
     val username: String = "",
     val email: String = "",
     val password: String = "",
+    val flagRememberMe: Boolean = false,
     val loading: Boolean = false,
     val errorMessage: String? = null
 ) {

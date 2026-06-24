@@ -22,6 +22,10 @@ internal class LoginViewModel(
         reduce { state.copy(password = password, errorMessage = null) }
     }
 
+    fun onRememberMeChange(flagRememberMe: Boolean) = intent {
+        reduce { state.copy(flagRememberMe = flagRememberMe) }
+    }
+
     fun onLoginClick() = intent {
         val email = state.email
         val password = state.password
@@ -55,6 +59,7 @@ internal class LoginViewModel(
             reduce { state.copy(loading = false, errorMessage = message) }
             postSideEffect(LoginEffect.Error(errorMessage = message))
         }.collect {
+            authRepository.setRememberMe(flagRememberMe = state.flagRememberMe)
             reduce { state.copy(loading = false) }
             postSideEffect(LoginEffect.NavigateToHome)
         }

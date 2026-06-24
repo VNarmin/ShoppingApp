@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.presentation.ui.home.screen.HomeFragment"
+        android:name="com.example.presentation.ui.main.home.screen.HomeFragment"
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_productDetailFragment"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/moreFragment"
-        android:name="com.example.presentation.ui.more.screen.MoreFragment"
+        android:name="com.example.presentation.ui.main.more.screen.MoreFragment"
         android:label="MoreFragment" >
         <action
             android:id="@+id/action_moreFragment_to_categoryDetailFragment"
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
-        android:name="com.example.presentation.ui.cart.screen.CartFragment"
+        android:name="com.example.presentation.ui.main.cart.screen.CartFragment"
         android:label="CartFragment" >
         <action
             android:id="@+id/action_cartFragment_to_checkoutFragment"
@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/checkoutFragment"
-        android:name="com.example.presentation.ui.checkout.screen.CheckoutFragment"
+        android:name="com.example.presentation.ui.main.checkout.screen.CheckoutFragment"
         android:label="CheckoutFragment" >
         <action
             android:id="@+id/action_checkoutFragment_to_orderConfirmationFragment"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/orderConfirmationFragment"
-        android:name="com.example.presentation.ui.orderConfirmation.screen.OrderConfirmationFragment"
+        android:name="com.example.presentation.ui.main.orderConfirmation.screen.OrderConfirmationFragment"
         android:label="OrderConfirmationFragment" >
         <action
             android:id="@+id/action_orderConfirmationFragment_to_homeFragment"
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/productDetailFragment"
-        android:name="com.example.presentation.ui.productDetail.screen.ProductDetailFragment"
+        android:name="com.example.presentation.ui.main.productDetail.screen.ProductDetailFragment"
         android:label="ProductDetailFragment" >
         <action
             android:id="@+id/action_productDetailFragment_to_cartFragment"
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryDetailFragment"
-        android:name="com.example.presentation.ui.categoryDetail.screen.CategoryDetailFragment"
+        android:name="com.example.presentation.ui.main.categoryDetail.screen.CategoryDetailFragment"
         android:label="CategoryDetailFragment" >
         <action
             android:id="@+id/action_categoryDetailFragment_to_homeFragment"

@@ -80,21 +80,20 @@ internal class AuthRepositoryImpl(
         awaitClose { auth.removeAuthStateListener(listener) }
     }.flowOn(context = dispatcher)
 
-    override fun shouldSkipAuth() : Boolean {
-        return auth.currentUser != null && getRememberMe()
+    override suspend fun shouldSkipAuth(): Boolean = withContext(dispatcher) {
+        auth.currentUser != null && getRememberMe()
         // checking auth.currentUser for extreme scenarios
     }
 
-    override fun setRememberMe(flagRememberMe: Boolean) {
+    override suspend fun setRememberMe(flagRememberMe: Boolean) = withContext(dispatcher) {
         sp.edit { putBoolean(FLAG_REMEMBER_ME, flagRememberMe) }
     }
 
-    override fun getRememberMe(): Boolean {
-        return sp.getBoolean(FLAG_REMEMBER_ME, false)
+    override suspend fun getRememberMe(): Boolean = withContext(dispatcher) {
+        sp.getBoolean(FLAG_REMEMBER_ME, false)
     }
 
     companion object {
         private const val FLAG_REMEMBER_ME = "flag_remember_me"
     }
-
 }

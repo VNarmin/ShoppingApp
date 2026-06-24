@@ -26,6 +26,10 @@ internal class RegisterViewModel(
         reduce { state.copy(password = password, errorMessage = null) }
     }
 
+    fun onRememberMeChange(flagRememberMe: Boolean) = intent {
+        reduce { state.copy(flagRememberMe = flagRememberMe) }
+    }
+
     fun onRegisterClick() = intent {
         val username = state.username
         val email = state.email
@@ -71,6 +75,7 @@ internal class RegisterViewModel(
             reduce { state.copy(loading = false, errorMessage = message) }
             postSideEffect(RegisterEffect.Error(errorMessage = message))
         }.collect {
+            authRepository.setRememberMe(flagRememberMe = state.flagRememberMe)
             reduce { state.copy(loading = false) }
             postSideEffect(RegisterEffect.NavigateToHome)
         }

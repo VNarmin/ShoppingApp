@@ -17,6 +17,7 @@ import com.example.presentation.base.focusOn
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
+import com.example.presentation.ui.auth.common.RememberMeCheckBox
 import com.example.presentation.ui.auth.login.mvi.LoginScreenState
 import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -26,11 +27,13 @@ internal fun LoginScreenContent(
     stateProvider: () -> LoginScreenState,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
+    onRememberMeChange: (Boolean) -> Unit,
     onLoginClick: () -> Unit,
     onRegisterClick: () -> Unit
 ) {
     val emailProvider = stateProvider.focusOn { email }
     val passwordProvider = stateProvider.focusOn { password }
+    val flagRememberMeProvider = stateProvider.focusOn { flagRememberMe }
 
     Column(
         modifier = Modifier
@@ -66,6 +69,11 @@ internal fun LoginScreenContent(
             onValueChange = onPasswordChange
         )
 
+        RememberMeCheckBox(
+            stateProvider = flagRememberMeProvider,
+            onRememberMeChange = onRememberMeChange
+        )
+
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             command = "Sign In",
@@ -90,6 +98,7 @@ private fun LoginScreenContentPreview() {
             stateProvider = { loginScreenState },
             onEmailChange = {},
             onPasswordChange = {},
+            onRememberMeChange = {},
             onLoginClick = {},
             onRegisterClick = {}
         )

@@ -15,9 +15,9 @@ interface AuthRepository {
 
     fun getCurrentUser(): Flow<User?>
 
-    fun shouldSkipAuth(): Boolean
+    suspend fun shouldSkipAuth(): Boolean
 
-    fun setRememberMe(flagRememberMe: Boolean)
+    suspend fun setRememberMe(flagRememberMe: Boolean)
 
-    fun getRememberMe(): Boolean
+    suspend fun getRememberMe(): Boolean
 }

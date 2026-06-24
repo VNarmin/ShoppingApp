@@ -28,6 +28,7 @@ internal fun RegisterScreen(
         onUsernameChange = viewModel::onUsernameChange,
         onEmailChange = viewModel::onEmailChange,
         onPasswordChange = viewModel::onPasswordChange,
+        onRememberMeChange = viewModel::onRememberMeChange,
         onRegisterClick = viewModel::onRegisterClick,
         onLoginClick = viewModel::onLoginClick
     )
