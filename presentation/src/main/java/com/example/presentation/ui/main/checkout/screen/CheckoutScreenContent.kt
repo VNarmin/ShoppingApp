@@ -2,6 +2,7 @@ package com.example.presentation.ui.main.checkout.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,6 +20,7 @@ internal fun CheckoutScreenContent(
 ) {
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CheckoutHeader(onBackClick = onBackClick)
         }

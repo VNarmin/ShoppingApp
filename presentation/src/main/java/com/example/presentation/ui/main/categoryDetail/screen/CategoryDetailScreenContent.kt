@@ -2,6 +2,7 @@ package com.example.presentation.ui.main.categoryDetail.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ internal fun CategoryDetailScreenContent(
 ) {
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CategoryDetailHeader(
                 stateProvider = stateProvider.focusOn { currentCategory.displayName },
