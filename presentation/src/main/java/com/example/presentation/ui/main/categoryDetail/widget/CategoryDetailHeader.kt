@@ -25,9 +25,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CategoryDetailHeader(
+    modifier: Modifier = Modifier,
     stateProvider: () -> String,
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onBackClick: () -> Unit
 ) {
     val currentCategoryDisplayName = stateProvider.read { this }
 

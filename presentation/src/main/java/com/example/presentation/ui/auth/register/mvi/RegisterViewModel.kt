@@ -22,7 +22,8 @@ internal class RegisterViewModel(
                 canRegister = canRegister(
                     username = username,
                     email = state.email,
-                    password = state.password
+                    password = state.password,
+                    loading = state.loading
                 )
             )
         }
@@ -36,7 +37,8 @@ internal class RegisterViewModel(
                 canRegister = canRegister(
                     username = state.username,
                     email = email,
-                    password = state.password
+                    password = state.password,
+                    loading = state.loading
                 )
             )
         }
@@ -50,7 +52,8 @@ internal class RegisterViewModel(
                 canRegister = canRegister(
                     username = state.username,
                     email = state.email,
-                    password = password
+                    password = password,
+                    loading = state.loading
                 )
             )
         }
@@ -111,8 +114,13 @@ internal class RegisterViewModel(
         }
     }
 
-    private fun canRegister(username: String, email: String, password: String) : Boolean =
-        username.isNotBlank() && email.isNotBlank() && password.isNotBlank()
+    private fun canRegister(
+        username: String,
+        email: String,
+        password: String,
+        loading: Boolean
+    ) : Boolean = username.isNotBlank() && email.isNotBlank()
+            && password.isNotBlank() && !loading
 
     fun onLoginClick() = intent {
         postSideEffect(RegisterEffect.NavigateToLogin)

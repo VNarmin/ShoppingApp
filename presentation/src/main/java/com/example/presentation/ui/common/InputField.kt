@@ -51,12 +51,12 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun InputField(
-    stateProvider: () -> String,
-    onValueChange: (String) -> Unit,
     placeholder: String,
     leadingIcon: ImageVector? = null,
     password: Boolean = false,
-    focusManager: FocusManager = LocalFocusManager.current
+    focusManager: FocusManager = LocalFocusManager.current,
+    stateProvider: () -> String,
+    onValueChange: (String) -> Unit,
 ) {
     val value = stateProvider.read { this }
     var passwordVisible by remember { mutableStateOf(false) }

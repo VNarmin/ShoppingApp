@@ -19,7 +19,11 @@ internal class LoginViewModel(
             state.copy(
                 email = email,
                 errorMessage = null,
-                canLogin = canLogin(email = email, password = state.password)
+                canLogin = canLogin(
+                    email = email,
+                    password = state.password,
+                    loading = state.loading
+                )
             )
         }
     }
@@ -29,7 +33,11 @@ internal class LoginViewModel(
             state.copy(
                 password = password,
                 errorMessage = null,
-                canLogin = canLogin(email = state.email, password = password)
+                canLogin = canLogin(
+                    email = state.email,
+                    password = password,
+                    loading = state.loading
+                )
             )
         }
     }
@@ -77,8 +85,11 @@ internal class LoginViewModel(
         }
     }
 
-    private fun canLogin(email: String, password: String): Boolean =
-        email.isNotBlank() && password.isNotBlank()
+    private fun canLogin(
+        email: String,
+        password: String,
+        loading: Boolean
+    ): Boolean = email.isNotBlank() && password.isNotBlank() && !loading
 
     fun onRegisterClick() = intent {
         postSideEffect(LoginEffect.NavigateToRegister)

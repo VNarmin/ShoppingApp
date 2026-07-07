@@ -37,8 +37,8 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProductImagePager(
-    stateProvider: () -> List<String>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    stateProvider: () -> List<String>
 ) {
     val productImages = stateProvider.read { this }
 

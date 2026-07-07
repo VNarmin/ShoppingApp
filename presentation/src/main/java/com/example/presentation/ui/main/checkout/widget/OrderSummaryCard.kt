@@ -34,8 +34,8 @@ internal data class OrderSummaryState(
 
 @Composable
 internal fun OrderSummaryCard(
-    stateProvider: () -> OrderSummaryState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    stateProvider: () -> OrderSummaryState
 ) {
     val totalItemCount = stateProvider.read { totalItemCount }
     val subtotal = stateProvider.read { subtotal }

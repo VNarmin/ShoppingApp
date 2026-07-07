@@ -36,11 +36,11 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProductDetailBody(
+    modifier: Modifier = Modifier,
     stateProvider: () -> ProductDetailScreenState,
     onReadMoreClick: () -> Unit,
     onAddClick: () -> Unit,
-    onRemoveClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onRemoveClick: () -> Unit
 ) {
     val product = stateProvider.read { product }
     val descriptionExpanded = stateProvider.read { descriptionExpanded }

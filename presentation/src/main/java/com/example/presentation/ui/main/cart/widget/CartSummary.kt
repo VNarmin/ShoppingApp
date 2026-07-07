@@ -35,9 +35,9 @@ internal data class CartSummaryState(
 
 @Composable
 internal fun CartSummary(
+    modifier: Modifier = Modifier,
     stateProvider: () -> CartSummaryState,
-    onProceedToCheckoutClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onProceedToCheckoutClick: () -> Unit
 ) {
     val subtotal = stateProvider.read { subtotal }
     val shippingCost = stateProvider.read { shippingCost }

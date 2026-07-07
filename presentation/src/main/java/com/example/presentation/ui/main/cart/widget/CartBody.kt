@@ -22,12 +22,12 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CartBody(
+    modifier: Modifier = Modifier,
     stateProvider: () -> CartScreenState,
     onDeleteClick: (String) -> Unit,
     onAddClick: (String) -> Unit,
     onRemoveClick: (String) -> Unit,
-    onProceedToCheckOutClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onProceedToCheckOutClick: () -> Unit
 ) {
     val cartItems = stateProvider.read { cartItems }
     val cartSummaryStateProvider = stateProvider.focusOn { cartSummaryState }
@@ -46,21 +46,21 @@ internal fun CartBody(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(cartItems, key = { cartItem -> cartItem.product.productID }) { cartItem ->
+                val quantitySelectorStateProvider = stateProvider.focusOn {
+                    QuantitySelectorState(
+                        quantity = cartItem.quantity,
+                        stockCount = cartItem.product.stockCount
+                    )
+                }
+
                 CartItemCard(
-                    stateProvider = {
-                        CartItemCardState(
-                            productName = cartItem.product.name,
-                            productPrice = cartItem.product.price,
-                            productImages = cartItem.product.images,
-                            quantitySelectorState = QuantitySelectorState(
-                                quantity = cartItem.quantity,
-                                stockCount = cartItem.product.stockCount
-                            )
-                        )
-                    },
+                    productName = cartItem.product.name,
+                    productPrice = cartItem.product.price,
+                    productImages = cartItem.product.images,
+                    quantitySelectorStateProvider = quantitySelectorStateProvider,
                     onDelete = { onDeleteClick(cartItem.product.productID) },
                     onAdd = { onAddClick(cartItem.product.productID) },
-                    onRemove = { onRemoveClick(cartItem.product.productID) }
+                    onRemove = { onRemoveClick(cartItem.product.productID) },
                 )
             }
         }

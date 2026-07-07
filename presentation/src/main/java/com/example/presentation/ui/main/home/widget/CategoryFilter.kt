@@ -34,9 +34,9 @@ internal data class CategoryFilterState(
 
 @Composable
 internal fun CategoryFilter(
+    modifier: Modifier = Modifier,
     stateProvider: () -> CategoryFilterState,
-    onCategoryChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onCategoryChange: (String) -> Unit
 ) {
     val categories = stateProvider.read { categories }
     val selectedCategoryID = stateProvider.read { selectedCategoryID }

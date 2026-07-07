@@ -33,8 +33,8 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProfileSettingsCard(
-    stateProvider: () -> String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    stateProvider: () -> String
 ) {
     val username = stateProvider.read { this }
 

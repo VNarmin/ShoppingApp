@@ -22,9 +22,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CheckoutBody(
+    modifier: Modifier = Modifier,
     stateProvider: () -> CheckoutScreenState,
-    onPlaceOrderClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onPlaceOrderClick: () -> Unit
 ) {
     val total = stateProvider.read { orderSummaryState.total }
 

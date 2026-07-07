@@ -25,9 +25,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CartHeader(
+    modifier: Modifier = Modifier,
     stateProvider: () -> Int,
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onBackClick: () -> Unit
 ) {
     val totalItemCount = stateProvider.read { this }
 

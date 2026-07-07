@@ -26,24 +26,15 @@ import androidx.compose.ui.unit.sp
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 import androidx.core.graphics.toColorInt
-import com.example.presentation.base.read
-
-internal data class ProductCardState(
-    val productName: String,
-    val productPrice: Double,
-    val productImages: List<String>
-)
 
 @Composable
 internal fun ProductCard(
-    stateProvider: () -> ProductCardState,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    productName: String,
+    productPrice: Double,
+    productImages: List<String>,
+    onClick: () -> Unit
 ) {
-    val productName = stateProvider.read { productName }
-    val productPrice = stateProvider.read { productPrice }
-    val productImages = stateProvider.read { productImages }
-
     val backgroundColor = remember(productImages) {
         runCatching { Color(productImages.firstOrNull().orEmpty().toColorInt()) }
             .getOrDefault(Color.Gray)
@@ -99,14 +90,11 @@ internal fun ProductCard(
 @PreviewLightDark
 @Composable
 private fun Product1CardPreview() {
-    val productCartState = ProductCardState(
-        productName = "Nike Air Max",
-        productPrice = 129.00,
-        productImages = listOf("#6366F1", "#E85A4F", "#32D583"),
-    )
     ShoppingAppTheme {
         ProductCard(
-            stateProvider = { productCartState },
+            productName = "Nike Air Max",
+            productPrice = 129.00,
+            productImages = listOf("#6366F1", "#E85A4F", "#32D583"),
             onClick = {}
         )
     }
@@ -115,14 +103,11 @@ private fun Product1CardPreview() {
 @PreviewLightDark
 @Composable
 private fun Product2CardPreview() {
-    val productCardState = ProductCardState(
-        productName = "Retro Runner",
-        productPrice = 99.00,
-        productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
-    )
     ShoppingAppTheme {
         ProductCard(
-            stateProvider = { productCardState },
+            productName = "Retro Runner",
+            productPrice = 99.00,
+            productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
             onClick = {}
         )
     }

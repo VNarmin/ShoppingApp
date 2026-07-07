@@ -23,8 +23,8 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CheckoutHeader(
-    onBackClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit
 ) {
     Row(
         modifier = modifier

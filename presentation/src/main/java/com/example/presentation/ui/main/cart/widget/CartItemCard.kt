@@ -28,33 +28,22 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import com.example.presentation.base.focusOn
-import com.example.presentation.base.read
 import com.example.presentation.ui.common.QuantitySelector
 import com.example.presentation.ui.common.QuantitySelectorState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
-internal data class CartItemCardState(
-    val productName: String,
-    val productPrice: Double,
-    val productImages: List<String>,
-    val quantitySelectorState: QuantitySelectorState
-)
-
 @Composable
 internal fun CartItemCard(
-    stateProvider: () -> CartItemCardState,
+    modifier: Modifier = Modifier,
+    productName: String,
+    productPrice: Double,
+    productImages: List<String>,
+    quantitySelectorStateProvider: () -> QuantitySelectorState,
     onDelete: () -> Unit,
     onAdd: () -> Unit,
-    onRemove: () -> Unit,
-    modifier: Modifier = Modifier
+    onRemove: () -> Unit
 ) {
-    val productName = stateProvider.read { productName }
-    val productPrice = stateProvider.read { productPrice }
-    val productImages = stateProvider.read { productImages }
-    val quantitySelectorStateProvider = stateProvider.focusOn { quantitySelectorState }
-
     Row(
         modifier = modifier.fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
@@ -135,19 +124,17 @@ internal fun CartItemCard(
 @PreviewLightDark
 @Composable
 private fun CartItemCardPreview() {
-    val cartItemCartState = CartItemCardState(
-        productName = "Retro Runner",
-        productPrice = 99.00,
-        productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
-        quantitySelectorState = QuantitySelectorState(
-            quantity = 2,
-            stockCount = 17,
-        )
+    val quantitySelectorState = QuantitySelectorState(
+        quantity = 2,
+        stockCount = 17
     )
 
     ShoppingAppTheme {
         CartItemCard(
-            stateProvider = { cartItemCartState },
+            productName = "Retro Runner",
+            productPrice = 99.00,
+            productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
+            quantitySelectorStateProvider = { quantitySelectorState },
             onDelete = {},
             onAdd = {},
             onRemove = {}

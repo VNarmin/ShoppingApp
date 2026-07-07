@@ -26,9 +26,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun MoreBody(
+    modifier: Modifier = Modifier,
     stateProvider: () -> MoreScreenState,
-    onCategoryClick: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onCategoryClick: (String) -> Unit
 ) {
     val usernameProvider = stateProvider.focusOn { username }
     val categories = stateProvider.read { categories }
@@ -59,12 +59,8 @@ internal fun MoreBody(
 
         items(categories, key = { category -> category.categoryID }) { category ->
             CategoryCard(
-                stateProvider = {
-                    CategoryCardState(
-                        categoryDisplayName = category.displayName,
-                        categoryItemCount = category.itemCount,
-                    )
-                },
+                categoryDisplayName = category.displayName,
+                categoryItemCount = category.itemCount,
                 onClick = { onCategoryClick(category.categoryID) },
             )
         }

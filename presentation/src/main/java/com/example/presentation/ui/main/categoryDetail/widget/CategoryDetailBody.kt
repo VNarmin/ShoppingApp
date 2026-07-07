@@ -33,14 +33,13 @@ import com.example.domain.model.Product
 import com.example.presentation.base.read
 import com.example.presentation.ui.main.categoryDetail.mvi.CategoryDetailScreenState
 import com.example.presentation.ui.common.ProductCard
-import com.example.presentation.ui.common.ProductCardState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun CategoryDetailBody(
-    stateProvider: () -> CategoryDetailScreenState,
     modifier: Modifier = Modifier,
+    stateProvider: () -> CategoryDetailScreenState,
     onProductClick: (String) -> Unit
 ) {
     val itemCount = stateProvider.read { currentCategory.itemCount }
@@ -104,13 +103,9 @@ internal fun CategoryDetailBody(
 
         items(products, key = { product -> product.productID }) { product ->
             ProductCard(
-                stateProvider = {
-                    ProductCardState(
-                        productName = product.name,
-                        productPrice = product.price,
-                        productImages = product.images
-                    )
-                },
+                productName = product.name,
+                productPrice = product.price,
+                productImages = product.images,
                 onClick = { onProductClick(product.productID) }
             )
         }
