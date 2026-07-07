@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
@@ -28,10 +30,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusManager
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -48,10 +55,18 @@ internal fun InputField(
     onValueChange: (String) -> Unit,
     placeholder: String,
     leadingIcon: ImageVector? = null,
-    password: Boolean = false
+    password: Boolean = false,
+    focusManager: FocusManager = LocalFocusManager.current
 ) {
     val value = stateProvider.read { this }
     var passwordVisible by remember { mutableStateOf(false) }
+    var focused by remember { mutableStateOf(false) }
+
+    val borderColor = if (focused) Color(0xFF6366F1) else Color(0xFF2A2A2E)
+
+    val borderWidth = if (focused) 2.dp else 1.dp
+
+    val iconTint = if (focused) Color(0xFFFAFAF9) else Color(0xFF6B6B70)
 
     Box(
         contentAlignment = Alignment.CenterStart,
@@ -61,13 +76,16 @@ internal fun InputField(
             .clip(RoundedCornerShape(12.dp))
             .background(Color(0xFF16161A))
             .border(
-                color = Color(0xFF2A2A2E),
+                color = borderColor,
                 shape = RoundedCornerShape(12.dp),
-                width = 1.dp
+                width = borderWidth
             )
             .padding(horizontal = 16.dp)
     ) {
         BasicTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .onFocusChanged { focusState -> focused = focusState.isFocused },
             value = value,
             onValueChange = onValueChange,
             singleLine = true,
@@ -75,12 +93,20 @@ internal fun InputField(
                 if (password && !passwordVisible) PasswordVisualTransformation()
                 else VisualTransformation.None,
             textStyle = TextStyle(
-                color = Color(0xFF4A4A50),
+                color = Color(0xFFFAFAF9),
                 fontFamily = DMSansFontFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Start
             ),
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = if (password) KeyboardType.Password
+                else KeyboardType.Text
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { focusManager.clearFocus() }
+            ),
+            cursorBrush = SolidColor(Color(0xFF6366F1)),
             decorationBox = { innerTextField ->
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -90,7 +116,7 @@ internal fun InputField(
                         Icon(
                             imageVector = leadingIcon,
                             contentDescription = null,
-                            tint = Color(0xFF6B6B70),
+                            tint = iconTint,
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -115,7 +141,7 @@ internal fun InputField(
                                 if (passwordVisible) Icons.Default.Visibility
                                 else Icons.Default.VisibilityOff,
                             contentDescription = null,
-                            tint = Color(0xFF6B6B70),
+                            tint = iconTint,
                             modifier = Modifier
                                 .size(20.dp)
                                 .clickable { passwordVisible = !passwordVisible }
