@@ -9,12 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.Category
 import com.example.domain.model.Product
-import com.example.presentation.base.read
+import com.example.presentation.base.focusOn
 import com.example.presentation.ui.main.productDetail.mvi.ProductDetailScreenState
 import com.example.presentation.ui.main.productDetail.widget.ProductDetailBody
 import com.example.presentation.ui.main.productDetail.widget.ProductDetailFooter
 import com.example.presentation.ui.main.productDetail.widget.ProductDetailHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
+
 
 @Composable
 internal fun ProductDetailScreenContent(
@@ -27,6 +28,8 @@ internal fun ProductDetailScreenContent(
     onAddToCartClick: () -> Unit,
     onBuyNowClick: () -> Unit,
 ) {
+    val canPurchaseProvider = stateProvider.focusOn { canPurchase }
+
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -36,6 +39,13 @@ internal fun ProductDetailScreenContent(
                 onCartClick = onCartClick
             )
         },
+        bottomBar = {
+            ProductDetailFooter(
+                stateProvider = canPurchaseProvider,
+                onAddToCartClick = onAddToCartClick,
+                onBuyNowClick = onBuyNowClick
+            )
+        },
         content = { innerPadding ->
             ProductDetailBody(
                 stateProvider = stateProvider,
@@ -43,13 +53,6 @@ internal fun ProductDetailScreenContent(
                 onAddClick = onAddClick,
                 onRemoveClick = onRemoveClick,
                 modifier = Modifier.padding(innerPadding)
-            )
-        },
-        bottomBar = {
-            ProductDetailFooter(
-                enabled = stateProvider.read { product.inStock },
-                onAddToCartClick = onAddToCartClick,
-                onBuyNowClick = onBuyNowClick
             )
         }
     )

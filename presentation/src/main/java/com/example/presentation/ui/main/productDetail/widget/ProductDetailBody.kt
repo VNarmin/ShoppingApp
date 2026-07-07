@@ -48,6 +48,7 @@ internal fun ProductDetailBody(
 
     val productImagesProvider = stateProvider.focusOn { product.images }
     val productInStockProvider = stateProvider.focusOn { product.inStock }
+    val canPurchaseProvider = stateProvider.focusOn { canPurchase }
 
     Column(
         modifier = modifier

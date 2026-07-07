@@ -24,6 +24,8 @@ internal data class ProductDetailScreenState(
     val loading: Boolean = false,
     val errorMessage: String? = null
 ) {
+    val canPurchase: Boolean
+        get() = product.inStock
     companion object {
         val INITIAL = ProductDetailScreenState()
     }

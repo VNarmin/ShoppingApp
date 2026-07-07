@@ -9,7 +9,8 @@ internal data class CartScreenState(
     val cartSummaryState: CartSummaryState = CartSummaryState(
         subtotal = 0.0,
         shippingCost = 5.0,
-        total = 0.0
+        total = 0.0,
+        canProceedToCheckout = cartItems.isNotEmpty(),
     ),
     val loading: Boolean = false,
     val errorMessage: String? = null

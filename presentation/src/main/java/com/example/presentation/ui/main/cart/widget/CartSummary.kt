@@ -28,7 +28,8 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 internal data class CartSummaryState(
     val subtotal: Double,
     val shippingCost: Double,
-    val total: Double
+    val total: Double,
+    val canProceedToCheckout: Boolean
 )
 
 @Composable
@@ -40,6 +41,7 @@ internal fun CartSummary(
     val subtotal = stateProvider.read { subtotal }
     val shippingCost = stateProvider.read { shippingCost }
     val total = stateProvider.read { total }
+    val canProceedToCheckout = stateProvider.read { canProceedToCheckout }
 
     Column(
         modifier = modifier
@@ -147,7 +149,7 @@ internal fun CartSummary(
         }
         PrimaryButton(
             command = "Proceed to Checkout",
-            enabled = true,
+            enabled = canProceedToCheckout,
             onClick = onProceedToCheckoutClick
         )
     }
@@ -159,7 +161,8 @@ private fun CartSummaryPreview() {
     val cartSummaryState = CartSummaryState(
         subtotal = 0.0,
         shippingCost = 5.0,
-        total = 0.0
+        total = 0.0,
+        canProceedToCheckout = false
     )
 
     ShoppingAppTheme {

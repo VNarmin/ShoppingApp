@@ -29,7 +29,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 internal fun PrimaryButton(
     command: String,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    enabled: Boolean = false,
     onClick: () -> Unit,
 ) {
     Box(

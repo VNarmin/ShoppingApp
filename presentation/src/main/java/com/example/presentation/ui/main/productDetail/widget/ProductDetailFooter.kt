@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.presentation.base.read
 import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -37,10 +38,12 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun ProductDetailFooter(
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    stateProvider: () -> Boolean,
     onAddToCartClick: () -> Unit,
     onBuyNowClick: () -> Unit
 ) {
+    val canPurchase = stateProvider.read { this }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -62,7 +65,7 @@ internal fun ProductDetailFooter(
                 .height(56.dp)
                 .weight(1F)
                 .then(
-                    if (enabled) {
+                    if (canPurchase) {
                         Modifier.dropShadow(
                             shape = RoundedCornerShape(14.dp),
                             shadow = Shadow(
@@ -81,8 +84,8 @@ internal fun ProductDetailFooter(
                     }
                 )
                 .clip(RoundedCornerShape(14.dp))
-                .background(if (enabled) Color(0xFF6366F1) else Color(0xFF1A1A1E))
-                .clickable(enabled = enabled, onClick = onAddToCartClick)
+                .background(if (canPurchase) Color(0xFF6366F1) else Color(0xFF1A1A1E))
+                .clickable(enabled = canPurchase, onClick = onAddToCartClick)
                 .padding(horizontal = 16.dp, vertical = 16.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
@@ -108,7 +111,7 @@ internal fun ProductDetailFooter(
         PrimaryButton(
             modifier = Modifier.weight(1F),
             command = "Buy Now",
-            enabled = enabled,
+            enabled = canPurchase,
             onClick = onBuyNowClick
         )
     }
@@ -119,7 +122,7 @@ internal fun ProductDetailFooter(
 private fun ProductDetailFooterEnabledPreview() {
     ShoppingAppTheme {
         ProductDetailFooter(
-            enabled = true,
+            stateProvider = { true },
             onAddToCartClick = {},
             onBuyNowClick = {}
         )
@@ -131,7 +134,7 @@ private fun ProductDetailFooterEnabledPreview() {
 private fun ProductDetailFooterDisabledPreview() {
     ShoppingAppTheme {
         ProductDetailFooter(
-            enabled = false,
+            stateProvider = { false },
             onAddToCartClick = {},
             onBuyNowClick = {}
         )
