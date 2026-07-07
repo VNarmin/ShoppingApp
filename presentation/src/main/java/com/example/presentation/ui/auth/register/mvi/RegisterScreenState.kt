@@ -6,11 +6,9 @@ internal data class RegisterScreenState(
     val password: String = "",
     val flagRememberMe: Boolean = false,
     val loading: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val canRegister : Boolean = false
 ) {
-    val canRegister : Boolean
-        get() = email.isNotBlank() && password.isNotBlank()
-                && username.isNotBlank() && !loading
     companion object {
         val INITIAL = RegisterScreenState()
     }

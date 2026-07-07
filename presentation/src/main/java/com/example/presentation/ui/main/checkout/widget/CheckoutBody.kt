@@ -62,7 +62,7 @@ internal fun CheckoutBody(
         ) {
             PrimaryButton(
                 command = "Place Order · $${"%.2f".format(total)}",
-                enabled = true,
+                stateProvider = { true },
                 onClick = onPlaceOrderClick
             )
         }

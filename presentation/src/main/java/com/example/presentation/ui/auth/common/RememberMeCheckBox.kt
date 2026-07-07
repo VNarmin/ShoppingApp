@@ -26,6 +26,7 @@ internal fun RememberMeCheckBox(
     onRememberMeChange: (Boolean) -> Unit
 ) {
     val flagRememberMe = stateProvider.read { this }
+
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,

@@ -30,7 +30,8 @@ internal class ProductDetailViewModel(
                     state.copy(
                         loading = false,
                         product = product,
-                        quantity = if (product.inStock) 1 else 0
+                        quantity = if (product.inStock) 1 else 0,
+                        canPurchase = product.inStock
                     )
                 }
             }

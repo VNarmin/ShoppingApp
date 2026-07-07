@@ -63,9 +63,7 @@ internal fun InputField(
     var focused by remember { mutableStateOf(false) }
 
     val borderColor = if (focused) Color(0xFF6366F1) else Color(0xFF2A2A2E)
-
     val borderWidth = if (focused) 2.dp else 1.dp
-
     val iconTint = if (focused) Color(0xFFFAFAF9) else Color(0xFF6B6B70)
 
     Box(

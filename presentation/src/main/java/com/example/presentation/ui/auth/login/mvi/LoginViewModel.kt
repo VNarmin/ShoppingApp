@@ -15,11 +15,23 @@ internal class LoginViewModel(
     )
 
     fun onEmailChange(email: String) = intent {
-        reduce { state.copy(email = email, errorMessage = null) }
+        reduce {
+            state.copy(
+                email = email,
+                errorMessage = null,
+                canLogin = canLogin(email = email, password = state.password)
+            )
+        }
     }
 
     fun onPasswordChange(password: String) = intent {
-        reduce { state.copy(password = password, errorMessage = null) }
+        reduce {
+            state.copy(
+                password = password,
+                errorMessage = null,
+                canLogin = canLogin(email = state.email, password = password)
+            )
+        }
     }
 
     fun onRememberMeChange(flagRememberMe: Boolean) = intent {
@@ -64,6 +76,9 @@ internal class LoginViewModel(
             postSideEffect(LoginEffect.NavigateToHome)
         }
     }
+
+    private fun canLogin(email: String, password: String): Boolean =
+        email.isNotBlank() && password.isNotBlank()
 
     fun onRegisterClick() = intent {
         postSideEffect(LoginEffect.NavigateToRegister)

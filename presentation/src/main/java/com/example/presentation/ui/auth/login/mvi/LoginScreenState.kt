@@ -5,11 +5,9 @@ internal data class LoginScreenState(
     val password: String = "",
     val flagRememberMe: Boolean = false,
     val loading: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val canLogin: Boolean = false
 ) {
-    val canLogin: Boolean
-        get() = email.isNotBlank() && password.isNotBlank() && !loading
-
     companion object {
         val INITIAL = LoginScreenState()
     }

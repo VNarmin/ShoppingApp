@@ -15,15 +15,45 @@ internal class RegisterViewModel(
     )
 
     fun onUsernameChange(username: String) = intent {
-        reduce { state.copy(username = username, errorMessage = null) }
+        reduce {
+            state.copy(
+                username = username,
+                errorMessage = null,
+                canRegister = canRegister(
+                    username = username,
+                    email = state.email,
+                    password = state.password
+                )
+            )
+        }
     }
 
     fun onEmailChange(email: String) = intent {
-        reduce { state.copy(email = email, errorMessage = null) }
+        reduce {
+            state.copy(
+                email = email,
+                errorMessage = null,
+                canRegister = canRegister(
+                    username = state.username,
+                    email = email,
+                    password = state.password
+                )
+            )
+        }
     }
 
     fun onPasswordChange(password: String) = intent {
-        reduce { state.copy(password = password, errorMessage = null) }
+        reduce {
+            state.copy(
+                password = password,
+                errorMessage = null,
+                canRegister = canRegister(
+                    username = state.username,
+                    email = state.email,
+                    password = password
+                )
+            )
+        }
     }
 
     fun onRememberMeChange(flagRememberMe: Boolean) = intent {
@@ -80,6 +110,9 @@ internal class RegisterViewModel(
             postSideEffect(RegisterEffect.NavigateToHome)
         }
     }
+
+    private fun canRegister(username: String, email: String, password: String) : Boolean =
+        username.isNotBlank() && email.isNotBlank() && password.isNotBlank()
 
     fun onLoginClick() = intent {
         postSideEffect(RegisterEffect.NavigateToLogin)

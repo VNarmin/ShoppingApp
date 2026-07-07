@@ -20,6 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.DMSansFontFamily
@@ -41,7 +42,7 @@ internal fun CartSummary(
     val subtotal = stateProvider.read { subtotal }
     val shippingCost = stateProvider.read { shippingCost }
     val total = stateProvider.read { total }
-    val canProceedToCheckout = stateProvider.read { canProceedToCheckout }
+    val canProceedToCheckoutProvider = stateProvider.focusOn { canProceedToCheckout }
 
     Column(
         modifier = modifier
@@ -149,7 +150,7 @@ internal fun CartSummary(
         }
         PrimaryButton(
             command = "Proceed to Checkout",
-            enabled = canProceedToCheckout,
+            stateProvider = canProceedToCheckoutProvider,
             onClick = onProceedToCheckoutClick
         )
     }

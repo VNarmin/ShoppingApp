@@ -28,22 +28,33 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
+import com.example.presentation.base.focusOn
+import com.example.presentation.base.read
 import com.example.presentation.ui.common.QuantitySelector
+import com.example.presentation.ui.common.QuantitySelectorState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
+internal data class CartItemCardState(
+    val productName: String,
+    val productPrice: Double,
+    val productImages: List<String>,
+    val quantitySelectorState: QuantitySelectorState
+)
+
 @Composable
 internal fun CartItemCard(
-    productName: String,
-    productPrice: Double,
-    images: List<String>,
-    quantity: Int,
-    stockCount: Int,
+    stateProvider: () -> CartItemCardState,
     onDelete: () -> Unit,
     onAdd: () -> Unit,
     onRemove: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val productName = stateProvider.read { productName }
+    val productPrice = stateProvider.read { productPrice }
+    val productImages = stateProvider.read { productImages }
+    val quantitySelectorStateProvider = stateProvider.focusOn { quantitySelectorState }
+
     Row(
         modifier = modifier.fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
@@ -61,7 +72,7 @@ internal fun CartItemCard(
             modifier = Modifier
                 .size(64.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(Color(images.first().toColorInt()))
+                .background(Color(productImages.first().toColorInt()))
         )
         Column(
             modifier = Modifier.weight(1F),
@@ -112,8 +123,7 @@ internal fun CartItemCard(
                     )
                 )
                 QuantitySelector(
-                    quantity = quantity,
-                    stockCount = stockCount,
+                    stateProvider = quantitySelectorStateProvider,
                     onAdd = onAdd,
                     onRemove = onRemove
                 )
@@ -125,13 +135,19 @@ internal fun CartItemCard(
 @PreviewLightDark
 @Composable
 private fun CartItemCardPreview() {
-    ShoppingAppTheme {
-        CartItemCard(
-            productName = "Retro Runner",
-            productPrice = 99.00,
-            images = listOf("#E85A4F", "#6366F1", "#32D583"),
+    val cartItemCartState = CartItemCardState(
+        productName = "Retro Runner",
+        productPrice = 99.00,
+        productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
+        quantitySelectorState = QuantitySelectorState(
             quantity = 2,
             stockCount = 17,
+        )
+    )
+
+    ShoppingAppTheme {
+        CartItemCard(
+            stateProvider = { cartItemCartState },
             onDelete = {},
             onAdd = {},
             onRemove = {}

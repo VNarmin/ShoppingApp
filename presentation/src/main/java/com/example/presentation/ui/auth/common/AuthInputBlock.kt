@@ -27,10 +27,10 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 internal fun AuthInputGroup(
     modifier: Modifier = Modifier,
     prompt: String,
-    stateProvider: () -> String,
     placeholder: String,
     leadingIcon: ImageVector? = null,
     password: Boolean = false,
+    stateProvider: () -> String,
     onValueChange: (String) -> Unit,
 ) {
     Column(

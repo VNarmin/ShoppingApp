@@ -29,6 +29,7 @@ import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.common.QuantitySelector
+import com.example.presentation.ui.common.QuantitySelectorState
 import com.example.presentation.ui.main.productDetail.mvi.ProductDetailScreenState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -43,12 +44,12 @@ internal fun ProductDetailBody(
 ) {
     val product = stateProvider.read { product }
     val descriptionExpanded = stateProvider.read { descriptionExpanded }
-    val quantity = stateProvider.read { quantity }
-    val stockCount = stateProvider.read { product.stockCount }
 
     val productImagesProvider = stateProvider.focusOn { product.images }
     val productInStockProvider = stateProvider.focusOn { product.inStock }
-    val canPurchaseProvider = stateProvider.focusOn { canPurchase }
+    val quantitySelectorStateProvider = stateProvider.focusOn {
+        QuantitySelectorState(quantity = quantity, stockCount = product.stockCount)
+    }
 
     Column(
         modifier = modifier
@@ -163,8 +164,7 @@ internal fun ProductDetailBody(
                 )
             )
             QuantitySelector(
-                quantity = quantity,
-                stockCount = stockCount,
+                stateProvider = quantitySelectorStateProvider,
                 onAdd = onAddClick,
                 onRemove = onRemoveClick
             )

@@ -37,7 +37,8 @@ internal class CartViewModel(
                         cartSummaryState = state.cartSummaryState.copy(
                             subtotal = subtotal,
                             shippingCost = shippingCost,
-                            total = total
+                            total = total,
+                            canProceedToCheckout = cartItems.isNotEmpty()
                         )
                     )
                 }

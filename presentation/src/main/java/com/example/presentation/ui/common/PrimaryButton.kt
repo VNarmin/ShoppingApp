@@ -22,16 +22,19 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun PrimaryButton(
-    command: String,
     modifier: Modifier = Modifier,
-    enabled: Boolean = false,
+    command: String,
+    stateProvider: () -> Boolean,
     onClick: () -> Unit,
 ) {
+    val enabled = stateProvider.read { this }
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
@@ -79,7 +82,7 @@ private fun EnabledPrimaryButtonPreview() {
     ShoppingAppTheme {
         PrimaryButton(
             command = "Continue",
-            enabled = true,
+            stateProvider = { true },
             onClick = {}
         )
     }
@@ -91,7 +94,7 @@ private fun DisabledPrimaryButtonPreview() {
     ShoppingAppTheme {
         PrimaryButton(
             command = "Continue",
-            enabled = false,
+            stateProvider = { false },
             onClick = {}
         )
     }

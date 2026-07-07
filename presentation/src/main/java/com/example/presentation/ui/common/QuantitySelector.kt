@@ -27,17 +27,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+
+internal data class QuantitySelectorState(
+    val quantity: Int,
+    val stockCount: Int
+)
 
 @Composable
 internal fun QuantitySelector(
     modifier: Modifier = Modifier,
-    quantity: Int,
-    stockCount: Int,
+    stateProvider: () -> QuantitySelectorState,
     onAdd: () -> Unit,
     onRemove: () -> Unit
 ) {
+    val quantity = stateProvider.read { quantity }
+    val stockCount = stateProvider.read { stockCount }
+
     val canAdd = stockCount > 0 && quantity < stockCount
     val canRemove = stockCount > 0 && quantity > 1
 
@@ -104,10 +112,14 @@ private fun QuantityActionButton(
 @PreviewLightDark
 @Composable
 private fun QuantitySelectorCase1Preview() {
+    val quantitySelectorState = QuantitySelectorState(
+        quantity = 1,
+        stockCount = 36
+    )
+
     ShoppingAppTheme {
         QuantitySelector(
-            quantity = 1,
-            stockCount = 36,
+            stateProvider = { quantitySelectorState },
             onAdd = {},
             onRemove = {}
         )
@@ -117,10 +129,14 @@ private fun QuantitySelectorCase1Preview() {
 @PreviewLightDark
 @Composable
 private fun QuantitySelectorCase2Preview() {
+    val quantitySelectorState = QuantitySelectorState(
+        quantity = 5,
+        stockCount = 36
+    )
+
     ShoppingAppTheme {
         QuantitySelector(
-            quantity = 5,
-            stockCount = 36,
+            stateProvider = { quantitySelectorState },
             onAdd = {},
             onRemove = {}
         )
@@ -130,10 +146,14 @@ private fun QuantitySelectorCase2Preview() {
 @PreviewLightDark
 @Composable
 private fun QuantitySelectorCase3Preview() {
+    val quantitySelectorState = QuantitySelectorState(
+        quantity = 0,
+        stockCount = 0
+    )
+
     ShoppingAppTheme {
         QuantitySelector(
-            quantity = 0,
-            stockCount = 0,
+            stateProvider = { quantitySelectorState },
             onAdd = {},
             onRemove = {}
         )
@@ -143,10 +163,14 @@ private fun QuantitySelectorCase3Preview() {
 @PreviewLightDark
 @Composable
 private fun QuantitySelectorCase4Preview() {
+    val quantitySelectorState = QuantitySelectorState(
+        quantity = 36,
+        stockCount = 36
+    )
+
     ShoppingAppTheme {
         QuantitySelector(
-            quantity = 36,
-            stockCount = 36,
+            stateProvider = { quantitySelectorState },
             onAdd = {},
             onRemove = {}
         )

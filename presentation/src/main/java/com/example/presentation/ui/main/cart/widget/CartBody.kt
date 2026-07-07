@@ -16,6 +16,7 @@ import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
+import com.example.presentation.ui.common.QuantitySelectorState
 import com.example.presentation.ui.main.cart.mvi.CartScreenState
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
@@ -29,6 +30,7 @@ internal fun CartBody(
     modifier: Modifier = Modifier
 ) {
     val cartItems = stateProvider.read { cartItems }
+    val cartSummaryStateProvider = stateProvider.focusOn { cartSummaryState }
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -43,21 +45,27 @@ internal fun CartBody(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(cartItems) { cartItem ->
+            items(cartItems, key = { cartItem -> cartItem.product.productID }) { cartItem ->
                 CartItemCard(
-                    productName = cartItem.product.name,
-                    productPrice = cartItem.product.price,
-                    images = cartItem.product.images,
-                    quantity = cartItem.quantity,
-                    stockCount = cartItem.product.stockCount,
+                    stateProvider = {
+                        CartItemCardState(
+                            productName = cartItem.product.name,
+                            productPrice = cartItem.product.price,
+                            productImages = cartItem.product.images,
+                            quantitySelectorState = QuantitySelectorState(
+                                quantity = cartItem.quantity,
+                                stockCount = cartItem.product.stockCount
+                            )
+                        )
+                    },
                     onDelete = { onDeleteClick(cartItem.product.productID) },
                     onAdd = { onAddClick(cartItem.product.productID) },
-                    onRemove = { onRemoveClick(cartItem.product.productID) },
+                    onRemove = { onRemoveClick(cartItem.product.productID) }
                 )
             }
         }
         CartSummary(
-            stateProvider = stateProvider.focusOn { cartSummaryState },
+            stateProvider = cartSummaryStateProvider,
             onProceedToCheckoutClick = onProceedToCheckOutClick
         )
     }

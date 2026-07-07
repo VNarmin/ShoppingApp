@@ -33,6 +33,7 @@ import com.example.domain.model.Product
 import com.example.presentation.base.read
 import com.example.presentation.ui.main.categoryDetail.mvi.CategoryDetailScreenState
 import com.example.presentation.ui.common.ProductCard
+import com.example.presentation.ui.common.ProductCardState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
@@ -101,12 +102,16 @@ internal fun CategoryDetailBody(
             }
         }
 
-        items(products) { product ->
+        items(products, key = { product -> product.productID }) { product ->
             ProductCard(
-                productName = product.name,
-                productPrice = product.price,
-                images = product.images,
-                onClick = { onProductClick(product.productID) },
+                stateProvider = {
+                    ProductCardState(
+                        productName = product.name,
+                        productPrice = product.price,
+                        productImages = product.images
+                    )
+                },
+                onClick = { onProductClick(product.productID) }
             )
         }
     }

@@ -25,6 +25,7 @@ import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.common.InputField
 import com.example.presentation.ui.common.ProductCard
+import com.example.presentation.ui.common.ProductCardState
 import com.example.presentation.ui.main.home.mvi.HomeScreenState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -78,11 +79,15 @@ internal fun HomeBody(
                 )
             )
         }
-        items(products) { product ->
+        items(products, key = { product -> product.productID }) { product ->
             ProductCard(
-                productName = product.name,
-                productPrice = product.price,
-                images = product.images,
+                stateProvider = {
+                    ProductCardState(
+                        productName = product.name,
+                        productPrice = product.price,
+                        productImages = product.images,
+                    )
+                },
                 onClick = { onProductClick(product.productID) }
             )
         }

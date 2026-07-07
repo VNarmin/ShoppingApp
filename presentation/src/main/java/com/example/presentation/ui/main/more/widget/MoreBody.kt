@@ -57,10 +57,14 @@ internal fun MoreBody(
             )
         }
 
-        items(categories) { category ->
+        items(categories, key = { category -> category.categoryID }) { category ->
             CategoryCard(
-                categoryDisplayName = category.displayName,
-                categoryItemCount = category.itemCount,
+                stateProvider = {
+                    CategoryCardState(
+                        categoryDisplayName = category.displayName,
+                        categoryItemCount = category.itemCount,
+                    )
+                },
                 onClick = { onCategoryClick(category.categoryID) },
             )
         }

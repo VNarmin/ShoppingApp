@@ -16,7 +16,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.presentation.base.focusOn
-import com.example.presentation.base.read
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
@@ -37,7 +36,7 @@ internal fun LoginScreenContent(
     val emailProvider = stateProvider.focusOn { email }
     val passwordProvider = stateProvider.focusOn { password }
     val flagRememberMeProvider = stateProvider.focusOn { flagRememberMe }
-    val loginEnabled = stateProvider.read { canLogin }
+    val canLoginProvider = stateProvider.focusOn { canLogin }
 
     Column(
         modifier = Modifier
@@ -82,7 +81,7 @@ internal fun LoginScreenContent(
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             command = "Sign In",
-            enabled = loginEnabled,
+            stateProvider = canLoginProvider,
             onClick = onLoginClick
         )
 

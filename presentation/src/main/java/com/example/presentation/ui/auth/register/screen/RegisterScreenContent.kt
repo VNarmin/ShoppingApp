@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.presentation.base.focusOn
-import com.example.presentation.base.read
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
@@ -40,7 +39,7 @@ internal fun RegisterScreenContent(
     val emailProvider = stateProvider.focusOn { email }
     val passwordProvider = stateProvider.focusOn { password }
     val flagRememberMeProvider = stateProvider.focusOn { flagRememberMe }
-    val registerEnabled = stateProvider.read { canRegister }
+    val canRegisterProvider = stateProvider.focusOn { canRegister }
 
     Column(
         modifier = Modifier
@@ -95,7 +94,7 @@ internal fun RegisterScreenContent(
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             command = "Register",
-            enabled = registerEnabled,
+            stateProvider = canRegisterProvider,
             onClick = onRegisterClick
         )
 

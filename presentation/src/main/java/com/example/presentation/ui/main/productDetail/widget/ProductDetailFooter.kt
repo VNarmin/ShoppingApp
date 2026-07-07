@@ -111,7 +111,7 @@ internal fun ProductDetailFooter(
         PrimaryButton(
             modifier = Modifier.weight(1F),
             command = "Buy Now",
-            enabled = canPurchase,
+            stateProvider = { canPurchase },
             onClick = onBuyNowClick
         )
     }
