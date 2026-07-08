@@ -30,7 +30,7 @@ internal fun AuthInputGroup(
     placeholder: String,
     leadingIcon: ImageVector? = null,
     password: Boolean = false,
-    stateProvider: () -> String,
+    value: String,
     onValueChange: (String) -> Unit,
 ) {
     Column(
@@ -50,11 +50,11 @@ internal fun AuthInputGroup(
         )
 
         InputField(
-            stateProvider = stateProvider,
-            onValueChange = onValueChange,
             placeholder = placeholder,
             leadingIcon = leadingIcon,
-            password = password
+            password = password,
+            value = value,
+            onValueChange = onValueChange
         )
     }
 }
@@ -65,10 +65,10 @@ private fun EmailInputGroupPreview() {
     ShoppingAppTheme {
         AuthInputGroup(
             prompt = "Email",
-            stateProvider = { "" },
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
             password = false,
+            value = "",
             onValueChange = {}
         )
     }
@@ -80,10 +80,10 @@ private fun PasswordInputGroupPreview() {
     ShoppingAppTheme {
         AuthInputGroup(
             prompt = "Password",
-            stateProvider = { "" },
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Password,
             password = true,
+            value = "",
             onValueChange = {}
         )
     }
@@ -95,10 +95,10 @@ private fun UsernameInputGroupPreview() {
     ShoppingAppTheme {
         AuthInputGroup(
             prompt = "Username",
-            stateProvider = { "" },
             placeholder = "username",
             leadingIcon = Icons.Default.Person,
             password = false,
+            value = "",
             onValueChange = {}
         )
     }

@@ -26,17 +26,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun DeliveryAddressCard(
     modifier: Modifier = Modifier,
-    stateProvider: () -> String
+    username: String
 ) {
-    val username = stateProvider.read { this }
-
     Column(
         modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.Start,
@@ -122,6 +119,6 @@ internal fun DeliveryAddressCard(
 @Composable
 private fun DeliveryAddressPreview() {
     ShoppingAppTheme {
-        DeliveryAddressCard(stateProvider = { "Olivia Rodrigo" } )
+        DeliveryAddressCard(username = "Olivia Rodrigo")
     }
 }

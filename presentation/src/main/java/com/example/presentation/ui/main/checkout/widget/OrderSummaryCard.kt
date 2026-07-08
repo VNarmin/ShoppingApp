@@ -163,7 +163,7 @@ private fun OrderSummerCardPreview() {
     val orderSummaryState = OrderSummaryState(
         totalItemCount = 0,
         subtotal = 0.0,
-        shippingCost = 5.0,
+        shippingCost = 0.0,
         total = 0.0
     )
 

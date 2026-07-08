@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.presentation.base.focusOn
+import com.example.presentation.base.read
 import com.example.presentation.ui.auth.common.AuthFooter
 import com.example.presentation.ui.auth.common.AuthHeader
 import com.example.presentation.ui.auth.common.AuthInputGroup
@@ -35,11 +35,11 @@ internal fun RegisterScreenContent(
     onRegisterClick: () -> Unit,
     onLoginClick: () -> Unit
 ) {
-    val usernameProvider = stateProvider.focusOn { username }
-    val emailProvider = stateProvider.focusOn { email }
-    val passwordProvider = stateProvider.focusOn { password }
-    val flagRememberMeProvider = stateProvider.focusOn { flagRememberMe }
-    val canRegisterProvider = stateProvider.focusOn { canRegister }
+    val username = stateProvider.read { username }
+    val email = stateProvider.read { email }
+    val password = stateProvider.read { password }
+    val flagRememberMe = stateProvider.read { flagRememberMe }
+    val canRegister = stateProvider.read { canRegister }
 
     Column(
         modifier = Modifier
@@ -58,43 +58,43 @@ internal fun RegisterScreenContent(
 
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
-            prompt = "Email",
-            stateProvider = usernameProvider,
+            prompt = "Username",
             placeholder = "username",
             leadingIcon = Icons.Default.Person,
             password = false,
+            value = username,
             onValueChange = onUsernameChange
         )
 
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Email",
-            stateProvider = emailProvider,
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
             password = false,
+            value = email,
             onValueChange = onEmailChange
         )
 
         AuthInputGroup(
             modifier = Modifier.fillMaxWidth(),
             prompt = "Password",
-            stateProvider = passwordProvider,
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Password,
             password = true,
+            value = password,
             onValueChange = onPasswordChange
         )
 
         RememberMeCheckBox(
-            stateProvider = flagRememberMeProvider,
+            flagRememberMe = flagRememberMe,
             onRememberMeChange = onRememberMeChange
         )
 
         PrimaryButton(
             modifier = Modifier.fillMaxWidth(),
             command = "Register",
-            stateProvider = canRegisterProvider,
+            enabled = canRegister,
             onClick = onRegisterClick
         )
 
@@ -123,4 +123,3 @@ private fun RegisterScreenContentPreview() {
         )
     }
 }
-

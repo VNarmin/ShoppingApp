@@ -15,18 +15,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun RememberMeCheckBox(
     modifier: Modifier = Modifier,
-    stateProvider: () -> Boolean,
+    flagRememberMe: Boolean,
     onRememberMeChange: (Boolean) -> Unit
 ) {
-    val flagRememberMe = stateProvider.read { this }
-
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Start,
@@ -58,7 +55,7 @@ internal fun RememberMeCheckBox(
 private fun RememberMeCheckBoxPreviewCaseTrue() {
     ShoppingAppTheme {
         RememberMeCheckBox(
-            stateProvider = { true },
+            flagRememberMe = true,
             onRememberMeChange = {}
         )
     }
@@ -69,7 +66,7 @@ private fun RememberMeCheckBoxPreviewCaseTrue() {
 private fun RememberMeCheckBoxPreviewCaseFalse() {
     ShoppingAppTheme {
         RememberMeCheckBox(
-            stateProvider = { false },
+            flagRememberMe = false,
             onRememberMeChange = {}
         )
     }

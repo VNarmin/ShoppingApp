@@ -45,7 +45,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
@@ -55,10 +54,9 @@ internal fun InputField(
     leadingIcon: ImageVector? = null,
     password: Boolean = false,
     focusManager: FocusManager = LocalFocusManager.current,
-    stateProvider: () -> String,
+    value: String,
     onValueChange: (String) -> Unit,
 ) {
-    val value = stateProvider.read { this }
     var passwordVisible by remember { mutableStateOf(false) }
     var focused by remember { mutableStateOf(false) }
 
@@ -156,11 +154,11 @@ internal fun InputField(
 private fun EmailInputFieldPreview() {
     ShoppingAppTheme {
         InputField(
-            stateProvider = { "" },
-            onValueChange = {},
             placeholder = "you@email.com",
             leadingIcon = Icons.Default.Email,
-            password = false
+            password = false,
+            value = "",
+            onValueChange = {}
         )
     }
 }
@@ -170,11 +168,11 @@ private fun EmailInputFieldPreview() {
 private fun PasswordInputFieldPreview() {
     ShoppingAppTheme {
         InputField(
-            stateProvider = { "" },
-            onValueChange = {},
             placeholder = "••••••••",
             leadingIcon = Icons.Default.Lock,
-            password = true
+            password = true,
+            value = "",
+            onValueChange = {}
         )
     }
 }
@@ -184,11 +182,11 @@ private fun PasswordInputFieldPreview() {
 private fun UsernameInputFieldPreview() {
     ShoppingAppTheme {
         InputField(
-            stateProvider = { "" },
-            onValueChange = {},
             placeholder = "username",
             leadingIcon = Icons.Default.Person,
-            password = false
+            password = false,
+            value = "",
+            onValueChange = {}
         )
     }
 }

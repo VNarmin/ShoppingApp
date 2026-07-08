@@ -11,10 +11,12 @@ import com.example.domain.model.CartItem
 import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
+import com.example.presentation.base.read
 import com.example.presentation.ui.main.cart.mvi.CartScreenState
 import com.example.presentation.ui.main.cart.widget.CartBody
 import com.example.presentation.ui.main.cart.widget.CartHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 internal fun CartScreenContent(
@@ -25,18 +27,21 @@ internal fun CartScreenContent(
     onRemoveClick: (String) -> Unit,
     onProceedToCheckOutClick: () -> Unit
 ) {
+    val totalItemCount = stateProvider.read { totalItemCount }
+    val cartBodyStateProvider = stateProvider.focusOn { formCartBodyState() }
+
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CartHeader(
-                stateProvider = stateProvider.focusOn { totalItemCount },
+                totalItemCount = totalItemCount,
                 onBackClick = onBackClick
             )
         }
     ) { innerPadding ->
         CartBody(
-            stateProvider = stateProvider,
+            stateProvider = cartBodyStateProvider,
             onDeleteClick = onDeleteClick,
             onAddClick = onAddClick,
             onRemoveClick = onRemoveClick,
@@ -85,7 +90,7 @@ private fun CartScreenContentPreview() {
         reviewCount = 54
     )
 
-    val cartItems = listOf(
+    val cartItems = persistentListOf(
         CartItem(product = product1, quantity = 1),
         CartItem(product = product2, quantity = 2),
         CartItem(product = product3, quantity = 3)

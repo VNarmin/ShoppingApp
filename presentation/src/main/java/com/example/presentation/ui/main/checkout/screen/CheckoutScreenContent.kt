@@ -7,6 +7,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
+import com.example.presentation.base.focusOn
 import com.example.presentation.ui.main.checkout.mvi.CheckoutScreenState
 import com.example.presentation.ui.main.checkout.widget.CheckoutBody
 import com.example.presentation.ui.main.checkout.widget.CheckoutHeader
@@ -18,6 +19,8 @@ internal fun CheckoutScreenContent(
     onBackClick: () -> Unit,
     onPlaceOrderClick: () -> Unit
 ) {
+    val checkoutBodyProvider = stateProvider.focusOn { formCheckoutBodyState() }
+
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -26,7 +29,7 @@ internal fun CheckoutScreenContent(
         }
     ) { innerPadding ->
         CheckoutBody(
-            stateProvider = stateProvider,
+            stateProvider = checkoutBodyProvider,
             onPlaceOrderClick = onPlaceOrderClick,
             modifier = Modifier.padding(innerPadding)
         )

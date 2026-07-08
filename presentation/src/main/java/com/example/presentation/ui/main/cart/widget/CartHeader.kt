@@ -17,8 +17,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
-import com.example.presentation.ui.main.cart.mvi.CartScreenState
 import com.example.presentation.ui.common.IconButton
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -26,11 +24,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun CartHeader(
     modifier: Modifier = Modifier,
-    stateProvider: () -> Int,
+    totalItemCount: Int,
     onBackClick: () -> Unit
 ) {
-    val totalItemCount = stateProvider.read { this }
-
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -68,11 +64,9 @@ internal fun CartHeader(
 @PreviewLightDark
 @Composable
 private fun CartHeaderPreview() {
-    val cartScreenState = CartScreenState()
-
     ShoppingAppTheme {
         CartHeader(
-            stateProvider = { cartScreenState.totalItemCount },
+            totalItemCount = 127,
             onBackClick = {},
         )
     }

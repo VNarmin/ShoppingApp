@@ -118,10 +118,10 @@ internal fun AuthFooter(
 
 @Composable
 private fun SocialButton(
+    modifier: Modifier = Modifier,
     label: String,
     icon: ImageVector,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier
+    onClick: () -> Unit
 ) {
     Row(
         horizontalArrangement = Arrangement.Center,

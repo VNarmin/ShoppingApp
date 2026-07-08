@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.common.IconButton
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -26,11 +25,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun CategoryDetailHeader(
     modifier: Modifier = Modifier,
-    stateProvider: () -> String,
+    currentCategoryDisplayName: String,
     onBackClick: () -> Unit
 ) {
-    val currentCategoryDisplayName = stateProvider.read { this }
-
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -64,7 +61,7 @@ internal fun CategoryDetailHeader(
 private fun CategoryDetailHeaderPreview() {
     ShoppingAppTheme {
         CategoryDetailHeader(
-            stateProvider = { "Shoes" },
+            currentCategoryDisplayName = "Shoes",
             onBackClick = {}
         )
     }

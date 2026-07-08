@@ -10,11 +10,13 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
+import com.example.presentation.base.read
 import com.example.presentation.ui.main.categoryDetail.mvi.CategoryDetailScreenState
 import com.example.presentation.ui.main.categoryDetail.widget.CategoryDetailBody
 import com.example.presentation.ui.main.categoryDetail.widget.CategoryDetailHeader
 import com.example.presentation.ui.common.BottomNavBar
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 internal fun CategoryDetailScreenContent(
@@ -23,18 +25,21 @@ internal fun CategoryDetailScreenContent(
     onHomeClick: () -> Unit,
     onProductClick: (String) -> Unit
 ) {
+    val currentCategory = stateProvider.read { currentCategory }
+    val categoryDetailBodyStateProvider = stateProvider.focusOn { formCategoryDetailBodyState() }
+
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CategoryDetailHeader(
-                stateProvider = stateProvider.focusOn { currentCategory.displayName },
-                onBackClick = onBackClick,
+                currentCategoryDisplayName = currentCategory.displayName,
+                onBackClick = onBackClick
             )
         },
         content = { innerPadding ->
             CategoryDetailBody(
-                stateProvider = stateProvider,
+                stateProvider = categoryDetailBodyStateProvider,
                 onProductClick = onProductClick,
                 modifier = Modifier.padding(innerPadding)
             )
@@ -57,7 +62,7 @@ private fun CategoryDetailScreenContentPreview() {
         itemCount = 128
     )
 
-    val products = listOf(
+    val products = persistentListOf(
         Product(
             productID = "shoes_1",
             name = "Nike Air Max 270",

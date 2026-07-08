@@ -3,6 +3,7 @@ package com.example.presentation.ui.main.categoryDetail.mvi
 import androidx.lifecycle.ViewModel
 import com.example.domain.repository.CategoryRepository
 import com.example.domain.repository.ProductRepository
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.catch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
@@ -33,10 +34,7 @@ internal class CategoryDetailViewModel(
             }
             .collect { category ->
                 reduce {
-                    state.copy(
-                        loading = false,
-                        currentCategory = category
-                    )
+                    state.copy(loading = false, currentCategory = category)
                 }
             }
     }
@@ -50,10 +48,7 @@ internal class CategoryDetailViewModel(
             }
             .collect { products ->
                 reduce {
-                    state.copy(
-                        loading = false,
-                        products = products
-                    )
+                    state.copy(loading = false, products = products.toImmutableList())
                 }
             }
     }

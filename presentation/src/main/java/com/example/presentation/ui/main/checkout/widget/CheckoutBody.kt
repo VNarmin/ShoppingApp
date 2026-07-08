@@ -16,17 +16,23 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
-import com.example.presentation.ui.main.checkout.mvi.CheckoutScreenState
 import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.ShoppingAppTheme
+
+internal data class CheckoutBodyState(
+    val username: String,
+    val orderSummaryState: OrderSummaryState
+)
 
 @Composable
 internal fun CheckoutBody(
     modifier: Modifier = Modifier,
-    stateProvider: () -> CheckoutScreenState,
+    stateProvider: () -> CheckoutBodyState,
     onPlaceOrderClick: () -> Unit
 ) {
+    val username = stateProvider.read { username }
     val total = stateProvider.read { orderSummaryState.total }
+    val orderSummaryStateProvider = stateProvider.focusOn { orderSummaryState }
 
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -41,9 +47,9 @@ internal fun CheckoutBody(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            DeliveryAddressCard(stateProvider = stateProvider.focusOn { username })
+            DeliveryAddressCard(username = username)
             PaymentMethodCard()
-            OrderSummaryCard(stateProvider = stateProvider.focusOn { orderSummaryState })
+            OrderSummaryCard(stateProvider = orderSummaryStateProvider)
         }
         Box(
             modifier = Modifier
@@ -62,7 +68,7 @@ internal fun CheckoutBody(
         ) {
             PrimaryButton(
                 command = "Place Order · $${"%.2f".format(total)}",
-                stateProvider = { true },
+                enabled = true,
                 onClick = onPlaceOrderClick
             )
         }
@@ -72,11 +78,19 @@ internal fun CheckoutBody(
 @PreviewLightDark
 @Composable
 private fun CheckoutBodyPreview() {
-    val checkoutScreenState = CheckoutScreenState()
+    val checkoutBodyState = CheckoutBodyState(
+        username = "Olivia Rodrigo",
+        orderSummaryState = OrderSummaryState(
+            totalItemCount = 0,
+            subtotal = 0.0,
+            shippingCost = 0.0,
+            total = 0.0
+        )
+    )
 
     ShoppingAppTheme {
         CheckoutBody(
-            stateProvider = { checkoutScreenState },
+            stateProvider = { checkoutBodyState },
             onPlaceOrderClick = {},
         )
     }
