@@ -26,12 +26,12 @@ internal fun OrderConfirmationFooter(
     ) {
         PrimaryButton(
             command = "Continue Shopping",
-            stateProvider = { true },
+            enabled = true,
             onClick = onContinueShoppingClick
         )
         PrimaryButton(
             command = "View Order",
-            stateProvider = { false },
+            enabled = false,
             onClick = {}
         )
     }

@@ -3,6 +3,7 @@ package com.example.presentation.ui.main.more.mvi
 import androidx.lifecycle.ViewModel
 import com.example.domain.repository.AuthRepository
 import com.example.domain.repository.CategoryRepository
+import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.flow.catch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
@@ -52,7 +53,7 @@ internal class MoreViewModel(
                 reduce {
                     state.copy(
                         loading = false,
-                        categories = categories
+                        categories = categories.toImmutableList()
                     )
                 }
             }

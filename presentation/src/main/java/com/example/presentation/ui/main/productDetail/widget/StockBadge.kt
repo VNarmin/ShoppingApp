@@ -21,13 +21,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
-internal fun StockBadge(stateProvider: () -> Boolean) {
-    val inStock = stateProvider.read { this }
+internal fun StockBadge(inStock: Boolean) {
     val contentColor = if (inStock) Color(0xFF32D583) else Color(0xFFFF0000)
     val badgeLabel = if (inStock) "In Stock" else "Out Of Stock"
 
@@ -67,7 +65,7 @@ internal fun StockBadge(stateProvider: () -> Boolean) {
 @Composable
 private fun InStockBadgePreview() {
     ShoppingAppTheme {
-        StockBadge(stateProvider = { true })
+        StockBadge(inStock = true)
     }
 }
 
@@ -75,6 +73,6 @@ private fun InStockBadgePreview() {
 @Composable
 private fun OutOfStockBadgePreview() {
     ShoppingAppTheme {
-        StockBadge(stateProvider = { false })
+        StockBadge(inStock = false)
     }
 }

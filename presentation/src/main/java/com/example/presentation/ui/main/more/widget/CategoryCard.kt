@@ -25,16 +25,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+
+internal data class CategoryState(
+    val categoryID: String,
+    val categoryDisplayName: String,
+    val categoryItemCount: Int
+)
 
 @Composable
 internal fun CategoryCard(
     modifier: Modifier = Modifier,
-    categoryDisplayName: String,
-    categoryItemCount: Int,
+    stateProvider: () -> CategoryState,
     onClick: () -> Unit
 ) {
+    val categoryDisplayName = stateProvider.read { categoryDisplayName }
+    val categoryItemCount = stateProvider.read { categoryItemCount }
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -90,10 +99,15 @@ internal fun CategoryCard(
 @PreviewLightDark
 @Composable
 private fun CategoryCardPreview() {
+    val categoryState = CategoryState(
+        categoryID = "shoes",
+        categoryDisplayName = "Shoes",
+        categoryItemCount = 128,
+    )
+
     ShoppingAppTheme {
         CategoryCard(
-            categoryDisplayName = "shoes",
-            categoryItemCount = 128,
+            stateProvider = { categoryState },
             onClick = {},
         )
     }

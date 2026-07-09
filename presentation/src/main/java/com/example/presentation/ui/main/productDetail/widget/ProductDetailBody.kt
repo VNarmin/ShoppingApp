@@ -30,14 +30,21 @@ import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.common.QuantitySelector
 import com.example.presentation.ui.common.QuantitySelectorState
-import com.example.presentation.ui.main.productDetail.mvi.ProductDetailScreenState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.persistentListOf
+
+internal data class ProductDetailBodyState(
+    val product: Product,
+    val productImagePagerState: ProductImagePagerState,
+    val quantitySelectorState: QuantitySelectorState,
+    val descriptionExpanded: Boolean
+)
 
 @Composable
 internal fun ProductDetailBody(
     modifier: Modifier = Modifier,
-    stateProvider: () -> ProductDetailScreenState,
+    stateProvider: () -> ProductDetailBodyState,
     onReadMoreClick: () -> Unit,
     onAddClick: () -> Unit,
     onRemoveClick: () -> Unit
@@ -45,11 +52,8 @@ internal fun ProductDetailBody(
     val product = stateProvider.read { product }
     val descriptionExpanded = stateProvider.read { descriptionExpanded }
 
-    val productImagesProvider = stateProvider.focusOn { product.images }
-    val productInStockProvider = stateProvider.focusOn { product.inStock }
-    val quantitySelectorStateProvider = stateProvider.focusOn {
-        QuantitySelectorState(quantity = quantity, stockCount = product.stockCount)
-    }
+    val productImagesProvider = stateProvider.focusOn { productImagePagerState }
+    val quantitySelectorStateProvider = stateProvider.focusOn { quantitySelectorState }
 
     Column(
         modifier = modifier
@@ -87,7 +91,7 @@ internal fun ProductDetailBody(
                     textAlign = TextAlign.Start
                 )
             )
-            StockBadge(stateProvider = productInStockProvider)
+            StockBadge(inStock = product.inStock)
         }
 
         Row(
@@ -180,18 +184,32 @@ private fun DetailBodyPreview() {
         name = "Nike Air Max 270",
         description = "The Nike Air Max 270 was designed to keep you moving from morning to night without sacrificing style. A breathable mesh upper wraps your foot in lightweight support, while the responsive Air cushioning absorbs every step and gives energy back to your stride. Whether you're commuting, running errands, or just spending long hours on your feet, these shoes deliver the kind of all-day comfort that makes you forget you're even wearing them.",
         price = 129.00,
-        images = listOf("#6366F1", "#E85A4F", "#32D583"),
+        images = persistentListOf("#6366F1", "#E85A4F", "#32D583"),
         category = Category(categoryID = "shoes", displayName = "Shoes", itemCount = 128),
         stockCount = 10,
         rating = 4.8,
         reviewCount = 128
     )
 
-    val productDetailScreenState = ProductDetailScreenState(product = sampleProduct)
+    val productImagePagerState = ProductImagePagerState(
+        productImages = persistentListOf("#6366F1", "#E85A4F", "#32D583")
+    )
+
+    val quantitySelectorState = QuantitySelectorState(
+        quantity = 1,
+        stockCount = 10
+    )
+
+    val productDetailBodyState = ProductDetailBodyState(
+        product = sampleProduct,
+        productImagePagerState = productImagePagerState,
+        quantitySelectorState = quantitySelectorState,
+        descriptionExpanded = false
+    )
 
     ShoppingAppTheme {
         ProductDetailBody(
-            stateProvider = { productDetailScreenState },
+            stateProvider = { productDetailBodyState },
             onReadMoreClick = {},
             onAddClick = {},
             onRemoveClick = {}

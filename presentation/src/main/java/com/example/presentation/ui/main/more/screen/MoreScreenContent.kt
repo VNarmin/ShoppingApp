@@ -8,11 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.Category
+import com.example.presentation.base.focusOn
 import com.example.presentation.ui.common.BottomNavBar
 import com.example.presentation.ui.main.more.mvi.MoreScreenState
 import com.example.presentation.ui.main.more.widget.MoreBody
 import com.example.presentation.ui.main.more.widget.MoreHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 internal fun MoreScreenContent(
@@ -20,6 +22,8 @@ internal fun MoreScreenContent(
     onCategoryClick: (String) -> Unit,
     onHomeClick: () -> Unit
 ) {
+    val moreBodyStateProvider = stateProvider.focusOn { formMoreBodyState() }
+
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -28,7 +32,7 @@ internal fun MoreScreenContent(
         },
         content = { innerPadding ->
             MoreBody(
-                stateProvider = stateProvider,
+                stateProvider = moreBodyStateProvider,
                 onCategoryClick = onCategoryClick,
                 modifier = Modifier.padding(innerPadding)
             )
@@ -45,7 +49,7 @@ internal fun MoreScreenContent(
 @PreviewLightDark
 @Composable
 private fun MoreScreenContentPreview() {
-    val categories = listOf(
+    val categories = persistentListOf(
         Category(categoryID = "all",         displayName = "All",         itemCount = 926),
         Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
         Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),

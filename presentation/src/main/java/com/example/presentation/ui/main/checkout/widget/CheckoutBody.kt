@@ -49,7 +49,7 @@ internal fun CheckoutBody(
         ) {
             DeliveryAddressCard(username = username)
             PaymentMethodCard()
-            OrderSummaryCard(stateProvider = orderSummaryStateProvider)
+            OrderSummary(stateProvider = orderSummaryStateProvider)
         }
         Box(
             modifier = Modifier

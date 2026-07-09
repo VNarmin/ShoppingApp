@@ -33,7 +33,7 @@ internal data class OrderSummaryState(
 )
 
 @Composable
-internal fun OrderSummaryCard(
+internal fun OrderSummary(
     modifier: Modifier = Modifier,
     stateProvider: () -> OrderSummaryState
 ) {
@@ -159,7 +159,7 @@ internal fun OrderSummaryCard(
 
 @PreviewLightDark
 @Composable
-private fun OrderSummerCardPreview() {
+private fun OrderSummaryPreview() {
     val orderSummaryState = OrderSummaryState(
         totalItemCount = 0,
         subtotal = 0.0,
@@ -168,6 +168,6 @@ private fun OrderSummerCardPreview() {
     )
 
     ShoppingAppTheme {
-        OrderSummaryCard(stateProvider = { orderSummaryState })
+        OrderSummary(stateProvider = { orderSummaryState })
     }
 }

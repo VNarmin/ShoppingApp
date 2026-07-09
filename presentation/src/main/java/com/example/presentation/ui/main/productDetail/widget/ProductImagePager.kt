@@ -34,13 +34,19 @@ import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
 import com.example.presentation.base.read
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+internal data class ProductImagePagerState(
+    val productImages: ImmutableList<String>
+)
 
 @Composable
 internal fun ProductImagePager(
     modifier: Modifier = Modifier,
-    stateProvider: () -> List<String>
+    stateProvider: () -> ProductImagePagerState
 ) {
-    val productImages = stateProvider.read { this }
+    val productImages = stateProvider.read { productImages }
 
     if (productImages.isEmpty()) return
 
@@ -126,9 +132,13 @@ internal fun ProductImagePager(
 @PreviewLightDark
 @Composable
 private fun Product1ImagePagerPreview() {
+    val productImagePagerState = ProductImagePagerState(
+        productImages = persistentListOf("#6366F1", "#E85A4F", "#32D583")
+    )
+
     ShoppingAppTheme {
         ProductImagePager(
-            stateProvider = { listOf("#6366F1", "#E85A4F", "#32D583") }
+            stateProvider = { productImagePagerState }
         )
     }
 }
@@ -136,9 +146,13 @@ private fun Product1ImagePagerPreview() {
 @PreviewLightDark
 @Composable
 private fun Product2ImagePagerPreview() {
+    val productImagePagerState = ProductImagePagerState(
+        productImages = persistentListOf("#E85A4F", "#6366F1", "#32D583")
+    )
+
     ShoppingAppTheme {
         ProductImagePager(
-            stateProvider = { listOf("#E85A4F", "#6366F1", "#32D583") }
+            stateProvider = { productImagePagerState }
         )
     }
 }

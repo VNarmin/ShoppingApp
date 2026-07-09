@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.common.IconButton
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -26,11 +25,9 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun HomeHeader(
     modifier: Modifier = Modifier,
-    stateProvider: () -> String,
+    username: String,
     onCartClick: () -> Unit
 ) {
-    val username = stateProvider.read { this }
-
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -75,7 +72,7 @@ internal fun HomeHeader(
 private fun HomeHeaderPreview() {
     ShoppingAppTheme {
         HomeHeader(
-            stateProvider = { "Olivia Rodrigo" },
+            username = "Olivia Rodrigo",
             onCartClick = {}
         )
     }

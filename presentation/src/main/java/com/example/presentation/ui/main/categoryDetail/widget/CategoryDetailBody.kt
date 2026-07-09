@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.base.read
 import com.example.presentation.ui.common.ProductCard
-import com.example.presentation.ui.common.ProductCardState
+import com.example.presentation.ui.common.ProductState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 import kotlinx.collections.immutable.ImmutableList
@@ -38,7 +38,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 internal data class CategoryDetailBodyState(
     val itemCount: Int,
-    val productStates: ImmutableList<ProductCardState>
+    val productStates: ImmutableList<ProductState>
 )
 
 @Composable
@@ -119,25 +119,25 @@ internal fun CategoryDetailBody(
 @Composable
 private fun CategoryDetailBodyPreview() {
     val productStates = persistentListOf(
-        ProductCardState(
+        ProductState(
             productID = "shoes_1",
             productName = "Nike Air Max 270",
             productPrice = 129.00,
             productImages = listOf("#6366F1", "#E85A4F", "#32D583")
         ),
-        ProductCardState(
+        ProductState(
             productID = "shoes_2",
             productName = "Retro Runner",
             productPrice = 99.00,
             productImages = listOf("#E85A4F", "#6366F1", "#32D583")
         ),
-        ProductCardState(
+        ProductState(
             productID = "shoes_3",
             productName = "Sport Sandal",
             productPrice = 74.00,
             productImages = listOf("#32D583", "#6366F1", "#E85A4F")
         ),
-        ProductCardState(
+        ProductState(
             productID = "shoes_4",
             productName = "Classic Sneaker",
             productPrice = 110.00,

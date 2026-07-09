@@ -17,21 +17,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.domain.model.Category
-import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
-import com.example.presentation.ui.main.more.mvi.MoreScreenState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+internal data class MoreBodyState(
+    val username: String,
+    val categoryStates: ImmutableList<CategoryState>
+)
 
 @Composable
 internal fun MoreBody(
     modifier: Modifier = Modifier,
-    stateProvider: () -> MoreScreenState,
+    stateProvider: () -> MoreBodyState,
     onCategoryClick: (String) -> Unit
 ) {
-    val usernameProvider = stateProvider.focusOn { username }
-    val categories = stateProvider.read { categories }
+    val username = stateProvider.read { username }
+    val categoryStates = stateProvider.read { categoryStates }
 
     LazyVerticalGrid(
         modifier = modifier.fillMaxWidth(),
@@ -41,7 +45,7 @@ internal fun MoreBody(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
-            ProfileSettingsCard(stateProvider = usernameProvider)
+            ProfileSettingsCard(username = username)
         }
 
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -57,11 +61,10 @@ internal fun MoreBody(
             )
         }
 
-        items(categories, key = { category -> category.categoryID }) { category ->
+        items(categoryStates, key = { categoryState -> categoryState.categoryID }) { categoryState ->
             CategoryCard(
-                categoryDisplayName = category.displayName,
-                categoryItemCount = category.itemCount,
-                onClick = { onCategoryClick(category.categoryID) },
+                stateProvider = { categoryState },
+                onClick = { onCategoryClick(categoryState.categoryID) },
             )
         }
     }
@@ -70,23 +73,23 @@ internal fun MoreBody(
 @PreviewLightDark
 @Composable
 private fun MoreBodyPreview() {
-    val categories = listOf(
-        Category(categoryID = "all",         displayName = "All",         itemCount = 926),
-        Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
-        Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),
-        Category(categoryID = "watches",     displayName = "Watches",     itemCount = 54),
-        Category(categoryID = "tech",        displayName = "Tech",        itemCount = 210),
-        Category(categoryID = "beauty",      displayName = "Beauty",      itemCount = 97),
+    val categoryStates = persistentListOf(
+        CategoryState(categoryID = "all",         categoryDisplayName = "All",         categoryItemCount = 926),
+        CategoryState(categoryID = "shoes",       categoryDisplayName = "Shoes",       categoryItemCount = 128),
+        CategoryState(categoryID = "bags",        categoryDisplayName = "Bags",        categoryItemCount = 86),
+        CategoryState(categoryID = "watches",     categoryDisplayName = "Watches",     categoryItemCount = 54),
+        CategoryState(categoryID = "tech",        categoryDisplayName = "Tech",        categoryItemCount = 210),
+        CategoryState(categoryID = "beauty",      categoryDisplayName = "Beauty",      categoryItemCount = 97),
     )
 
-    val moreScreenState = MoreScreenState(
+    val moreBodyState = MoreBodyState(
         username = "Olivia Rodrigo",
-        categories = categories,
+        categoryStates = categoryStates
     )
 
     ShoppingAppTheme {
         MoreBody(
-            stateProvider = { moreScreenState },
+            stateProvider = { moreBodyState },
             onCategoryClick = {},
         )
     }

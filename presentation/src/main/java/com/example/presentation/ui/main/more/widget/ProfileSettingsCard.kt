@@ -27,17 +27,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 
 @Composable
 internal fun ProfileSettingsCard(
     modifier: Modifier = Modifier,
-    stateProvider: () -> String
+    username: String
 ) {
-    val username = stateProvider.read { this }
-
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -117,6 +114,6 @@ internal fun ProfileSettingsCard(
 @Composable
 private fun ProfileSettingsCardPreview() {
     ShoppingAppTheme {
-        ProfileSettingsCard(stateProvider = { "Olivia Rodrigo" })
+        ProfileSettingsCard(username = "Olivia Rodrigo")
     }
 }

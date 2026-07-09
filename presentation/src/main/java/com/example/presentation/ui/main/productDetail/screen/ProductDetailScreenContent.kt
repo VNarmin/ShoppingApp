@@ -10,11 +10,13 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
+import com.example.presentation.base.read
 import com.example.presentation.ui.main.productDetail.mvi.ProductDetailScreenState
 import com.example.presentation.ui.main.productDetail.widget.ProductDetailBody
 import com.example.presentation.ui.main.productDetail.widget.ProductDetailFooter
 import com.example.presentation.ui.main.productDetail.widget.ProductDetailHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.persistentListOf
 
 
 @Composable
@@ -28,7 +30,8 @@ internal fun ProductDetailScreenContent(
     onAddToCartClick: () -> Unit,
     onBuyNowClick: () -> Unit,
 ) {
-    val canPurchaseProvider = stateProvider.focusOn { canPurchase }
+    val canPurchase = stateProvider.read { canPurchase }
+    val productDetailBodyStateProvider = stateProvider.focusOn { formProductDetailBodyState() }
 
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
@@ -41,14 +44,14 @@ internal fun ProductDetailScreenContent(
         },
         bottomBar = {
             ProductDetailFooter(
-                stateProvider = canPurchaseProvider,
+                canPurchase = canPurchase,
                 onAddToCartClick = onAddToCartClick,
                 onBuyNowClick = onBuyNowClick
             )
         },
         content = { innerPadding ->
             ProductDetailBody(
-                stateProvider = stateProvider,
+                stateProvider = productDetailBodyStateProvider,
                 onReadMoreClick = onReadMoreClick,
                 onAddClick = onAddClick,
                 onRemoveClick = onRemoveClick,
@@ -66,7 +69,7 @@ private fun ProductDetailScreenContentPreview() {
         name = "Nike Air Max 270",
         description = "The Nike Air Max 270 was designed to keep you moving from morning to night without sacrificing style. A breathable mesh upper wraps your foot in lightweight support, while the responsive Air cushioning absorbs every step and gives energy back to your stride. Whether you're commuting, running errands, or just spending long hours on your feet, these shoes deliver the kind of all-day comfort that makes you forget you're even wearing them.",
         price = 129.00,
-        images = listOf("#6366F1", "#E85A4F", "#32D583"),
+        images = persistentListOf("#6366F1", "#E85A4F", "#32D583"),
         category = Category(categoryID = "shoes", displayName = "Shoes", itemCount = 128),
         stockCount = 10,
         rating = 4.8,

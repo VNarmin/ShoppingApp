@@ -3,7 +3,7 @@ package com.example.presentation.ui.main.categoryDetail.mvi
 import androidx.compose.runtime.Immutable
 import com.example.domain.model.Category
 import com.example.domain.model.Product
-import com.example.presentation.ui.common.ProductCardState
+import com.example.presentation.ui.common.ProductState
 import com.example.presentation.ui.main.categoryDetail.widget.CategoryDetailBodyState
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -25,9 +25,9 @@ internal data class CategoryDetailScreenState(
         productStates = formProductCardStates()
     )
 
-    private fun formProductCardStates(): ImmutableList<ProductCardState> =
+    private fun formProductCardStates(): ImmutableList<ProductState> =
         products.map { product ->
-            ProductCardState(
+            ProductState(
                 productID = product.productID,
                 productName = product.name,
                 productPrice = product.price,

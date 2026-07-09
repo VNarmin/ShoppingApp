@@ -19,27 +19,33 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.domain.model.Category
-import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
 import com.example.presentation.base.read
 import com.example.presentation.ui.common.InputField
 import com.example.presentation.ui.common.ProductCard
-import com.example.presentation.ui.main.home.mvi.HomeScreenState
+import com.example.presentation.ui.common.ProductState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+
+internal data class HomeBodyState(
+    val searchQuery: String,
+    val categoryFilterState: CategoryFilterState,
+    val productStates: ImmutableList<ProductState>
+)
 
 @Composable
 internal fun HomeBody(
     modifier: Modifier = Modifier,
-    stateProvider: () -> HomeScreenState,
+    stateProvider: () -> HomeBodyState,
     onSearchQueryChange: (String) -> Unit,
     onCategoryChange: (String) -> Unit,
     onProductClick: (String) -> Unit,
 ) {
-    val searchQueryProvider = stateProvider.focusOn { searchQuery }
+    val searchQuery = stateProvider.read { searchQuery }
     val categoryFilterStateProvider = stateProvider.focusOn { categoryFilterState }
-    val products = stateProvider.read { products }
+    val productStates = stateProvider.read { productStates }
 
     LazyVerticalGrid(
         modifier = modifier.fillMaxWidth(),
@@ -50,11 +56,11 @@ internal fun HomeBody(
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
             InputField(
-                stateProvider = searchQueryProvider,
-                onValueChange = onSearchQueryChange,
                 placeholder = "Search products...",
                 leadingIcon = Icons.Filled.Search,
-                password = false
+                password = false,
+                value = searchQuery,
+                onValueChange = onSearchQueryChange
             )
         }
         item(span = { GridItemSpan(maxLineSpan) }) {
@@ -78,12 +84,10 @@ internal fun HomeBody(
                 )
             )
         }
-        items(products, key = { product -> product.productID }) { product ->
+        items(productStates, key = { productState -> productState.productID }) { productState ->
             ProductCard(
-                productName = product.name,
-                productPrice = product.price,
-                productImages = product.images,
-                onClick = { onProductClick(product.productID) }
+                stateProvider = { productState },
+                onClick = { onProductClick(productState.productID) }
             )
         }
     }
@@ -92,72 +96,52 @@ internal fun HomeBody(
 @PreviewLightDark
 @Composable
 private fun HomeBodyPreview() {
-    val categories = listOf(
-        Category(categoryID = "all",         displayName = "All",         itemCount = 926),
-        Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
-        Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),
-        Category(categoryID = "watches",     displayName = "Watches",     itemCount = 54),
-        Category(categoryID = "tech",        displayName = "Tech",        itemCount = 210),
+    val categoryStates = persistentListOf(
+        CategoryState(categoryID = "all",         categoryLabel = "All",         categorySelected = true),
+        CategoryState(categoryID = "shoes",       categoryLabel = "Shoes",       categorySelected = false),
+        CategoryState(categoryID = "bags",        categoryLabel = "Bags",        categorySelected = false),
+        CategoryState(categoryID = "watches",     categoryLabel = "Watches",     categorySelected = false),
+        CategoryState(categoryID = "tech",        categoryLabel = "Tech",        categorySelected = false)
     )
 
-    val products = listOf(
-        Product(
+    val productStates = persistentListOf(
+        ProductState(
             productID = "shoes_1",
-            name = "Nike Air Max 270",
-            description = "The Nike Air Max 270 was designed to keep you moving from morning to night without sacrificing style. A breathable mesh upper wraps your foot in lightweight support, while the responsive Air cushioning absorbs every step and gives energy back to your stride. Whether you're commuting, running errands, or just spending long hours on your feet, these shoes deliver the kind of all-day comfort that makes you forget you're even wearing them.",
-            price = 129.00,
-            images = listOf("#6366F1", "#E85A4F", "#32D583"),
-            category = Category(categoryID = "shoes", displayName = "Shoes", itemCount = 128),
-            stockCount = 10,
-            rating = 4.8,
-            reviewCount = 128
+            productName = "Nike Air Max 270",
+            productPrice = 129.00,
+            productImages = listOf("#6366F1", "#E85A4F", "#32D583")
         ),
-        Product(
+        ProductState(
             productID = "shoes_2",
-            name = "Retro Runner",
-            description = "The Retro Runner takes everything you loved about classic running shoes and rebuilds it for today's streets. A vintage-inspired sole unit has been updated with modern cushioning technology so you get the look of the past without sacrificing the comfort of the present. The clean silhouette pairs easily with casual outfits, making it a shoe you'll find yourself reaching for day after day.",
-            price = 99.00,
-            images = listOf("#E85A4F", "#6366F1", "#32D583"),
-            category = Category(categoryID = "shoes", displayName = "Shoes", itemCount = 128),
-            stockCount = 5,
-            rating = 4.5,
-            reviewCount = 86
+            productName = "Retro Runner",
+            productPrice = 99.00,
+            productImages = listOf("#E85A4F", "#6366F1", "#32D583")
         ),
-        Product(
+        ProductState(
             productID = "shoes_3",
-            name = "Sport Sandal",
-            description = "The Sport Sandal was built for people who refuse to slow down, even in warm weather. Fully adjustable straps let you dial in a secure fit whether you're hiking a trail or walking through town, and the contoured footbed supports your arch through long days on your feet. A grippy rubber outsole bites into both wet and dry surfaces, so you can move with confidence no matter where the day takes you.",
-            price = 74.00,
-            images = listOf("#32D583", "#6366F1", "#E85A4F"),
-            category = Category(categoryID = "shoes", displayName = "Shoes", itemCount = 128),
-            stockCount = 8,
-            rating = 4.3,
-            reviewCount = 54
+            productName = "Sport Sandal",
+            productPrice = 74.00,
+            productImages = listOf("#32D583", "#6366F1", "#E85A4F")
         ),
-        Product(
+        ProductState(
             productID = "shoes_4",
-            name = "Classic Sneaker",
-            description = "Some shoes try to do too much, but the Classic Sneaker knows exactly what it is. A premium leather upper ages beautifully over time, developing character the more you wear it, while a cushioned insole keeps your feet comfortable through whatever the day demands. The low-top silhouette works just as well with jeans and a jacket as it does with shorts and a t-shirt, making it one of the most versatile shoes you'll ever own.",
-            price = 110.00,
-            images = listOf("#FFB547", "#6366F1", "#E85A4F"),
-            category = Category(categoryID = "shoes", displayName = "Shoes", itemCount = 128),
-            stockCount = 12,
-            rating = 4.6,
-            reviewCount = 210
+            productName = "Classic Sneaker",
+            productPrice = 110.00,
+            productImages = listOf("#FFB547", "#6366F1", "#E85A4F")
         )
     )
 
-    val homeScreenState = HomeScreenState(
-        products = products,
+    val homeBodyState = HomeBodyState(
+        searchQuery = "",
         categoryFilterState = CategoryFilterState(
-            categories = categories,
-            selectedCategoryID = "all"
-        )
+            categoryStates = categoryStates
+        ),
+        productStates = productStates,
     )
 
     ShoppingAppTheme {
         HomeBody(
-            stateProvider = { homeScreenState },
+            stateProvider = { homeBodyState },
             onSearchQueryChange = {},
             onCategoryChange = {},
             onProductClick = {}

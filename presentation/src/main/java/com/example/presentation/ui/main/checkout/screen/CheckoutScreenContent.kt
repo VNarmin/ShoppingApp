@@ -19,7 +19,7 @@ internal fun CheckoutScreenContent(
     onBackClick: () -> Unit,
     onPlaceOrderClick: () -> Unit
 ) {
-    val checkoutBodyProvider = stateProvider.focusOn { formCheckoutBodyState() }
+    val checkoutBodyStateProvider = stateProvider.focusOn { formCheckoutBodyState() }
 
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
@@ -29,7 +29,7 @@ internal fun CheckoutScreenContent(
         }
     ) { innerPadding ->
         CheckoutBody(
-            stateProvider = checkoutBodyProvider,
+            stateProvider = checkoutBodyStateProvider,
             onPlaceOrderClick = onPlaceOrderClick,
             modifier = Modifier.padding(innerPadding)
         )

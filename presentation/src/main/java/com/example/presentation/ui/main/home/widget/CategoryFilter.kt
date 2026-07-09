@@ -22,14 +22,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.domain.model.Category
 import com.example.presentation.base.read
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 internal data class CategoryFilterState(
-    val categories: List<Category>,
-    val selectedCategoryID: String
+    val categoryStates: ImmutableList<CategoryState>
 )
 
 @Composable
@@ -38,8 +38,7 @@ internal fun CategoryFilter(
     stateProvider: () -> CategoryFilterState,
     onCategoryChange: (String) -> Unit
 ) {
-    val categories = stateProvider.read { categories }
-    val selectedCategoryID = stateProvider.read { selectedCategoryID }
+    val categoryStates = stateProvider.read { categoryStates }
 
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -47,28 +46,35 @@ internal fun CategoryFilter(
         verticalAlignment = Alignment.CenterVertically
     ) {
         items(
-            items = categories,
-            key = { category -> category.categoryID }
-        ) { category ->
+            items = categoryStates,
+            key = { categoryState -> categoryState.categoryID }
+        ) { categoryState ->
             CategoryCard(
-                label = category.displayName,
-                selected = category.categoryID == selectedCategoryID,
-                onClick = { onCategoryChange(category.categoryID) }
+                stateProvider = { categoryState },
+                onClick = { onCategoryChange(categoryState.categoryID) }
             )
         }
     }
 }
 
+internal data class CategoryState(
+    val categoryID: String,
+    val categoryLabel: String,
+    val categorySelected: Boolean
+)
+
 @Composable
 private fun CategoryCard(
-    label: String,
-    selected: Boolean,
+    stateProvider: () -> CategoryState,
     onClick: () -> Unit
 ) {
-    val backgroundColor = if (selected) Color(0xFF6366F1) else Color(0xFF16161A)
-    val textColor = if (selected) Color(0xFFFFFFFF) else Color(0xFF6B6B70)
-    val borderColor = if (selected) Color.Transparent else Color(0xFF2A2A2E)
-    val fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Medium
+    val categoryLabel = stateProvider.read { categoryLabel }
+    val categorySelected = stateProvider.read { categorySelected }
+
+    val backgroundColor = if (categorySelected) Color(0xFF6366F1) else Color(0xFF16161A)
+    val textColor = if (categorySelected) Color(0xFFFFFFFF) else Color(0xFF6B6B70)
+    val borderColor = if (categorySelected) Color.Transparent else Color(0xFF2A2A2E)
+    val fontWeight = if (categorySelected) FontWeight.SemiBold else FontWeight.Medium
 
     Box(
         contentAlignment = Alignment.Center,
@@ -84,7 +90,7 @@ private fun CategoryCard(
             .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
         Text(
-            text = label,
+            text = categoryLabel,
             style = TextStyle(
                 color = textColor,
                 fontFamily = DMSansFontFamily,
@@ -99,10 +105,15 @@ private fun CategoryCard(
 @PreviewLightDark
 @Composable
 private fun SelectedCategoryCardPreview() {
+    val categoryState = CategoryState(
+        categoryID = "shoes",
+        categoryLabel = "Shoes",
+        categorySelected = true
+    )
+
     ShoppingAppTheme {
         CategoryCard(
-            label = "Shoes",
-            selected = true,
+            stateProvider = { categoryState },
             onClick = {}
         )
     }
@@ -111,10 +122,15 @@ private fun SelectedCategoryCardPreview() {
 @PreviewLightDark
 @Composable
 private fun UnselectedCategoryCardPreview() {
+    val categoryState = CategoryState(
+        categoryID = "shoes",
+        categoryLabel = "Shoes",
+        categorySelected = false
+    )
+
     ShoppingAppTheme {
         CategoryCard(
-            label = "Shoes",
-            selected = false,
+            stateProvider = { categoryState },
             onClick = {}
         )
     }
@@ -123,21 +139,20 @@ private fun UnselectedCategoryCardPreview() {
 @PreviewLightDark
 @Composable
 private fun CategoryFilterPreview() {
-    val categories = listOf(
-        Category(categoryID = "all",         displayName = "All",         itemCount = 926),
-        Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
-        Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),
-        Category(categoryID = "watches",     displayName = "Watches",     itemCount = 54),
-        Category(categoryID = "tech",        displayName = "Tech",        itemCount = 210),
-        Category(categoryID = "beauty",      displayName = "Beauty",      itemCount = 97),
-        Category(categoryID = "sports",      displayName = "Sports",      itemCount = 64),
-        Category(categoryID = "clothing",    displayName = "Clothing",    itemCount = 175),
-        Category(categoryID = "accessories", displayName = "Accessories", itemCount = 112)
+    val categoryStates = persistentListOf(
+        CategoryState(categoryID = "all",         categoryLabel = "All",         categorySelected = true),
+        CategoryState(categoryID = "shoes",       categoryLabel = "Shoes",       categorySelected = false),
+        CategoryState(categoryID = "bags",        categoryLabel = "Bags",        categorySelected = false),
+        CategoryState(categoryID = "watches",     categoryLabel = "Watches",     categorySelected = false),
+        CategoryState(categoryID = "tech",        categoryLabel = "Tech",        categorySelected = false),
+        CategoryState(categoryID = "beauty",      categoryLabel = "Beauty",      categorySelected = false),
+        CategoryState(categoryID = "sports",      categoryLabel = "Sports",      categorySelected = false),
+        CategoryState(categoryID = "clothing",    categoryLabel = "Clothing",    categorySelected = false),
+        CategoryState(categoryID = "accessories", categoryLabel = "Accessories", categorySelected = false)
     )
 
     val categoryFilterState = CategoryFilterState(
-        categories = categories,
-        selectedCategoryID = "all"
+        categoryStates = categoryStates,
     )
 
     ShoppingAppTheme {

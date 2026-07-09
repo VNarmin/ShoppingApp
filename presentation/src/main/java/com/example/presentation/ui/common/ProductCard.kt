@@ -28,7 +28,7 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 import androidx.core.graphics.toColorInt
 import com.example.presentation.base.read
 
-internal data class ProductCardState(
+internal data class ProductState(
     val productID: String,
     val productName: String,
     val productPrice: Double,
@@ -38,7 +38,7 @@ internal data class ProductCardState(
 @Composable
 internal fun ProductCard(
     modifier: Modifier = Modifier,
-    stateProvider: () -> ProductCardState,
+    stateProvider: () -> ProductState,
     onClick: () -> Unit
 ) {
     val productName = stateProvider.read { productName }
@@ -100,7 +100,7 @@ internal fun ProductCard(
 @PreviewLightDark
 @Composable
 private fun Product1CardPreview() {
-    val productCardState = ProductCardState(
+    val productState = ProductState(
         productID = "shoes_01",
         productName = "Nike Air Max",
         productPrice = 129.00,
@@ -109,7 +109,7 @@ private fun Product1CardPreview() {
 
     ShoppingAppTheme {
         ProductCard(
-            stateProvider = { productCardState },
+            stateProvider = { productState },
             onClick = {}
         )
     }
@@ -118,7 +118,7 @@ private fun Product1CardPreview() {
 @PreviewLightDark
 @Composable
 private fun Product2CardPreview() {
-    val productCardState = ProductCardState(
+    val productState = ProductState(
         productID = "shoes_02",
         productName = "Retro Runner",
         productPrice = 99.00,
@@ -127,7 +127,7 @@ private fun Product2CardPreview() {
 
     ShoppingAppTheme {
         ProductCard(
-            stateProvider = { productCardState },
+            stateProvider = { productState },
             onClick = {}
         )
     }

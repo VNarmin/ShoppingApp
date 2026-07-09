@@ -10,12 +10,13 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import com.example.domain.model.Category
 import com.example.domain.model.Product
 import com.example.presentation.base.focusOn
+import com.example.presentation.base.read
 import com.example.presentation.ui.common.BottomNavBar
 import com.example.presentation.ui.main.home.mvi.HomeScreenState
-import com.example.presentation.ui.main.home.widget.CategoryFilterState
 import com.example.presentation.ui.main.home.widget.HomeBody
 import com.example.presentation.ui.main.home.widget.HomeHeader
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 internal fun HomeScreenContent(
@@ -26,19 +27,22 @@ internal fun HomeScreenContent(
     onProductClick: (String) -> Unit,
     onMoreClick: () -> Unit
 ) {
+    val username = stateProvider.read { username }
+    val homeBodyStateProvider = stateProvider.focusOn { formHomeBodyState() }
+
     Scaffold(
         modifier = Modifier.statusBarsPadding(),
         containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             HomeHeader(
-                stateProvider = stateProvider.focusOn { username },
+                username = username,
                 onCartClick = onCartClick
             )
         },
         content = { innerPadding ->
             HomeBody(
                 modifier = Modifier.padding(innerPadding),
-                stateProvider = stateProvider,
+                stateProvider = homeBodyStateProvider,
                 onSearchQueryChange = onSearchQueryChange,
                 onCategoryChange = onCategoryChange,
                 onProductClick = onProductClick
@@ -56,7 +60,7 @@ internal fun HomeScreenContent(
 @PreviewLightDark
 @Composable
 private fun HomeScreenContentPreview() {
-    val categories = listOf(
+    val categories = persistentListOf(
         Category(categoryID = "all",         displayName = "All",         itemCount = 926),
         Category(categoryID = "shoes",       displayName = "Shoes",       itemCount = 128),
         Category(categoryID = "bags",        displayName = "Bags",        itemCount = 86),
@@ -64,7 +68,7 @@ private fun HomeScreenContentPreview() {
         Category(categoryID = "tech",        displayName = "Tech",        itemCount = 210),
     )
 
-    val products = listOf(
+    val products = persistentListOf(
         Product(
             productID = "shoes_1",
             name = "Nike Air Max 270",
@@ -112,11 +116,9 @@ private fun HomeScreenContentPreview() {
     )
 
     val homeScreenState = HomeScreenState(
-        products = products,
-        categoryFilterState = CategoryFilterState(
-            categories = categories,
-            selectedCategoryID = "all"
-        )
+        categories = categories,
+        selectedCategoryID = "all",
+        products = products
     )
 
     ShoppingAppTheme {

@@ -30,7 +30,6 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.presentation.base.read
 import com.example.presentation.ui.common.PrimaryButton
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
@@ -38,12 +37,10 @@ import com.example.presentation.ui.theme.ShoppingAppTheme
 @Composable
 internal fun ProductDetailFooter(
     modifier: Modifier = Modifier,
-    stateProvider: () -> Boolean,
+    canPurchase: Boolean,
     onAddToCartClick: () -> Unit,
     onBuyNowClick: () -> Unit
 ) {
-    val canPurchase = stateProvider.read { this }
-
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -111,7 +108,7 @@ internal fun ProductDetailFooter(
         PrimaryButton(
             modifier = Modifier.weight(1F),
             command = "Buy Now",
-            stateProvider = { canPurchase },
+            enabled = canPurchase,
             onClick = onBuyNowClick
         )
     }
@@ -122,7 +119,7 @@ internal fun ProductDetailFooter(
 private fun ProductDetailFooterEnabledPreview() {
     ShoppingAppTheme {
         ProductDetailFooter(
-            stateProvider = { true },
+            canPurchase = true,
             onAddToCartClick = {},
             onBuyNowClick = {}
         )
@@ -134,7 +131,7 @@ private fun ProductDetailFooterEnabledPreview() {
 private fun ProductDetailFooterDisabledPreview() {
     ShoppingAppTheme {
         ProductDetailFooter(
-            stateProvider = { false },
+            canPurchase = false,
             onAddToCartClick = {},
             onBuyNowClick = {}
         )

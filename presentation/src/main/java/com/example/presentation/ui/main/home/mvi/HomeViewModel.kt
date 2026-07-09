@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.map
+import kotlinx.collections.immutable.toImmutableList
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 import kotlin.time.Duration.Companion.milliseconds
@@ -79,7 +80,7 @@ internal class HomeViewModel(
                 postSideEffect(HomeEffect.Error(errorMessage = message))
             }
             .collect { products ->
-                reduce { state.copy(loading = false, products = products) }
+                reduce { state.copy(loading = false, products = products.toImmutableList()) }
             }
     }
 
@@ -96,10 +97,8 @@ internal class HomeViewModel(
                 reduce {
                     state.copy(
                         loading = false,
-                        categoryFilterState = state.categoryFilterState.copy(
-                            categories = categories,
-                            selectedCategoryID = DEFAULT_CATEGORY_ID
-                        )
+                        categories = categories.toImmutableList(),
+                        selectedCategoryID = DEFAULT_CATEGORY_ID
                     )
                 }
                 onCategoryChange(categoryID = DEFAULT_CATEGORY_ID)
@@ -110,9 +109,7 @@ internal class HomeViewModel(
         reduce {
             state.copy(
                 loading = true,
-                categoryFilterState = state.categoryFilterState.copy(
-                    selectedCategoryID = categoryID
-                )
+                selectedCategoryID = categoryID
             )
         }
         productRepository.getProductsByCategory(categoryID = categoryID)
@@ -125,7 +122,7 @@ internal class HomeViewModel(
                 reduce {
                     state.copy(
                         loading = false,
-                        products = products
+                        products = products.toImmutableList()
                     )
                 }
             }
