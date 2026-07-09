@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 
+// fulfilling the contract defined by the corresponding interface
 internal class AuthRepositoryImpl(
     private val auth: FirebaseAuth,
     private val sp: SharedPreferences,

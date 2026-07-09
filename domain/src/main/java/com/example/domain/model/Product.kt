@@ -13,3 +13,8 @@ data class Product(
 ) {
     val inStock: Boolean get() = stockCount > 0
 }
+
+// Compose cannot statically prove a List<T> will not be mutated elsewhere,
+// so it treats it as unstable and may recompose more than necessary.
+// ImmutableList gives Compose a compile-time guarantee,
+// which matters for UI states.

@@ -31,7 +31,7 @@ internal fun AuthInputGroup(
     leadingIcon: ImageVector? = null,
     password: Boolean = false,
     value: String,
-    onValueChange: (String) -> Unit,
+    onValueChange: (String) -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),

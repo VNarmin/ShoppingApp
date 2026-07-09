@@ -40,7 +40,7 @@ private const val registerSubtitle = "Create an account to start shopping"
 internal fun AuthHeader(
     modifier: Modifier = Modifier,
     register: Boolean = false,
-    onSwitchAuthTab: () -> Unit,
+    onSwitchAuthTab: () -> Unit
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -159,7 +159,7 @@ private fun LoginAuthHeaderPreview() {
     ShoppingAppTheme {
         AuthHeader(
             register = false,
-            onSwitchAuthTab = {},
+            onSwitchAuthTab = {}
         )
     }
 }
@@ -170,7 +170,7 @@ private fun RegisterAuthHeaderPreview() {
     ShoppingAppTheme {
         AuthHeader(
             register = true,
-            onSwitchAuthTab = {},
+            onSwitchAuthTab = {}
         )
     }
 }
