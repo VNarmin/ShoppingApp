@@ -72,7 +72,7 @@ private fun CartBodyPreview() {
             productID = "shoes_01",
             productName = "Nike Air Max 270",
             productPrice = 129.00,
-            productImages = listOf("#6366F1", "#E85A4F", "#32D583"),
+            productImages = persistentListOf("#6366F1", "#E85A4F", "#32D583"),
             quantitySelectorState = QuantitySelectorState(
                 quantity = 1,
                 stockCount = 10
@@ -82,7 +82,7 @@ private fun CartBodyPreview() {
             productID = "shoes_02",
             productName = "Retro Runners",
             productPrice = 99.00,
-            productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
+            productImages = persistentListOf("#E85A4F", "#6366F1", "#32D583"),
             quantitySelectorState = QuantitySelectorState(
                 quantity = 2,
                 stockCount = 5
@@ -92,7 +92,7 @@ private fun CartBodyPreview() {
             productID = "shoes_03",
             productName = "Nike Air Max 270",
             productPrice = 74.00,
-            productImages = listOf("#32D583", "#6366F1", "#E85A4F"),
+            productImages = persistentListOf("#32D583", "#6366F1", "#E85A4F"),
             quantitySelectorState = QuantitySelectorState(
                 quantity = 3,
                 stockCount = 8

@@ -27,12 +27,14 @@ import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
 import androidx.core.graphics.toColorInt
 import com.example.presentation.base.read
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 internal data class ProductState(
     val productID: String,
     val productName: String,
     val productPrice: Double,
-    val productImages: List<String>
+    val productImages: ImmutableList<String>
 )
 
 @Composable
@@ -104,7 +106,7 @@ private fun Product1CardPreview() {
         productID = "shoes_01",
         productName = "Nike Air Max",
         productPrice = 129.00,
-        productImages = listOf("#6366F1", "#E85A4F", "#32D583")
+        productImages = persistentListOf("#6366F1", "#E85A4F", "#32D583")
     )
 
     ShoppingAppTheme {
@@ -122,7 +124,7 @@ private fun Product2CardPreview() {
         productID = "shoes_02",
         productName = "Retro Runner",
         productPrice = 99.00,
-        productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
+        productImages = persistentListOf("#E85A4F", "#6366F1", "#32D583"),
     )
 
     ShoppingAppTheme {

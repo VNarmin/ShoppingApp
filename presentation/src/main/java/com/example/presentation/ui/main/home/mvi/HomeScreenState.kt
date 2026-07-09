@@ -46,7 +46,7 @@ internal data class HomeScreenState(
                 productID = product.productID,
                 productName = product.name,
                 productPrice = product.price,
-                productImages = product.images
+                productImages = product.images.toImmutableList()
             )
         }.toImmutableList()
 

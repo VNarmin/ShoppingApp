@@ -34,12 +34,14 @@ import com.example.presentation.ui.common.QuantitySelector
 import com.example.presentation.ui.common.QuantitySelectorState
 import com.example.presentation.ui.theme.DMSansFontFamily
 import com.example.presentation.ui.theme.ShoppingAppTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
 
 internal data class CartItemState(
     val productID: String,
     val productName: String,
     val productPrice: Double,
-    val productImages: List<String>,
+    val productImages: ImmutableList<String>,
     val quantitySelectorState: QuantitySelectorState
 )
 
@@ -140,10 +142,10 @@ private fun CartItemCardPreview() {
         productID = "shoes_2",
         productName = "Retro Runner",
         productPrice = 99.00,
-        productImages = listOf("#E85A4F", "#6366F1", "#32D583"),
+        productImages = persistentListOf("#E85A4F", "#6366F1", "#32D583"),
         quantitySelectorState = QuantitySelectorState(
             quantity = 2,
-            stockCount = 127
+            stockCount = 5
         )
     )
 

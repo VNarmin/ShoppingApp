@@ -25,7 +25,7 @@ internal data class CartScreenState(
                 productID = cartItem.product.productID,
                 productName = cartItem.product.name,
                 productPrice = cartItem.product.price,
-                productImages = cartItem.product.images,
+                productImages = cartItem.product.images.toImmutableList(),
                 quantitySelectorState = QuantitySelectorState(
                     quantity = cartItem.quantity,
                     stockCount = cartItem.product.stockCount,
