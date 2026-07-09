@@ -29,11 +29,9 @@ internal data class ProductDetailScreenState(
     val quantity: Int = 0,
     val descriptionExpanded: Boolean = false,
     val loading: Boolean = false,
-    val errorMessage: String? = null
+    val errorMessage: String? = null,
+    val canPurchase: Boolean = false
 ) {
-    val canPurchase: Boolean
-        get() = product.inStock && quantity > 0
-
     fun formProductDetailBodyState(): ProductDetailBodyState = ProductDetailBodyState(
         product = product,
         productImagePagerState = formProductImagePagerState(),
