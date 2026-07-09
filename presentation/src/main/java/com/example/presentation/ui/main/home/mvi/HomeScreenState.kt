@@ -28,8 +28,7 @@ internal data class HomeScreenState(
     )
 
     private fun formCategoryFilterState(): CategoryFilterState = CategoryFilterState(
-        categoryStates = formCategoryStates(),
-        selectedCategoryID = selectedCategoryID
+        categoryStates = formCategoryStates()
     )
 
     private fun formCategoryStates(): ImmutableList<CategoryState> =
